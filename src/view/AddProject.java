@@ -22,7 +22,7 @@ public class AddProject extends JPanel  implements ActionListener{
    private JFrame mf;           //AddProject객체를 필드에다가 만들어놓음
    private JPanel addProject;
    private Dialog AddProject;
-   private JButton sprintAdd;
+   private JButton sprintAdd; 
    private JButton cancelBtn;
 
    //메인프레임을 전달받음
