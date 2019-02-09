@@ -17,7 +17,7 @@ import javax.swing.JTextField;
 
 import org.jdesktop.swingx.JXDatePicker;
 
-public class NewSprintPopUp extends JPanel {
+public class B_NewSprintPopUp extends JPanel {
 	
 	private MainFrame mainFrame;
 	private JButton plusButton;
@@ -27,7 +27,7 @@ public class NewSprintPopUp extends JPanel {
 	//private int endDayCtn = 0;
 	private int descriptionCtn = 0;
 	
-	public NewSprintPopUp(MainFrame mainFrame) {
+	public B_NewSprintPopUp(MainFrame mainFrame) {
 		
 		newSprintPopUp = new Dialog(mainFrame, "새 스프린트 만들기");
 		newSprintPopUp.setBounds(100, 80, 515, 680);

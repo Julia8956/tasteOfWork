@@ -16,7 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class MOMPopUp extends JPanel{
+public class B_MOMPopUp extends JPanel{
 
 	private MainFrame mainFrame;
 	private JButton plusButton;
@@ -24,7 +24,7 @@ public class MOMPopUp extends JPanel{
 	private int nameCtn = 0;
 	private int descriptionCtn = 0;
 
-	public MOMPopUp(MainFrame mainFrame) {
+	public B_MOMPopUp(MainFrame mainFrame) {
 
 		Mompopup = new Dialog(mainFrame, "새 회의록");
 		Mompopup.setBounds(150, 150, 515, 620);

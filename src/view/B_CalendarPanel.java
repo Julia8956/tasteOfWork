@@ -18,16 +18,16 @@ import javax.swing.JTable;
 import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
 
-public class CalendarPanel extends JPanel {
+public class B_CalendarPanel extends JPanel {
 
 	
 	private Calendar cal;
 	private DefaultTableModel model;
 	private JLabel monthName;
-	private CalendarPanel calendarPanel;
+	private B_CalendarPanel calendarPanel;
 	
 	
-	public CalendarPanel(ProjectPage projectPage) {
+	public B_CalendarPanel(B_ProjectPage projectPage) {
 		
 		//this.setSize(400, 688);
 		//this.setPreferredSize(new Dimension(400, 688));

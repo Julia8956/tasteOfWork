@@ -8,12 +8,12 @@ import java.awt.FlowLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-public class HomeBarPanel extends JPanel{
+public class B_HomeBarPanel extends JPanel{
 
-	private ProjectPage projectPage;
-	private HomeBarPanel homeBarPanel;
+	private B_ProjectPage projectPage;
+	private B_HomeBarPanel homeBarPanel;
 	
-	public HomeBarPanel(ProjectPage projectPage) {
+	public B_HomeBarPanel(B_ProjectPage projectPage) {
 		
 		this.projectPage = projectPage;
 		this.homeBarPanel = this;

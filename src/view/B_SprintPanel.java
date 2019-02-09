@@ -16,14 +16,14 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 
-public class SprintPanel extends JPanel implements ActionListener {
+public class B_SprintPanel extends JPanel implements ActionListener {
 
 
 	private MainFrame mainFrame;
-	private SprintPanel sprintPanel;
+	private B_SprintPanel sprintPanel;
 	private JButton newSprintButton;
 	
-	public SprintPanel(ProjectPage projectPage, MainFrame mainFrame) {
+	public B_SprintPanel(B_ProjectPage projectPage, MainFrame mainFrame) {
 		
 		this.mainFrame = mainFrame;
 		//this.setSize(350, 688);
@@ -83,7 +83,7 @@ public class SprintPanel extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 
 		if(e.getSource() == newSprintButton) {
-			new NewSprintPopUp(this.mainFrame).getNewSprintPopUp().setVisible(true);;
+			new B_NewSprintPopUp(this.mainFrame).getNewSprintPopUp().setVisible(true);;
 		}
 	}
 	
