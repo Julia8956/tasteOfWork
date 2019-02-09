@@ -16,13 +16,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 
-public class MOMPanel extends JPanel implements ActionListener{
+public class B_MOMPanel extends JPanel implements ActionListener{
 	
-	private MOMPanel momPanel;
+	private B_MOMPanel momPanel;
 	private MainFrame mainFrame;
 	private JButton newMOMButton;
 	
-	public MOMPanel(ProjectPage projectPage) {
+	public B_MOMPanel(B_ProjectPage projectPage) {
 		
 		this.mainFrame = mainFrame;
 		this.setSize(274, 688);
@@ -116,7 +116,7 @@ public class MOMPanel extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == newMOMButton) {
-			new MOMPopUp(this.mainFrame).getMomPopup().setVisible(true);
+			new B_MOMPopUp(this.mainFrame).getMomPopup().setVisible(true);
 			;
 		}
 	}

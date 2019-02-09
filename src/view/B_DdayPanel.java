@@ -6,9 +6,9 @@ import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class DdayPanel extends JPanel{
+public class B_DdayPanel extends JPanel{
 
-	public DdayPanel(ProjectPage projectPage) {
+	public B_DdayPanel(B_ProjectPage projectPage) {
 
 		this.setLayout(new FlowLayout(FlowLayout.LEFT));
 		//디데이 : 프로젝트 생성시 날짜로 카운트 해야함//계속 변하도록 
