@@ -33,9 +33,10 @@ public class MainPage extends JPanel {
 		this.setSize(1024,768);
 		
 		JLabel upup  = new JLabel("");
+		upup.setLayout(null);
 		upup.setOpaque(true);
-		upup.setBackground(Color.GRAY);
-		upup.setSize(1024, 50);
+		upup.setBackground(Color.decode("#bebebe"));
+		upup.setSize(1024, 65);
 		upup.setLocation(0,0);
 		this.add(upup);
 		
@@ -45,32 +46,38 @@ public class MainPage extends JPanel {
 		//pro.addMouseListener(new MyMouseAdapter1());;
 		pro.addActionListener(new ProEvent());
 		
-		Image homeim = new ImageIcon("images/home.PNG")
-				.getImage().getScaledInstance(30, 33, 0);
+		//상단 홈 버튼
+		JButton home = new JButton(new ImageIcon("images/home.png"));
+		ImageIcon home2 = new ImageIcon("images/home2.png");
+		home.setBorderPainted(false); 
+		home.setFocusPainted(false); 
+		home.setContentAreaFilled(false);
+		home.setRolloverIcon(home2);
+		home.setLocation(10,12);
+		home.setSize(40, 40);
+	
+		//상단 검색 버튼
+		JButton find = new JButton(new ImageIcon("images/serch.PNG"));
+		ImageIcon find2 = new ImageIcon("images/serch2.PNG");
+		find.setBorderPainted(false); 
+		find.setFocusPainted(false); 
+		find.setContentAreaFilled(false);
+		find.setRolloverIcon(find2);
+		find.setSize(30, 30);
+		find.setLocation(213,15);
 		
-		Image findim = new ImageIcon("images/findimage.PNG")
-				.getImage().getScaledInstance(36, 33,0);
-		
-		Image personim =new ImageIcon("images/person.PNG")
-				.getImage().getScaledInstance(35, 33, 0);
-
-		
-		JButton home = new JButton(new ImageIcon(homeim));
-		home.setSize(30,33);
-		home.setLocation(10,10);
-		
-		JButton find = new JButton(new ImageIcon(findim));
-		find.setSize(36,33);
-		find.setLocation(50,10);
-		
-		JButton person = new JButton(new ImageIcon(personim));
-		person.setSize(35,33);
-		person.setLocation(960,10);
-		
-		
+		//상단 계정 버튼
+		JButton person = new JButton(new ImageIcon("images/user.PNG"));
+		ImageIcon person2 = new ImageIcon("images/user2.PNG");
+		person.setBorderPainted(false); 
+		person.setFocusPainted(false); 
+		person.setContentAreaFilled(false);
+		person.setRolloverIcon(person2);
+		person.setLocation(968,12);
+		person.setSize(40, 40);
 		
 		JTextField tf1 = new JTextField(10);
-		tf1.setLocation(85, 10);
+		tf1.setLocation(63, 15);
 		tf1.setSize(150, 30);
 		
 		
@@ -79,14 +86,12 @@ public class MainPage extends JPanel {
 		upup.add(home);
 		upup.add(tf1);
 		
-		
-		
-		
-		
-		
-		
 		this.add(pro);
 	
+
+		
+		
+		
 		
 		
 		

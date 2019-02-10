@@ -9,6 +9,9 @@ public class MainFrame extends JFrame {
 		this.setSize(1024,768);
 		
 		new LoginPage(this);
+//		new B_ProjectPage(this);
+//		new SprintMainPage(this);
+		
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
