@@ -150,7 +150,6 @@ public class B_MOMPopUp extends JPanel{
 		});
 
 		
-		System.out.println(description);
 		// 취소버튼
 		JButton cancelBtn = new JButton("취소");
 		cancelBtn.setLocation(275, 550);
