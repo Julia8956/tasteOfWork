@@ -30,7 +30,7 @@ public class C_MenuBarPanel extends JPanel implements MouseListener,ActionListen
 	private JButton home;
 	private JButton back;
 	
-	public C_MenuBarPanel(C_SprintMainPage sprintMain,MainFrame mf) {
+	public C_MenuBarPanel(C_SprintMainPage sprintMain, MainFrame mf) {
 		this.sprintMain = sprintMain;
 		this.MenuPanel = this;
 		this.mf = mf;
@@ -276,10 +276,11 @@ public class C_MenuBarPanel extends JPanel implements MouseListener,ActionListen
 			MainPage mp = new MainPage();
 			
 			//ChangePanel.changePanel(mf, loginPage, new Join());
-			ChangePanel.changePanel(this.mf,this.sprintMain,mp);
-		}else if (e.getSource() == back) {
-			B_ProjectPage propage = new B_ProjectPage(this.mf);
-			ChangePanel.changePanel(this.mf,this.sprintMain,propage);
+			ChangePanel.changePanel(mf,this.sprintMain, mp);
+		}
+		if (e.getSource() == back) {
+			B_ProjectPage projectPage = new B_ProjectPage(mf);
+			ChangePanel.changePanel(mf, this.sprintMain, projectPage);			
 		}
 	}
 	

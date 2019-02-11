@@ -182,6 +182,8 @@ public class B_MOMPopUp extends JPanel{
 				// 세부 스프린트 페이지는 리스트에 생성된 스프린트 이름 클릭시 창 넘어가야 함
 			}
 		});
+		
+		Mompopup.setUndecorated(true);
 
 	}
 	
