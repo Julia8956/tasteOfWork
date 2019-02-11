@@ -7,7 +7,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -17,62 +16,66 @@ import javax.swing.JTextField;
 
 
 
-public class AddProject extends JPanel  implements ActionListener{
+public class AddProject extends JPanel implements ActionListener{
 
-   private JFrame mf;           //AddProject객체를 필드에다가 만들어놓음
-   private JPanel addProject;
-   private Dialog AddProject;
-   private JButton sprintAdd; 
+   private MainFrame mf;           //AddProject객체를 필드에다가 만들어놓음   //mf를 또 쓰려고 필드에 만들어줌.
+   private Dialog addProject;
+   private JButton sprintAdd;
    private JButton cancelBtn;
 
    //메인프레임을 전달받음
-   public AddProject(JFrame mf) {   //메인프레임클래스에서 MainFrame을 보냈기 때문에 가능가능
+   public AddProject(MainFrame mf) {   //메인프레임클래스에서 MainFrame을 보냈기 때문에 가능가능
 
       this.mf = mf;               //전달받은 MainFrame도 필드에다가 만듦
-      this.addProject = this;       //여기서 this는 AddProject의 객체이다. 
+      
+      addProject = new Dialog(mf, "새 프로젝트 만들기");       //여기서 this는 AddProject의 객체이다. 
 
       
-      mf.setSize(515, 560);
+      addProject.setSize(515, 560);
 
 
-      this.setLayout(null);               
+      addProject.setLayout(null);               
 
 
 
       JLabel label = new JLabel("프로젝트 추가");
       label.setFont(new Font("",Font.BOLD, 30));
-      label.setLocation(10,-10);            
+      label.setLocation(10,10);            
       label.setSize(200,100);
-      mf.add(label);
+      addProject.add(label);
       
       JTextField proName = new JTextField("프로젝트명",20);
-      proName.setLocation(10,65);
+      proName.setLocation(10,85);
       proName.setSize(485,40);
-      mf.add(proName);
+      addProject.add(proName);
 
       JTextField startProject = new JTextField("시작날짜");
-      startProject.setLocation(10,115);
+      startProject.setLocation(10,135);
       startProject.setSize(150,40);
-      mf.add(startProject);   
+      addProject.add(startProject);   
 
       JLabel middle = new JLabel("~");
-      middle.setLocation(250,115);
+      middle.setLocation(250,135);
       middle.setSize(300,40);
       middle.setFont(new Font("",Font.PLAIN, 15));
-      mf.add(middle);
+      addProject.add(middle);
 
       JTextField endProject = new JTextField("종료날짜");
-      endProject.setLocation(345,115);
+      endProject.setLocation(345,135);
       endProject.setSize(150,40);
-      mf.add(endProject);
+      addProject.add(endProject);
 
+      
+      
+      
       //두번째 패널
       JPanel sprintPanel = new JPanel();
       sprintPanel.setLayout(null);
+      sprintPanel.setSize(515,560);
 
 
       JLabel sprintLabel = new JLabel("스프린트 추가");
-      sprintLabel.setLocation(15,140);
+      sprintLabel.setLocation(15,160);
       sprintLabel.setSize(400, 100);
       sprintLabel.setFont(new Font("",Font.BOLD, 20));
 
@@ -83,7 +86,7 @@ public class AddProject extends JPanel  implements ActionListener{
       //스프린트 추가 버튼
       sprintAdd = new JButton("+");
       sprintAdd.setFont(new Font("",Font.PLAIN, 20));
-      sprintAdd.setLocation(145,175);
+      sprintAdd.setLocation(145,195);
       //sprintAdd.setBackground(Color.WHITE);
       sprintAdd.setBorder(null);
       sprintAdd.setSize(20,35);
@@ -93,7 +96,7 @@ public class AddProject extends JPanel  implements ActionListener{
       //스프린트 버튼 클릭시 스프린트 창 나오기
       sprintAdd.addActionListener(this);
       sprintPanel.add(sprintAdd);
-      mf.add(sprintPanel);
+      addProject.add(sprintPanel);
 
       
 
@@ -105,12 +108,15 @@ public class AddProject extends JPanel  implements ActionListener{
             { "자바", "12-05-12" } };
 
       JTable sprintTable = new JTable(values,col); 
+      sprintTable.getTableHeader().setReorderingAllowed(false);
+
+     
+     // sprintTable.setEditColumn(false);
+     // sprintTable.setEditingColumn(0);
+      //sprintTable.setEditingRow(0);
       
-
-
-   
       JScrollPane pane = new JScrollPane(sprintTable);   
-      pane.setLocation(10,225);
+      pane.setLocation(10,245);
       pane.setSize(480,100);
       
       sprintPanel.add(pane);
@@ -122,7 +128,7 @@ public class AddProject extends JPanel  implements ActionListener{
 
       JLabel invite = new JLabel("초대");
       invite.setFont(new Font("",Font.BOLD, 20));
-      invite.setLocation(15,300);
+      invite.setLocation(15,320);
       invite.setSize(400,100);
 
 
@@ -131,7 +137,7 @@ public class AddProject extends JPanel  implements ActionListener{
 
       JButton  personAdd = new JButton("+");
       personAdd.setFont(new Font("",Font.PLAIN, 20));
-      personAdd.setLocation(60,335);
+      personAdd.setLocation(60,355);
       personAdd.setBackground(Color.WHITE);
       personAdd.setBorder(null);
       personAdd.setSize(20,35);
@@ -143,34 +149,43 @@ public class AddProject extends JPanel  implements ActionListener{
 
       JTextArea people = new JTextArea("우리나(woolina)");
       //people.setHorizontalAlignment(JTextField.CENTER);
-      people.setLocation(10,365);
+      people.setLocation(10,385);
       people.setSize(480,90);
 
       sprintPanel.add(people);
 
       JButton cancelBtn = new JButton("취소");
-      cancelBtn.setLocation(282,465);
+      cancelBtn.setLocation(282,495);
       cancelBtn.setSize(100,40);
       sprintPanel.add(cancelBtn);
-      cancelBtn.addActionListener(this);
+      //cancelBtn.addActionListener(this);
       //취소버튼 클릭시 프로젝트 생성 팝업창 닫힘
       cancelBtn.addActionListener(new ActionListener() {
                
                @Override
                public void actionPerformed(ActionEvent e) {
-                  AddProject.dispose();
+            	   addProject.dispose();
                   
                }
             });
       JButton okBtn = new JButton("확인");
-      okBtn.setLocation(392,465);
+      okBtn.setLocation(392,495);
       okBtn.setSize(100,40);
       sprintPanel.add(okBtn);
-      
-      mf.add(sprintPanel);
-
-      mf.setVisible(true);
-      mf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      ///okBtn.addActionListener(this);
+      //취소버튼 클릭시 프로젝트 생성 팝업창 닫힘
+      okBtn.addActionListener(new ActionListener() {
+               
+               @Override
+               public void actionPerformed(ActionEvent e) {
+            	   addProject.dispose();
+                  
+               }
+            });
+      addProject.add(sprintPanel);
+      addProject.setResizable(false); 
+      addProject.setVisible(true);
+     // mf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
    }
   
@@ -179,25 +194,24 @@ public class AddProject extends JPanel  implements ActionListener{
  
 
 
-
-   public Dialog getAddProject() {
-      // TODO Auto-generated method stub
-      return AddProject;
-   }
-
-
-
-
-
-
    @Override
    public void actionPerformed(ActionEvent e) {
-	   if (e.getSource() == sprintAdd) {
-		   JFrame mf = new JFrame();
-		   new AddSprint(mf);
+	   
+	   if(e.getSource() == sprintAdd) {
+		   new AddSprint(mf).getAddSprint().setVisible(true);
 	   }
    }
-   
+
+
+   public Dialog getAddProject() {
+      return addProject;
+   }
+
+
+}
+
+
+
+
 
    
-}
