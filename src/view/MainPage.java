@@ -96,7 +96,7 @@ public class MainPage extends JPanel {
 		
 		
 		
-	
+
 		
 	}
 	
