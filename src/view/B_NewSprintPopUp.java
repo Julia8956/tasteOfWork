@@ -286,6 +286,8 @@ public class B_NewSprintPopUp extends JPanel {
 			}
 		});
 		
+		newSprintPopUp.setUndecorated(true);
+		
 		sprintName.requestFocus();
 		
 		

@@ -26,7 +26,7 @@ public class C_SprintMainPage extends JPanel{
 		gc.weighty = 0.1;
 		gc.gridwidth= GridBagConstraints.REMAINDER;
 		gc.gridheight = 1;
-		gridBag.setConstraints(new C_MenuBarPanel(this,mf), gc);
+		gridBag.setConstraints(new C_MenuBarPanel(this, this.mf), gc);
 	
 		
 		//OPEN패널
@@ -34,14 +34,14 @@ public class C_SprintMainPage extends JPanel{
 		gc.weighty = 0.9;
 		gc.gridwidth = 1;
 		gc.gridheight = 1;
-		gridBag.setConstraints(new C_OpenPanel(this,mf), gc);
+		gridBag.setConstraints(new C_OpenPanel(this, this.mf), gc);
 		
 		//IN Progress 패널
 		gc.weightx = 0.1;
 		gc.weighty = 0.9;
 		gc.gridwidth = 1;
 		gc.gridheight = 1;
-		gridBag.setConstraints(new C_ProgressPanel(this,mf), gc);
+		gridBag.setConstraints(new C_ProgressPanel(this, this.mf), gc);
 		
 		//Done 패널
 		gc.weightx = 0.1;
