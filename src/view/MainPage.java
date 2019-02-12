@@ -1,8 +1,13 @@
 package view;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dialog;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,24 +25,94 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class MainPage extends JPanel {
+	
 	private MainFrame mf;
 	private JButton sprintAdd;
-	private JPanel project;
-	private JPanel sprintPanel;
-	private JFrame proframe;
+	private MainPage mainPage;
+
+	
 	
 	public MainPage(MainFrame mf) {
-	
 		
 		
-		this.setSize(1024,768);
+		this.mf=mf;
+		this.mainPage=this;
 		
-		JLabel upup  = new JLabel("");
-		upup.setOpaque(true);
+		
+		this.setSize(1024, 768);
+		this.setLayout(new BorderLayout());
+		
+		
+		JPanel upup  = new JPanel();
+		
+		upup.setPreferredSize(new Dimension(1024,65));
+		upup.setLayout(new BorderLayout());
 		upup.setBackground(Color.GRAY);
-		upup.setSize(1024, 50);
-		upup.setLocation(0,0);
-		this.add(upup);
+		
+		//상단 홈 버튼
+		
+				
+		JButton home = new JButton(new ImageIcon("images/home.png"));
+				
+				ImageIcon home2 = new ImageIcon("images/home2.png");
+				home.setBorderPainted(false); 
+				home.setFocusPainted(false); 
+				home.setContentAreaFilled(false);
+				home.setRolloverIcon(home2);
+				home.setLocation(10,12);
+				home.setSize(40, 40);
+				
+				
+				upup.add(home, BorderLayout.WEST);
+			
+				//상단 검색 버튼
+				
+				JPanel findpanel = new JPanel();
+				findpanel.setPreferredSize(new Dimension(100,65));
+				findpanel.setLayout(new FlowLayout());
+				findpanel.setBackground(Color.GRAY);
+				
+				JButton find = new JButton(new ImageIcon("images/serch.PNG"));
+				ImageIcon find2 = new ImageIcon("images/serch2.PNG");
+				find.setBorderPainted(false); 
+				find.setFocusPainted(false); 
+				find.setContentAreaFilled(false);
+				find.setRolloverIcon(find2);
+				find.setSize(30, 30);
+				
+				JTextField findt = new JTextField(20);
+		
+				
+				findpanel.add(find);
+				findpanel.add(findt);
+				
+				upup.add(findpanel, BorderLayout.CENTER);
+				
+				//상단 계정 버튼
+				
+				
+				JButton person = new JButton(new ImageIcon("images/user.PNG"));
+				ImageIcon person2 = new ImageIcon("images/user2.PNG");
+				person.setBorderPainted(false); 
+				person.setFocusPainted(false); 
+				person.setContentAreaFilled(false);
+				person.setRolloverIcon(person2);
+				person.setLocation(968,12);
+				person.setSize(40, 40);
+				
+				upup.add(person, BorderLayout.EAST);
+		
+		
+		this.add(upup, BorderLayout.NORTH);
+		
+		
+		
+		
+		
+		
+		JPanel side = new JPanel();
+		side.setPreferredSize(new Dimension(200,768));
+		side.setBackground(Color.CYAN);
 		
 		JButton pro = new JButton("새 프로젝트 추가");
 		pro.setSize(150,50);
@@ -45,64 +120,19 @@ public class MainPage extends JPanel {
 		//pro.addMouseListener(new MyMouseAdapter1());;
 		pro.addActionListener(new ProEvent());
 		
-		Image homeim = new ImageIcon("images/home.PNG")
-				.getImage().getScaledInstance(30, 33, 0);
+		side.add(pro);
 		
-		Image findim = new ImageIcon("images/findimage.PNG")
-				.getImage().getScaledInstance(36, 33,0);
-		
-		Image personim =new ImageIcon("images/person.PNG")
-				.getImage().getScaledInstance(35, 33, 0);
-
-		
-		JButton home = new JButton(new ImageIcon(homeim));
-		home.setSize(30,33);
-		home.setLocation(10,10);
-		
-		JButton find = new JButton(new ImageIcon(findim));
-		find.setSize(36,33);
-		find.setLocation(50,10);
-		
-		JButton person = new JButton(new ImageIcon(personim));
-		person.setSize(35,33);
-		person.setLocation(960,10);
-		
-		
-		
-		JTextField findt = new JTextField(10);
-		findt.setLocation(85, 10);
-		findt.setSize(150, 30);
-		
-		
-		upup.add(person);
-		upup.add(find);
-		upup.add(home);
-		upup.add(findt);
+		this.add(side, BorderLayout.WEST);
 		
 		
 		
 		
 		
 		
-		
-		this.add(pro);
-	
-		
-		
-		
-		
-		
-		
-		
-		
-		
-
-		
-	}
 	
 	
-	
-	class ProEvent implements ActionListener{
+		}
+class ProEvent implements ActionListener{
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -112,11 +142,9 @@ public class MainPage extends JPanel {
 		
 		
 	}
-	
-	
-}
-
-
+		
+		
+	}
 
 	
 
