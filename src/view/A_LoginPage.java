@@ -18,11 +18,11 @@ import javax.swing.JTextField;
 
 
 
-	public class LoginPage extends JPanel{
+	public class A_LoginPage extends JPanel{
 		private MainFrame mf;
-		private LoginPage lp;
+		private A_LoginPage lp;
 		
-		public LoginPage(MainFrame mf) {
+		public A_LoginPage(MainFrame mf) {
 			this.mf= mf;
 			this.lp = this;
 			
@@ -204,7 +204,7 @@ import javax.swing.JTextField;
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//JFrame mf = new JFrame();
-				new FindIdPwd(mf).getFindIdPwd().setVisible(true);
+				//new FindIdPwd(mf).getFindIdPwd().setVisible(true);
 			}
 		}
 		class Joinevent implements ActionListener{
@@ -212,7 +212,7 @@ import javax.swing.JTextField;
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			//JFrame mf = new JFrame();
-			new JoinPage(mf).getJoinPage().setVisible(true);
+			//new JoinPage(mf).getJoinPage().setVisible(true);
 		}
 		
 		
@@ -221,7 +221,7 @@ import javax.swing.JTextField;
 		
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			ChangePanel.changePanel(mf, lp, new MainPage(mf));
+			ChangePanel.changePanel(mf, lp, new A_MainPage(mf));
 			}
 		}
 	

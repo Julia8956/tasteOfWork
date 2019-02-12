@@ -35,7 +35,7 @@ public class C_MenuBarPanel extends JPanel implements MouseListener,ActionListen
 		this.MenuPanel = this;
 		this.mf = mf;
 		
-		this.setPreferredSize(new Dimension(1024,65));
+		//this.setPreferredSize(new Dimension(1024,65));
 		this.setBackground(Color.GRAY);
 		this.setLayout(new BorderLayout());
 		
@@ -53,6 +53,9 @@ public class C_MenuBarPanel extends JPanel implements MouseListener,ActionListen
 		home.setFocusPainted(false); 
 		home.setContentAreaFilled(false);
 		home.setRolloverIcon(home2);
+		
+		//버튼에 마우스 올릴시 텍스트 뜨도록 추가함
+		home.setToolTipText("메인페이지로 이동");
 
 		//home.setLocation(10,12);
 		//home.setSize(40, 40);
@@ -69,6 +72,10 @@ public class C_MenuBarPanel extends JPanel implements MouseListener,ActionListen
 		back.setContentAreaFilled(false);
 		back.setRolloverIcon(back2);
 
+		//버튼에 마우스 올릴시 보일것
+		back.setToolTipText("프로젝트 페이지로 이동");
+		
+		
 		back.addActionListener(this);
 		//back.setLocation(65,13);
 		//back.setSize(40, 40);
@@ -272,15 +279,16 @@ public class C_MenuBarPanel extends JPanel implements MouseListener,ActionListen
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getSource() == home) {
-			C_SprintMainPage sm = new C_SprintMainPage(mf);
-			MainPage mp = new MainPage();
-			
+			//C_SprintMainPage sm = new C_SprintMainPage(mf);
+			//MainPage mp = new MainPage(mf);
+			sprintMain.goToMainPage();
 			//ChangePanel.changePanel(mf, loginPage, new Join());
-			ChangePanel.changePanel(mf,this.sprintMain, mp);
+			//ChangePanel.changePanel(mf,this.sprintMain, mp);
 		}
 		if (e.getSource() == back) {
-			B_ProjectPage projectPage = new B_ProjectPage(mf);
-			ChangePanel.changePanel(mf, this.sprintMain, projectPage);			
+			//B_ProjectPage projectPage = new B_ProjectPage(mf);
+			sprintMain.goToProjectPage();
+			//ChangePanel.changePanel(mf, this.sprintMain, projectPage);			
 		}
 	}
 	

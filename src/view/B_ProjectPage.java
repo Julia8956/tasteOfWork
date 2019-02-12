@@ -81,6 +81,10 @@ public class B_ProjectPage extends JPanel{
 		mainFrame.add(this);
 	}
 	
+	public void goToMainPage() {
+		ChangePanel.changePanel(mainFrame, this, new A_MainPage(mainFrame));
+	}
+	
 	
 	
 }

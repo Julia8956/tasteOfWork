@@ -2,7 +2,9 @@ package view;
 
 import java.awt.Color;
 import java.awt.Dialog;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -16,7 +18,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class B_MOMPopUp extends JPanel{
+import org.jdesktop.swingx.JXDatePicker;
+
+public class B_MOMPopUp extends JPanel {
 
 	private MainFrame mainFrame;
 	private JButton plusButton;
@@ -27,13 +31,21 @@ public class B_MOMPopUp extends JPanel{
 	public B_MOMPopUp(MainFrame mainFrame) {
 
 		Mompopup = new Dialog(mainFrame, "새 회의록");
-		Mompopup.setBounds(150, 150, 515, 620);
-
 		Mompopup.setLayout(null);
+
+		// 팝업위치 조정(화면 가운데)
+		Mompopup.setSize(515, 620);
+		Toolkit tk = Toolkit.getDefaultToolkit();
+		Dimension dim = tk.getScreenSize();
+		int xPos = (dim.width / 2) - (Mompopup.getWidth() / 2);
+		int yPos = (dim.height / 2) - (Mompopup.getHeight() / 2);
+		Mompopup.setLocation(xPos, yPos);
 
 		// 이름
 		JTextField momName = new JTextField("회의명", 30);
-		momName.setFont(new Font("", Font.BOLD, 15));
+		momName.setFont(new Font("맑은 고딕", Font.BOLD,
+
+				15));
 		momName.setLocation(20, 50);
 		momName.setSize(450, 45);
 		Mompopup.add(momName);
@@ -57,26 +69,42 @@ public class B_MOMPopUp extends JPanel{
 			}
 		});
 
-		/*
-		 * if(momName.getText().equals("")) { momName.setText("새 스프린트 이름"); }
-		 */
+
+		JLabel writerLabel = new JLabel("작성자");
+		writerLabel.setLocation(40, 115);
+		writerLabel.setSize(100, 45);
+		writerLabel.setFont(new Font("맑은 고딕", Font.BOLD,20));
+		Mompopup.add(writerLabel);
+
+		JTextField writer = new JTextField(50);
+		writer.setLocation(130, 120);
+		writer.setSize(120, 40);
+		Mompopup.add(writer);
 
 		// 회의 날짜
-		JTextField Day = new JTextField("회의 날짜", 15);
-		Day.setLocation(20, 115);
+		JLabel DayLabel = new JLabel("날짜");
+		DayLabel.setLocation(280, 115);
+		DayLabel.setSize(140, 40);
+		DayLabel.setFont(new Font("맑은 고딕", Font.BOLD,20));
+		Mompopup.add(DayLabel);
+		//달력
+		JXDatePicker Day = new DatePicker().getDatePicker();
+		Day.setLocation(330, 120);
 		Day.setSize(140, 40);
+		Day.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 		Mompopup.add(Day);
 
+		
 		JLabel attend = new JLabel("참석자");
 		attend.setLocation(40, 175);
 		attend.setSize(100, 45);
-		attend.setFont(new Font("", Font.BOLD, 20));
+		attend.setFont(new Font("맑은 고딕", Font.BOLD, 20));
 		Mompopup.add(attend);
 
-		// 참석자 이름
-		JTextField name = new JTextField("참석자이름 추가",50);
-		name.setLocation(130, 175);
-		name.setSize(300, 45);
+		// 참석자 Text필드
+		JTextField name = new JTextField("참석자이름 추가", 50);
+		name.setLocation(130, 185);
+		name.setSize(300, 30);
 		Mompopup.add(name);
 
 		name.addMouseListener(new MouseAdapter() {
@@ -89,19 +117,23 @@ public class B_MOMPopUp extends JPanel{
 		// 참석자 입력후 +버튼 클릭시 아래 textArea로 넘어가야 함
 		plusButton = new JButton("+");
 
-		plusButton.setFont(new Font("", Font.PLAIN, 20));
+		plusButton.setFont(new Font("맑은 고딕", Font.PLAIN,
+
+				20));
 		plusButton.setLocation(440, 175);
 		plusButton.setOpaque(false);
+		plusButton.setContentAreaFilled(false);
 		plusButton.setBackground(Color.lightGray);
 		plusButton.setBorder(null);
 		plusButton.setSize(30, 40);
+		plusButton.setToolTipText("참석자 추가");
 
 		Mompopup.add(plusButton);
 
 		// 입력한 참석자 보여주는 textArea
 		// readOnly (수정불가)
 		JTextArea person = new JTextArea(30, 10);
-		person.setLocation(130, 230); 
+		person.setLocation(130, 230);
 		person.setSize(350, 50);
 		person.setEditable(false);
 
@@ -110,7 +142,9 @@ public class B_MOMPopUp extends JPanel{
 		plusButton.addActionListener(new ActionListener() {
 
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e)
+
+			{
 				String text = name.getText();
 
 				person.append(text + "  ");
@@ -119,16 +153,33 @@ public class B_MOMPopUp extends JPanel{
 
 			}
 		});
+		// 엔터 눌러도 추가됨
+		name.addKeyListener(new KeyAdapter() {
 
-		//내용 라벨
+			@Override
+			public void keyTyped(KeyEvent e) {
+
+				if (e.getKeyChar() == '\n') {
+					person.append
+
+					(name.getText() + "  ");
+					name.setText("");
+				}
+			}
+
+		});
+
+		// 내용 라벨
 		JLabel text = new JLabel("내용");
 		text.setLocation(40, 300);
 		text.setSize(100, 45);
-		text.setFont(new Font("", Font.BOLD, 20));
+		text.setFont(new Font("맑은 고딕", Font.BOLD, 20));
 		Mompopup.add(text);
-		
+
 		// 내용 작성 칸
-		JTextArea description = new JTextArea("내용 작성", 3, 30);
+		JTextArea description = new JTextArea("내용 작성", 3,
+
+				30);
 		description.setLocation(130, 300);
 		description.setSize(350, 220);
 		Mompopup.add(description);
@@ -149,24 +200,25 @@ public class B_MOMPopUp extends JPanel{
 			}
 		});
 
-		
 		// 취소버튼
 		JButton cancelBtn = new JButton("취소");
 		cancelBtn.setLocation(275, 550);
 		cancelBtn.setSize(90, 40);
 		Mompopup.add(cancelBtn);
 
-		// 취소버튼 클릭시 스프린트 생성 팝업창 닫힘
+		// 취소버튼 클릭시 팝업창 닫힘
 		cancelBtn.addActionListener(new ActionListener() {
 
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e)
+
+			{
 				Mompopup.dispose();
 
 			}
 		});
 
-		//  확인버튼
+		// 확인버튼
 		JButton okBtn = new JButton("확인");
 		okBtn.setLocation(385, 550);
 		okBtn.setSize(90, 40);
@@ -175,50 +227,18 @@ public class B_MOMPopUp extends JPanel{
 		okBtn.addActionListener(new ActionListener() {
 
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				// 확인버튼 클릭시 팝업창 닫히고
+			public void actionPerformed(ActionEvent e)
+
+			{
 				Mompopup.dispose();
-				// 스프린트 목록에 스프린트 이름 추가되고, 세부 스프린트 페이지 생성되어야함
-				// 세부 스프린트 페이지는 리스트에 생성된 스프린트 이름 클릭시 창 넘어가야 함
 			}
 		});
-		
-		Mompopup.setUndecorated(true);
 
+		Mompopup.setUndecorated(true);
 	}
-	
-	
 
 	public Dialog getMomPopup() {
 		return Mompopup;
 	}
 
-	// private MainFrame mf;
-	// private JPanel mainPage;
-	//
-	// public Mompopup() {
-	// JFrame frame = new JFrame("회의목록 작성"); // 프레임 타이틀지정
-	// JPanel panel = new JPanel();
-	//
-	// // Table Parameters
-	// String col[] = { "스프린트 이름", "스프린트 날짜" }; // 필드명(열제목) 지정
-	//
-	// Object values[][] = { { "자바킹", "12-05-01" }, // 레코드값!
-	// { "자바킹", "12-05-02" },
-	//
-	// { "12-05-15", "자바킹" } };
-	//
-	// JTable table = new JTable(values, col); // 생성자 : public JTable(Object[][]
-	// rowData, Object[] columnNames)
-	//
-	// // Table Container Parameters
-	// JScrollPane pane = new JScrollPane(table); // 테이블에 스크롤바 나오도록 Jscrollpane생성
-	// panel.add(pane); // JPanel 에 JScrollPane 추가
-	// frame.add(panel); // Jframe 에 JPanel추가
-	//
-	// frame.pack(); // 내용에 맞게 프레임크기 맞춤
-	// frame.setVisible(true); // 프레이보이게
-	// }
-	
-	
 }

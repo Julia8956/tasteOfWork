@@ -29,7 +29,7 @@ public class B_MOMPanel extends JPanel implements ActionListener{
 		//this.setPreferredSize(new Dimension(274, 688));
 		//this.setLocation(750, 80);
 		
-		//this.setBackground(Color.YELLOW);
+		this.setBackground(Color.WHITE);
 
 		JTextField temp = new JTextField("회의록칸");
 		this.add(temp);
@@ -45,6 +45,7 @@ public class B_MOMPanel extends JPanel implements ActionListener{
 
 		// 회의록 정보가 들어갈 패널
 		JPanel MOMInfoPanel = new JPanel();
+		MOMInfoPanel.setBackground(Color.WHITE);
 		MOMInfoPanel.setLayout(new BorderLayout());
 		// MOMInfoPanel.setPreferredSize(new Dimension(350, 200));
 		// MOMInfoPanel.setLayout(new BorderLayout());
@@ -57,9 +58,11 @@ public class B_MOMPanel extends JPanel implements ActionListener{
 
 		// 회의록 생성버튼, 회의록 리스트 패널
 		JPanel MOMPanel = new JPanel();
+		MOMPanel.setBackground(Color.WHITE);
 		MOMPanel.setLayout(new BorderLayout());
 
 		JPanel newMOMPanel = new JPanel();
+		newMOMPanel.setBackground(Color.WHITE);
 		newMOMPanel.setLayout(new FlowLayout(FlowLayout.TRAILING));
 
 		// 회의록 생성 버튼 (클릭시 팝업 떠야함)

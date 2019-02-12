@@ -24,7 +24,7 @@ import javax.swing.border.Border;
 
 import org.jdesktop.swingx.JXDatePicker;
 
-public class AddSprint extends JPanel {
+public class A_AddSprint extends JPanel {
    
    //private JFrame sf;
    public JPanel addSprint;
@@ -36,12 +36,12 @@ public class AddSprint extends JPanel {
    private int endDayCtn = 0;
    private int descriptionCtn = 0;
    
-   public AddSprint(MainFrame mf) {
-	   AddSprint = new Dialog(mf, "새 스프린트 만들기"); 
+   public A_AddSprint(MainFrame mf) {
+      AddSprint = new Dialog(mf, "새 스프린트 만들기"); 
       
-	   AddSprint.setBounds(150, 150, 515, 680);
-	   AddSprint.setLayout(null);                 
-	  
+      AddSprint.setBounds(150, 150, 515, 680);
+      AddSprint.setLayout(null);                 
+     
       
       //이름
       JTextField sprintName = new JTextField("새 스프린트 이름", 30);
@@ -77,23 +77,23 @@ public class AddSprint extends JPanel {
       
       
     //시작일
-    		JLabel start = new JLabel("시작일");
-    		start.setLocation(30, 115);
-    		start.setSize(50, 40);
-    		start.setFont(new Font("", Font.BOLD, 15));
-    		AddSprint.add(start);
+          JLabel start = new JLabel("시작일");
+          start.setLocation(30, 115);
+          start.setSize(50, 40);
+          start.setFont(new Font("", Font.BOLD, 15));
+          AddSprint.add(start);
 
-    		
-    		//시작일
-    		JXDatePicker startDay = new DatePicker().getDatePicker();
-    		
-    		//JTextField startDay = new JTextField("스프린트 시작일", 15);
-    		startDay.setLocation(80, 115);
-    		startDay.setSize(120, 40);
-    		startDay.setFont(new Font("", Font.PLAIN, 15));
-    		AddSprint.add(startDay);	
+          
+          //시작일
+          JXDatePicker startDay = new DatePicker().getDatePicker();
+          
+          //JTextField startDay = new JTextField("스프린트 시작일", 15);
+          startDay.setLocation(80, 115);
+          startDay.setSize(120, 40);
+          startDay.setFont(new Font("", Font.PLAIN, 15));
+          AddSprint.add(startDay);   
       
-    		/*startDay.addMouseListener(new MouseAdapter() {
+          /*startDay.addMouseListener(new MouseAdapter() {
          @Override
          public void mouseClicked(MouseEvent e) {
             if(startDayCtn == 0) {
@@ -119,13 +119,13 @@ public class AddSprint extends JPanel {
       
       
     //종료일
-    		JXDatePicker endDayPicker = new DatePicker().getDatePicker();
-    		
-    		//JTextField endDay = new JTextField("스프린트 종료일", 15);
-    		endDayPicker.setLocation(360, 115);
-    		endDayPicker.setSize(120, 40);
-    		endDayPicker.setFont(new Font("", Font.PLAIN, 15));
-    		AddSprint.add(endDayPicker);
+          JXDatePicker endDayPicker = new DatePicker().getDatePicker();
+          
+          //JTextField endDay = new JTextField("스프린트 종료일", 15);
+          endDayPicker.setLocation(360, 115);
+          endDayPicker.setSize(120, 40);
+          endDayPicker.setFont(new Font("", Font.PLAIN, 15));
+          AddSprint.add(endDayPicker);
       
       
      /* endDay.addKeyListener(new KeyAdapter() {
@@ -224,7 +224,7 @@ public class AddSprint extends JPanel {
          
          @Override
          public void actionPerformed(ActionEvent e) {
-        	 AddSprint.dispose();
+            AddSprint.dispose();
             
          }
       });
@@ -240,7 +240,7 @@ public class AddSprint extends JPanel {
          @Override
          public void actionPerformed(ActionEvent e) {
             //확인버튼 클릭시 팝업창 닫히고
-        	 AddSprint.dispose();
+            AddSprint.dispose();
             //스프린트 목록에 스프린트 이름 추가되고, 세부 스프린트 페이지 생성되어야함
             //세부 스프린트 페이지는 리스트에 생성된 스프린트 이름 클릭시 창 넘어가야 함
          }
@@ -248,12 +248,13 @@ public class AddSprint extends JPanel {
       
       AddSprint.add(okBtn);
       AddSprint.setResizable(false); 
+      AddSprint.setUndecorated(true);
       //AddSprint.setVisible(true);
      // sf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
      
       
    }
    public Dialog getAddSprint() {
-		return AddSprint;
-	}
+      return AddSprint;
+   }
 }
