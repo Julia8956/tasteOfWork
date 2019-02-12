@@ -29,16 +29,18 @@ public class B_SprintPanel extends JPanel implements ActionListener {
 		//this.setSize(350, 688);
 		//this.setPreferredSize(new Dimension(350, 688));
 		//this.setLocation(0, 80);
-		this.setBackground(Color.LIGHT_GRAY);
+		this.setBackground(Color.WHITE);
 		this.setLayout(new BorderLayout());
 		
 		
 		//스프린트생성버튼, 스프린트 리스트 패널
 		JPanel sprintPanel = new JPanel();
+		sprintPanel.setBackground(Color.WHITE);
 		
 		sprintPanel.setLayout(new BorderLayout());
 		
 		JPanel newSprintPanel = new JPanel();
+		newSprintPanel.setBackground(Color.WHITE);
 		newSprintPanel.setLayout(new FlowLayout(FlowLayout.TRAILING));
 		
 		//스프린트 생성 버튼 (클릭시 팝업 떠야함)

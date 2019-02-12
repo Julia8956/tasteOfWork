@@ -42,7 +42,7 @@ public class B_CalendarPanel extends JPanel {
 		//this.setPreferredSize(new Dimension(400, 688));
 		//this.setLocation(350, 80);
 		
-		//this.setBackground(Color.WHITE);
+		this.setBackground(Color.WHITE);
 		this.setLayout(new BorderLayout());
 		this.setBorder(BorderFactory.createEmptyBorder(20, 30, 20, 30));
 		//this -> 캘린더 넣을 영역패널
@@ -56,6 +56,7 @@ public class B_CalendarPanel extends JPanel {
 		
 		//calendar -> 캘린더구성할 패널
 		JPanel calendar = new JPanel();
+		calendar.setBackground(Color.WHITE);
 		calendar.setLayout(new BorderLayout());
 		//calendar.setSize(300, 300);
 		
@@ -64,11 +65,13 @@ public class B_CalendarPanel extends JPanel {
 		
 		//월이름, 이전달, 다음달 버튼 포함 패널
 		JPanel calendarHeadPanel = new JPanel();
+		calendarHeadPanel.setBackground(Color.WHITE);
 		calendarHeadPanel.setLayout(new BorderLayout());
 		calendarHeadPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 20, 0));
 		
 		
 		JPanel showTodayPanel = new JPanel();
+		showTodayPanel.setBackground(Color.WHITE);
 		showTodayPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		
 		JLabel showToday = new JLabel();
@@ -137,6 +140,7 @@ public class B_CalendarPanel extends JPanel {
 		
 		//calendarTable.setFillsViewportHeight(true);
 		
+		
 		//calendarTable.setRowHeight(calendarTable.getColumn(0).getWidth());
 		calendarTable.setRowHeight(70);
 		//DefaultTableCellRenderer cellAlingCenter = new DefaultTableCellRenderer();
@@ -165,6 +169,12 @@ public class B_CalendarPanel extends JPanel {
 		
 		JScrollPane scroll = new JScrollPane(calendarTable);
 		//scroll.setSize(d);
+		//scroll.setOpaque(true);
+		scroll.setSize(calendarTable.getSize());
+		scroll.setViewportBorder(BorderFactory.createEmptyBorder());
+		scroll.setViewportBorder(null);
+		
+		scroll.setBackground(Color.WHITE);
 		scroll.setBorder(BorderFactory.createEmptyBorder());
 		//scroll.setViewportBorder(null);
 		

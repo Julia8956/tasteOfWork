@@ -23,36 +23,46 @@ public class C_SprintMainPage extends JPanel{
 		//메뉴바 == 상단바
 		gc.fill = GridBagConstraints.BOTH;
 		gc.weightx = 0.0;
-		gc.weighty = 0.1;
+		gc.weighty = 0.0;
 		gc.gridwidth= GridBagConstraints.REMAINDER;
-		gc.gridheight = 1;
+		//gc.gridheight = 1;
 		gridBag.setConstraints(new C_MenuBarPanel(this, this.mf), gc);
 	
 		
 		//OPEN패널
-		gc.weightx = 0.1;
-		gc.weighty = 0.9;
+		gc.weightx = 1;
+		gc.weighty = 1;
 		gc.gridwidth = 1;
-		gc.gridheight = 1;
+		//gc.gridheight = 1;
 		gridBag.setConstraints(new C_OpenPanel(this, this.mf), gc);
 		
 		//IN Progress 패널
-		gc.weightx = 0.1;
-		gc.weighty = 0.9;
+		gc.weightx = 1;
+		//gc.weighty = 0.9;
 		gc.gridwidth = 1;
-		gc.gridheight = 1;
+		//gc.gridheight = 1;
 		gridBag.setConstraints(new C_ProgressPanel(this, this.mf), gc);
 		
 		//Done 패널
-		gc.weightx = 0.1;
-		gc.weighty = 0.9;
+		gc.weightx = 1;
+		//gc.weighty = 0.9;
 		gc.gridwidth = GridBagConstraints.REMAINDER;
-		gc.gridwidth = 1;
-		gridBag.setConstraints(new C_DonePanel(this,mf), gc);
+		//gc.gridwidth = 1;
+		gridBag.setConstraints(new C_DonePanel(this, this.mf), gc);
 		
 		this.setVisible(true);
 		
 		mf.add(this);
 		
+	}
+	
+	
+	public void goToMainPage() {
+		
+		ChangePanel.changePanel(mf, this, new A_MainPage(mf));
+	}
+	
+	public void goToProjectPage() {
+		ChangePanel.changePanel(mf, this, new B_ProjectPage(mf));
 	}
 }

@@ -1,7 +1,10 @@
 package view;
 
+import java.awt.Color;
 import java.awt.Dialog;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -30,8 +33,16 @@ public class B_NewSprintPopUp extends JPanel {
 	public B_NewSprintPopUp(MainFrame mainFrame) {
 		
 		newSprintPopUp = new Dialog(mainFrame, "새 스프린트 만들기");
-		newSprintPopUp.setBounds(100, 80, 515, 680);
+		//newSprintPopUp.setBackground(Color.darkGray);
+		//newSprintPopUp.setBounds(100, 80, 515, 680);
 		
+		//팝업위치조정(화면가운데)
+		newSprintPopUp.setSize(515, 680);
+		Toolkit tk = Toolkit.getDefaultToolkit();
+		Dimension dim = tk.getScreenSize();
+		int xPos = (dim.width / 2) - (newSprintPopUp.getWidth() / 2);
+		int yPos = (dim.height / 2) - (newSprintPopUp.getHeight() / 2);
+		newSprintPopUp.setLocation(xPos, yPos);
 		
 		
 		newSprintPopUp.setLayout(null);     				
@@ -283,6 +294,7 @@ public class B_NewSprintPopUp extends JPanel {
 				newSprintPopUp.dispose();
 				//스프린트 목록에 스프린트 이름 추가되고, 세부 스프린트 페이지 생성되어야함
 				//세부 스프린트 페이지는 리스트에 생성된 스프린트 이름 클릭시 창 넘어가야 함
+				
 			}
 		});
 		
