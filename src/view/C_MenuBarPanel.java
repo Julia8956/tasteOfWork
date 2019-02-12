@@ -29,6 +29,7 @@ public class C_MenuBarPanel extends JPanel implements MouseListener,ActionListen
 	private JButton User_btn;
 	private JButton home;
 	private JButton back;
+	private JButton Member_btn ;
 	
 	public C_MenuBarPanel(C_SprintMainPage sprintMain, MainFrame mf) {
 		this.sprintMain = sprintMain;
@@ -148,7 +149,7 @@ public class C_MenuBarPanel extends JPanel implements MouseListener,ActionListen
 		
 		
 		//¸â¹ö¹öÆ°
-		JButton Member_btn = new JButton(new ImageIcon("images/circle.png"));
+		/*JButton */ Member_btn = new JButton(new ImageIcon("images/circle.png"));
 		ImageIcon Member_addIcon = new ImageIcon("images/circle2.PNG");
 		Member_btn.setBorderPainted(false); 
 		Member_btn.setFocusPainted(false); 
@@ -157,84 +158,9 @@ public class C_MenuBarPanel extends JPanel implements MouseListener,ActionListen
 		Member_btn.setBackground(Color.GRAY);
 		Member_btn.setLocation(920, 12);
 		Member_btn.setSize(40,40);
-
-		//ÃÊ´ë panel 
-		JPanel Member_panel = new JPanel();
-		Member_panel.setLayout(null);
-		Member_panel.setLocation(625, 40);
-		Member_panel.setSize(310, 310);
-		Member_panel.setBackground(Color.decode("#5A5959"));
-		Member_panel.setVisible(true);
-
-		//¸â¹ö
-		JLabel Add_label = new JLabel("ÇÁ·ÎÁ§Æ® ¸â¹ö");
-		Add_label.setFont(new Font("¸¼Àº °íµñ",Font.BOLD,18));
-		Add_label.setForeground(Color.WHITE);
-		Add_label.setLocation(10,0);
-		Add_label.setSize(120, 40);
-
-		//¸â¹öº¸¿©Áö´Â °Í
-		JTextArea T_Member = new JTextArea("¡Ü ±è±ÔÇü \n ¡Ü ¹®Áö¿ø\n ¡Ü ¼Û³«±Ô\n ¡Ü ¿ì¸®³ª\n ¡Ü Á¤¹ÎÁö\n ¡Ü ÃÖÀÎÈ¿ ");
-		T_Member.setEditable(false);
-
-		//¸â¹ö ½ºÅ©·Ñ
-		JScrollPane M_Scroll = new JScrollPane(T_Member); 
-		M_Scroll.setLocation(20, 40);
-		M_Scroll.setSize(250,200);
-
-		//°ü¸®ÀÚ panel
-		JPanel Man_Div_panel = new JPanel();
-		Man_Div_panel.setLayout(null);
-		Man_Div_panel.setSize(310,100);
-		Man_Div_panel.setLocation(0,242);
-		Man_Div_panel.setBackground(Color.decode("#5A5959"));
-
-		//¸â¹ö ÃÊ´ë ¹öÆ°
-		JButton Add_Button = new JButton(new ImageIcon("images/button1-1.png"));
-		ImageIcon Add_ButtonIcon = new ImageIcon("images/button1-2.png");
-		Add_Button.setBorderPainted(false); 
-		Add_Button.setFocusPainted(false); 
-		Add_Button.setContentAreaFilled(false);
-		Add_Button.setRolloverIcon(Add_ButtonIcon);
-		Add_Button.setSize(80,40);
-		Add_Button.setLocation(20,10);
-		//Add_Button.addActionListener(new Add_person());
-
-		//¸â¹ö °­Åð ¹öÆ°
-		JButton Fire_Button = new JButton(new ImageIcon("images/button2-1.png"));
-		ImageIcon Fire_ButtonIcon = new ImageIcon("images/button2-2.png");
-		Fire_Button.setBorderPainted(false); 
-		Fire_Button.setFocusPainted(false); 
-		Fire_Button.setContentAreaFilled(false);
-		Fire_Button.setRolloverIcon(Fire_ButtonIcon);
-		Fire_Button.setSize(80,40);
-		Fire_Button.setLocation(115,10);
-
-		// ¸â¹ö Å»Åð ¹öÆ°
-		JButton Delete_Button = new JButton(new ImageIcon("images/button3-1.png"));
-		ImageIcon Delete_ButtonIcon = new ImageIcon("images/button3-2.png");
-		Delete_Button.setBorderPainted(false); 
-		Delete_Button.setFocusPainted(false); 
-		Delete_Button.setContentAreaFilled(false);
-		Delete_Button.setRolloverIcon(Delete_ButtonIcon);
-		Delete_Button.setSize(80,40);
-		Delete_Button.setLocation(210,10);
-
-		//Delete_Button.addActionListener(new DeleteEvent());
-
-		Man_Div_panel.add(Add_Button);
-		Man_Div_panel.add(Delete_Button);
-		Man_Div_panel.add(Fire_Button);
-
-
-		Member_panel.add(Add_label);
-		Member_panel.add(M_Scroll);
-		Member_panel.add(Man_Div_panel);
-
 		
-		
-		East_Panel.add(Member_panel,"East");
-		
+		Member_btn.addMouseListener(this);
+
 		East_Panel.add(User_btn,"Center");
 		East_Panel.add(Member_btn,"West");
 		
@@ -248,6 +174,12 @@ public class C_MenuBarPanel extends JPanel implements MouseListener,ActionListen
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if (e.getSource() == User_btn) {
+			new C_AddUserPU(this.mf).getUserPU().setVisible(true);
+		
+		}
+		if (e.getSource() == Member_btn) {
+				new C_AddInvitePU(this.mf).getinvitePU().setVisible(true);
+			
 		}
 	}
 

@@ -1,7 +1,9 @@
 package view;
 
 import java.awt.Dialog;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -30,6 +32,13 @@ public class C_CreatePU extends JPanel{
 		
 		//프레임 창 안보이게
 		cp.setUndecorated(true);
+		
+		Toolkit tk = Toolkit.getDefaultToolkit();
+		Dimension dim = tk.getScreenSize();
+		int xPos = (dim.width /2 )  - (cp.getWidth() / 2);
+		int yPos = (dim.height / 2) - (cp.getHeight() / 2);
+		
+		cp.setLocation(xPos, yPos);
 		
 		JLabel wL = new JLabel("할일 이름");	
 		wL.setLocation(30, 4);

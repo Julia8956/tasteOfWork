@@ -19,9 +19,9 @@ public class MainFrame extends JFrame {
 		
 				this.setLocation(xPos, yPos);
 		
-		new A_LoginPage(this);
+		//new A_LoginPage(this);
 		//new B_ProjectPage(this);
-		//new C_SprintMainPage(this);
+		new C_SprintMainPage(this);
 		
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

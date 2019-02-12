@@ -2,7 +2,6 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -11,20 +10,18 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import javax.swing.AbstractCellEditor;
+import javax.swing.DefaultListModel;
 import javax.swing.DropMode;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellEditor;
-import javax.swing.table.TableCellRenderer;
 
-import view.C_OpenPanel.TableCell;
+import model.Work;
 
 
 
@@ -35,6 +32,9 @@ public class C_ProgressPanel extends JPanel implements ActionListener,MouseListe
 	
 	private JTable progress_Table;
 	private JButton Add_Work;
+	
+	private JList<Work> progresslist;
+	DefaultListModel<Work> progrssmodel = new DefaultListModel<>();
 	
 	
 	public C_ProgressPanel(C_SprintMainPage sprintMain,MainFrame mainFrame) {
@@ -60,43 +60,13 @@ public class C_ProgressPanel extends JPanel implements ActionListener,MouseListe
 
 		this.add(Progress_Title_panel,"North");
 		
-		//진행중인 일들 리스트
-		String[] name = {"할일 명","할당자" , "긴급"};
-		Object[][] date = {};
-
-		//내용 수정 못하게
-		DefaultTableModel model = new DefaultTableModel(date,name) {
-			public boolean isCellEditable(int rowIndex, int mColIndex) {
-                return false;
-            }
-		};
-		
-		
-		/*JTable*/ progress_Table = new JTable(model);
-		progress_Table.setRowHeight(50);
-		progress_Table.setFont(new Font("Serif",Font.BOLD,15));
-		progress_Table.getColumnModel().getColumn(2).setCellEditor(new TableCell());
-		progress_Table.getColumnModel().getColumn(2).setCellRenderer(new TableCell());
-
-
-		//단일 선택
-		progress_Table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
-		//open_Table.addMouseListener(new TableEvent());
-		progress_Table.addMouseListener(this);
-
-		//열이동 금지
-		progress_Table.getTableHeader().setReorderingAllowed(false);
-		
-		//드래그
-		progress_Table.setDragEnabled(true);
-		progress_Table.setDropMode(DropMode.INSERT_ROWS);
-		//progress_Table.setTransferHandler(new TableRowTransferHandler(progress_Table)); 
-		
-		JScrollPane progress_scroll = new JScrollPane(progress_Table);
+		//Progress 리스트 창
+		JScrollPane progress_scroll = new JScrollPane(progresslist = createprogresslist());
 		progress_scroll.setPreferredSize(new Dimension(340,600));
 		progress_scroll.setBackground(Color.white);
 		
+		//리스트 확인창 이벤트
+		progresslist.addMouseListener(this);
 		
 		//버튼 패널 -> 실행중인 패널에 추가 하는것
 		JPanel btn_Panel = new JPanel();
@@ -128,40 +98,30 @@ public class C_ProgressPanel extends JPanel implements ActionListener,MouseListe
 		}
 	}
 
-	//테이블안에 사진 넣는 클래스
-	class TableCell extends AbstractCellEditor implements TableCellEditor, TableCellRenderer {
-		JLabel imagesos;
+	private JList<Work> createprogresslist(){
+		//DefaultListModel<Work> model = new DefaultListModel<>();
 
-		public TableCell() {
-			imagesos = new JLabel(new ImageIcon("images/work_sos.JPG"));
-		}
+		String[] member = {"김규형","우리나"};
+		progrssmodel.addElement(new Work("할일명", member , true));
+		//String[] member2 = {"송낙규","최인효","김규형"};
+		//model.addElement(new Work("할일명2", member2, false));
 
-		@Override
-		public Object getCellEditorValue() {
-			return null;
-		}
 
-		@Override
-		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
-				int row, int column) {
-			return imagesos;
-		}
+		JList<Work> list = new JList<Work>(progrssmodel);
 
-		@Override
-		public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row,
-				int column) {
-			return imagesos;
-		}
-	} // end class TableCell extends AbstractCellEditor implements TableCellEditor,
-	// TableCellRenderer
+		list.setCellRenderer(new C_WorkRenderer());
+
+		return list;
+
+	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if (e.getSource() == progress_Table) {
+		if (e.getSource() == progresslist) {
 			if (e.getClickCount() ==2) {
-				int row = progress_Table.getSelectedRow();
-				String title = progress_Table.getValueAt(row,0)+"";
-				new C_CheckPU(this.mainFrame,title).getCheckPU().setVisible(true);
+				Work work = progresslist.getSelectedValue();
+				new C_CheckPU(this.mainFrame,work).getCheckPU().setVisible(true);
+				System.out.println("누름");
 
 			}
 		}
@@ -190,5 +150,7 @@ public class C_ProgressPanel extends JPanel implements ActionListener,MouseListe
 			// TODO Auto-generated method stub
 			
 		}
+		
+		
 
 }
