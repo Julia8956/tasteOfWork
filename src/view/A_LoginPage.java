@@ -204,7 +204,7 @@ import javax.swing.JTextField;
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				//JFrame mf = new JFrame();
-				//new FindIdPwd(mf).getFindIdPwd().setVisible(true);
+				new A_FindIdPwd(mf).getA_FindIdPwd().setVisible(true);
 			}
 		}
 		class Joinevent implements ActionListener{
@@ -212,7 +212,7 @@ import javax.swing.JTextField;
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			//JFrame mf = new JFrame();
-			//new JoinPage(mf).getJoinPage().setVisible(true);
+			new A_JoinPage(mf).getA_JoinPage().setVisible(true);
 		}
 		
 		
