@@ -29,17 +29,7 @@ import javax.swing.JTextField;
 			this.setSize(1024, 768);
 			this.setLayout(new BorderLayout());
 
-			/*JPanel mainPanel = new JPanel();
-			//mainPanel.setLayout(new BorderLayout());
-			mainPanel.setSize(new Dimension(200,500));
-			mainPanel.setBackground(Color.cyan);
 			
-			JPanel SubPanel = new JPanel();
-			SubPanel.setBackground(Color.yellow);
-			SubPanel.setSize(new Dimension(400,200));
-			
-			this.add(mainPanel,"West");
-			this.add(SubPanel, "Center");*/
 			
 			this.setLayout(new BorderLayout());
 	        
@@ -134,11 +124,16 @@ import javax.swing.JTextField;
 			
 			LoginPanel.add(TextFieldPanel);
 			
-			JButton login_btn = new JButton("로그인");
+			JButton login_btn = new JButton(new ImageIcon("images/login2.PNG"));
+			ImageIcon login_btn2 = new ImageIcon("images/login1.PNG");
 			//login_btn.setLocation(620, 350);
 			login_btn.setPreferredSize(new Dimension(80,60));
-			
 			login_btn.addMouseListener(new MyMouseAdapter1());
+			login_btn.setBorderPainted(false);
+			login_btn.setFocusPainted(false);
+			login_btn.setContentAreaFilled(false);
+			login_btn.setRolloverIcon(login_btn2);
+			
 			//login_btn.addActionListener(this)
 			
 			LoginPanel.add(login_btn);
@@ -154,42 +149,43 @@ import javax.swing.JTextField;
 			buttonpanel.setPreferredSize(new Dimension(50,80));
 			
 
-			JButton joinus = new JButton("아직 회원이 아니신가요?");
+//			JButton joinus = new JButton("아직 회원이 아니신가요?");
+			
+			JButton joinus = new JButton(new ImageIcon("images/join1.PNG"));
+			ImageIcon joinus2 = new ImageIcon("images/join2.PNG");
 			joinus.setLocation(350, 440);
 			joinus.setSize(180,30);
 			joinus.addActionListener(new Joinevent());
+			joinus.setBorderPainted(false);
+			joinus.setFocusPainted(false);
+			joinus.setContentAreaFilled(false);
+			joinus.setRolloverIcon(joinus2);
 			//joinus.addMouseListener(new MyMouseAdapter1());
+			
+			
 
 
-			JButton find = new JButton("아이디/비밀번호 찾기");
+			JButton find = new JButton(new ImageIcon("images/userSerch1.PNG"));
+			ImageIcon find2 = new ImageIcon("images/userSerch2.PNG");
 			find.setLocation(620, 440);
 			find.setSize(180,30);
 			//find.addMouseListener(new MyMouseAdapter2());
 			find.addActionListener(new Findevent());
+			find.setBorderPainted(false);
+			find.setFocusPainted(false);
+			find.setContentAreaFilled(false);
+			find.setRolloverIcon(find2);
 			buttonpanel.add(joinus);
 			buttonpanel.add(find);
 			
 			
-			/*JButton login_btn = new JButton("로그인");
-			//login_btn.setLocation(620, 350);
-			login_btn.setPreferredSize(new Dimension(50,80));
-			//login_btn.addMouseListener(new MyMouseAdapter3());
-			//login_btn.addActionListener(this);
-
-			Buttons_panel.add(buttonpanel); 
-			Buttons_panel.add(login_btn); */
 			Buttons_panel.add(buttonpanel); 
 			
-			//SubPanel.add(id);
-			//SubPanel.add(idt);
+			
 			SubPanel.add(LoginPanel,BorderLayout.NORTH);
-			//SubPanel.add(password);
-			//SubPanel.add(pwdt);
+			
 			SubPanel.add(Buttons_panel,BorderLayout.CENTER);
-			//SubPanel.add(login_btn);
-			//SubPanel.add(joinus);
-			//SubPanel.add(find);
-			//SubPanel.add(Buttons_panel,BorderLayout.SOUTH);
+			
 	        
 	        mainPanel.add(SubPanel,BorderLayout.CENTER);
 	        
