@@ -22,7 +22,7 @@ public class B_MOMPanel extends JPanel implements ActionListener{
 	private MainFrame mainFrame;
 	private JButton newMOMButton;
 	
-	public B_MOMPanel(B_ProjectPage projectPage) {
+	public B_MOMPanel(B_ProjectPage projectPage, MainFrame mainFrame) {
 		
 		this.mainFrame = mainFrame;
 		this.setSize(274, 688);
@@ -31,11 +31,6 @@ public class B_MOMPanel extends JPanel implements ActionListener{
 		
 		this.setBackground(Color.WHITE);
 
-		JTextField temp = new JTextField("회의록칸");
-		this.add(temp);
-
-
-
 
 		// this.setSize(350, 688);
 		//this.setPreferredSize(new Dimension(350, 688));
@@ -43,7 +38,7 @@ public class B_MOMPanel extends JPanel implements ActionListener{
 		//this.setBackground(Color.LIGHT_GRAY);
 		this.setLayout(new BorderLayout());
 
-		// 회의록 정보가 들어갈 패널
+		/*// 회의록 정보가 들어갈 패널
 		JPanel MOMInfoPanel = new JPanel();
 		MOMInfoPanel.setBackground(Color.WHITE);
 		MOMInfoPanel.setLayout(new BorderLayout());
@@ -54,7 +49,7 @@ public class B_MOMPanel extends JPanel implements ActionListener{
 		MOMName.setFont(new Font("", Font.BOLD, 30));
 		MOMName.setSize(150, 80);
 		// MOMName.setLocation(20, 20);
-		MOMInfoPanel.add(MOMName, "Center");
+		MOMInfoPanel.add(MOMName, "Center");*/
 
 		// 회의록 생성버튼, 회의록 리스트 패널
 		JPanel MOMPanel = new JPanel();
@@ -73,7 +68,7 @@ public class B_MOMPanel extends JPanel implements ActionListener{
 		// 회의록 생성 버튼에 이벤트 연결
 		newMOMButton.addActionListener(this);
 
-		newMOMPanel.add(newMOMButton, "North");
+		newMOMPanel.add(newMOMButton);
 
 		MOMPanel.add(newMOMPanel, "North");
 
@@ -84,7 +79,7 @@ public class B_MOMPanel extends JPanel implements ActionListener{
 
 		// 회의록 리스트 올릴 리스트
 		JList MOMList = new JList(MOMExample);
-		MOMList.setFont(new Font("", Font.HANGING_BASELINE, 20));
+		//MOMList.setFont(new Font("", Font.HANGING_BASELINE, 20));
 
 		MOMList.setBorder(BorderFactory.createLineBorder(Color.black, 1));
 
@@ -95,7 +90,7 @@ public class B_MOMPanel extends JPanel implements ActionListener{
 		MOMList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		MOMPanel.add(scroller, "Center");
 
-		this.add(MOMInfoPanel, "North");
+		//this.add(MOMInfoPanel, "North");
 		this.add(MOMPanel, "Center");
 
 		projectPage.add(this);

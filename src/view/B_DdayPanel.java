@@ -16,7 +16,7 @@ public class B_DdayPanel extends JPanel{
 		//디데이 : 프로젝트 생성시 날짜로 카운트 해야함//계속 변하도록 
 		JLabel projectDday = new JLabel("D-Day", JLabel.LEFT); 
 		projectDday.setHorizontalAlignment(JLabel.CENTER);
-		projectDday.setFont(new Font("", Font.BOLD, 20));
+		projectDday.setFont(new Font("맑은 고딕", Font.BOLD, 20));
 		this.add(projectDday);
 		
 		projectPage.add(this);

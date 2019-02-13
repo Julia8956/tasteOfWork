@@ -17,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 
 import org.jdesktop.swingx.JXDatePicker;
 
@@ -45,12 +46,17 @@ public class B_NewSprintPopUp extends JPanel {
 		newSprintPopUp.setLocation(xPos, yPos);
 		
 		
-		newSprintPopUp.setLayout(null);     				
+		newSprintPopUp.setLayout(null);
+		//newSprintPopUp.setOpacity(0.5f);
+		newSprintPopUp.setUndecorated(true);
+		newSprintPopUp.setBackground(new Color(1f, 0.9f, 0.1f, 0.8f));
+		
+		setUIFont (new javax.swing.plaf.FontUIResource("맑은 고딕", Font.ITALIC, 15));
 		
 		
 		//이름
 		JTextField sprintName = new JTextField("새 스프린트 이름", 30);
-		sprintName.setFont(new Font("",Font.BOLD, 20));
+		//sprintName.setFont(new Font("",Font.BOLD, 20));
 		sprintName.setLocation(30, 50);				
 		sprintName.setSize(450,45);
 		newSprintPopUp.add(sprintName);
@@ -83,7 +89,7 @@ public class B_NewSprintPopUp extends JPanel {
 		JLabel start = new JLabel("시작일");
 		start.setLocation(30, 115);
 		start.setSize(50, 40);
-		start.setFont(new Font("", Font.BOLD, 15));
+		start.setFont(new Font("맑은 고딕", Font.BOLD, 15));
 		newSprintPopUp.add(start);
 
 		
@@ -93,7 +99,7 @@ public class B_NewSprintPopUp extends JPanel {
 		//JTextField startDay = new JTextField("스프린트 시작일", 15);
 		startDayPicker.setLocation(80, 115);
 		startDayPicker.setSize(120, 40);
-		startDayPicker.setFont(new Font("", Font.PLAIN, 15));
+		///startDayPicker.setFont(new Font("맑은 고딕", Font., 15));
 		newSprintPopUp.add(startDayPicker);	
 		
 		/*startDayPicker.addMouseListener(new MouseAdapter() {
@@ -117,14 +123,15 @@ public class B_NewSprintPopUp extends JPanel {
 		JLabel fromTo = new JLabel("~");
 		fromTo.setLocation(240, 115);
 		fromTo.setSize(50, 40);
-		fromTo.setFont(new Font("",Font.PLAIN, 30));
+		fromTo.setFont(new Font("",Font.BOLD, 30));
 		newSprintPopUp.add(fromTo);
 		
 		//종료일
 		JLabel end = new JLabel("종료일");
 		end.setLocation(310, 115);
 		end.setSize(50, 40);
-		end.setFont(new Font("", Font.BOLD, 15));
+		end.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		
 		newSprintPopUp.add(end);
 
 
@@ -135,7 +142,7 @@ public class B_NewSprintPopUp extends JPanel {
 		//JTextField endDay = new JTextField("스프린트 종료일", 15);
 		endDayPicker.setLocation(360, 115);
 		endDayPicker.setSize(120, 40);
-		endDayPicker.setFont(new Font("", Font.PLAIN, 15));
+		//endDayPicker.setFont(new Font("", Font.PLAIN, 15));
 		newSprintPopUp.add(endDayPicker);
 		
 		/*endDayPicker.addMouseListener(new MouseAdapter() {
@@ -161,7 +168,7 @@ public class B_NewSprintPopUp extends JPanel {
 		JTextArea description = new JTextArea("설명", 3, 30);
 		description.setLocation(30, 175);
 		description.setSize(453,135);
-		description.setFont(new Font("", Font.PLAIN, 15));
+		//description.setFont(new Font("", Font.PLAIN, 15));
 		description.setLineWrap(true);
 		description.setWrapStyleWord(true);
 		//int numOfLines = description.getLineCount();
@@ -197,7 +204,7 @@ public class B_NewSprintPopUp extends JPanel {
 		JTextField toDo = new JTextField("주요 할 일", 50);
 		toDo.setLocation(30, 330);
 		toDo.setSize(410, 45);
-		toDo.setFont(new Font("", Font.PLAIN, 15));
+		//toDo.setFont(new Font("", Font.PLAIN, 15));
 		newSprintPopUp.add(toDo);
 		
 		toDo.addMouseListener(new MouseAdapter() {
@@ -210,7 +217,7 @@ public class B_NewSprintPopUp extends JPanel {
 		//할일 입력후 +버튼 클릭시 아래 textArea로 넘어가야 함
 		plusButton = new JButton("+");
 			
-		plusButton.setFont(new Font("",Font.PLAIN, 20));
+		plusButton.setFont(new Font("맑은 고딕", Font.BOLD, 20));
 		plusButton.setLocation(450, 330);
 		plusButton.setOpaque(false);
 		//plusButton.setBackground(Color.lightGray);
@@ -298,7 +305,6 @@ public class B_NewSprintPopUp extends JPanel {
 			}
 		});
 		
-		newSprintPopUp.setUndecorated(true);
 		
 		sprintName.requestFocus();
 		
@@ -311,5 +317,14 @@ public class B_NewSprintPopUp extends JPanel {
 		return newSprintPopUp;
 	}
 	
+	public static void setUIFont (javax.swing.plaf.FontUIResource f){
+	    java.util.Enumeration keys = UIManager.getDefaults().keys();
+	    while (keys.hasMoreElements()) {
+	      Object key = keys.nextElement();
+	      Object value = UIManager.get (key);
+	      if (value instanceof javax.swing.plaf.FontUIResource)
+	        UIManager.put (key, f);
+	      }
+	 } 
 	
 }

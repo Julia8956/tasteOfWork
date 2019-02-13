@@ -15,6 +15,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
+import javax.swing.UIManager;
 
 public class B_SprintPanel extends JPanel implements ActionListener {
 
@@ -33,14 +34,20 @@ public class B_SprintPanel extends JPanel implements ActionListener {
 		this.setLayout(new BorderLayout());
 		
 		
+		//전체 폰트 스타일 적용
+		setUIFont (new javax.swing.plaf.FontUIResource("맑은 고딕", Font.PLAIN, 15));
+		
+		
 		//스프린트생성버튼, 스프린트 리스트 패널
 		JPanel sprintPanel = new JPanel();
 		sprintPanel.setBackground(Color.WHITE);
+		//sprintPanel.setBackground(new Color(0.1f, 0.5f, 1f, 0.8f));
 		
 		sprintPanel.setLayout(new BorderLayout());
 		
 		JPanel newSprintPanel = new JPanel();
 		newSprintPanel.setBackground(Color.WHITE);
+		newSprintPanel.setBackground(new Color(0.1f, 0.5f, 1f, 0.5f));
 		newSprintPanel.setLayout(new FlowLayout(FlowLayout.TRAILING));
 		
 		//스프린트 생성 버튼 (클릭시 팝업 떠야함)
@@ -65,7 +72,7 @@ public class B_SprintPanel extends JPanel implements ActionListener {
 				"Sprint17"};
 		//스프린트 리스트 올릴 리스트
 		JList sprintList = new JList(sprintExample);
-		sprintList.setFont(new Font("", Font.HANGING_BASELINE, 20));
+		//sprintList.setFont(new Font("", Font.HANGING_BASELINE, 20));
 		
 		sprintList.setBorder(BorderFactory.createLineBorder(Color.black, 1));
 		//스크롤러에 리스트 올리기
@@ -78,6 +85,8 @@ public class B_SprintPanel extends JPanel implements ActionListener {
 		
 		this.add(sprintPanel, "Center");
 		
+		
+		
 		projectPage.add(this);
 	}
 
@@ -89,10 +98,19 @@ public class B_SprintPanel extends JPanel implements ActionListener {
 		}
 	}
 	
-	
-	
-	
-	
+	//전체 폰트적용 메소드
+	public static void setUIFont (javax.swing.plaf.FontUIResource f){
+		java.util.Enumeration keys = UIManager.getDefaults().keys();
+		while (keys.hasMoreElements()) {
+			Object key = keys.nextElement();
+			Object value = UIManager.get (key);
+			if (value instanceof javax.swing.plaf.FontUIResource)
+				UIManager.put (key, f);
+		}
+	} 
+
+
+
 	
 	
 	
