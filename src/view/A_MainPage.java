@@ -100,6 +100,7 @@ public class A_MainPage extends JPanel {
             person.setRolloverIcon(person2);
             person.setLocation(968,12);
             person.setSize(40, 40);
+            person.addActionListener(new UserEvent());
             
             upup.add(person, BorderLayout.EAST);
       
@@ -148,6 +149,14 @@ public class A_MainPage extends JPanel {
 
 
    }
+   class UserEvent implements ActionListener{
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		new A_AddUserPU(mf).getUserPU().setVisible(true);
+	}
+	   
+   }
    public void makebtn() {
 	   JButton btn = new JButton("¹öÆ°");
 	   //btn.setSize(100, 100);
@@ -179,7 +188,9 @@ public class A_MainPage extends JPanel {
 	   ChangePanel.changePanel(mf, this, new B_ProjectPage(mf));
    }
 
-      
+   public void goToLoginPage() {
+		ChangePanel.changePanel(mf, this, new A_LoginPage(mf));
+	}
 }
 
    
