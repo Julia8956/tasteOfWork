@@ -11,6 +11,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Date;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -36,6 +37,11 @@ public class A_AddProject extends JPanel implements ActionListener{
    private JButton sprintAdd;
    private JButton cancelBtn;
    private JTextArea people;
+   private String peopleProject;
+   private String projectTitle;
+	private Date projectStartDay;
+	private Date projectEndDay;
+	
    private int nameCtn = 0;
    private int  startDayCtn = 0;
    private int endDayCtn = 0;
@@ -131,21 +137,21 @@ public class A_AddProject extends JPanel implements ActionListener{
 
 
 
-   JXDatePicker endDayPicker = new DatePicker().getDatePicker();
+   JXDatePicker endDay = new DatePicker().getDatePicker();
    
 
-   endDayPicker.setLocation(360, 135);
-   endDayPicker.setSize(120, 40);
-   endDayPicker.setFont(new Font("", Font.PLAIN, 15));
-   addProject.add(endDayPicker);
+   endDay.setLocation(360, 135);
+   endDay.setSize(120, 40);
+   endDay.setFont(new Font("", Font.PLAIN, 15));
+   addProject.add(endDay);
 
       
       
       
       //두번째 패널
-      JPanel sprintPanel = new JPanel();
-      sprintPanel.setLayout(null);
-      sprintPanel.setSize(515,560);
+      JPanel projectPanel = new JPanel();
+      projectPanel.setLayout(null);
+      projectPanel.setSize(515,560);
 
 
       JLabel sprintLabel = new JLabel("스프린트 추가");
@@ -153,7 +159,7 @@ public class A_AddProject extends JPanel implements ActionListener{
       sprintLabel.setSize(400, 100);
       sprintLabel.setFont(new Font("",Font.BOLD, 20));
 
-      sprintPanel.add(sprintLabel);
+      projectPanel.add(sprintLabel);
 
 
 
@@ -169,8 +175,8 @@ public class A_AddProject extends JPanel implements ActionListener{
 
       //스프린트 버튼 클릭시 스프린트 창 나오기
       sprintAdd.addActionListener(this);
-      sprintPanel.add(sprintAdd);
-      addProject.add(sprintPanel);
+      projectPanel.add(sprintAdd);
+      addProject.add(projectPanel);
 
       
 
@@ -190,7 +196,7 @@ public class A_AddProject extends JPanel implements ActionListener{
       pane.setLocation(10,245);
       pane.setSize(480,100);
       
-      sprintPanel.add(pane);
+      projectPanel.add(pane);
 
 
 
@@ -203,7 +209,7 @@ public class A_AddProject extends JPanel implements ActionListener{
       invite.setSize(400,100);
 
 
-      sprintPanel.add(invite);
+      projectPanel.add(invite);
 
 
       JButton  personAdd = new JButton("+");
@@ -214,7 +220,7 @@ public class A_AddProject extends JPanel implements ActionListener{
       personAdd.setSize(20,35);
       personAdd .setOpaque(false);
       personAdd .setBackground(Color.lightGray);
-      sprintPanel.add(personAdd);
+      projectPanel.add(personAdd);
       personAdd.addActionListener(new Add_person()); 
       
           
@@ -225,7 +231,7 @@ public class A_AddProject extends JPanel implements ActionListener{
       people.setLocation(10,385);
       people.setSize(480,90);
 
-      sprintPanel.add(people);
+      projectPanel.add(people);
       
       
       //취소버튼
@@ -238,7 +244,7 @@ public class A_AddProject extends JPanel implements ActionListener{
   
       cancelBtn.setLocation(282,495);
       cancelBtn.setSize(100,40);
-      sprintPanel.add(cancelBtn);
+      projectPanel.add(cancelBtn);
 
 
       //취소 버튼 클릭시 프로젝트 생성 팝업창 닫힘
@@ -264,20 +270,30 @@ public class A_AddProject extends JPanel implements ActionListener{
       okBtn.setRolloverIcon(okbtn2);
       okBtn.setLocation(392,495);
       okBtn.setSize(100,40);
-      sprintPanel.add(okBtn);
+      projectPanel.add(okBtn);
       ///okBtn.addActionListener(this);
       //확인 버튼 클릭시 프로젝트 생성 팝업창 닫힘
       okBtn.addActionListener(new ActionListener() {
                
                @Override
                public void actionPerformed(ActionEvent e) {
-                  mainPage.makebtn();
+                  //mainPage.makebtn();
                   addProject.dispose();
                   
+              	projectTitle = proName.getText();
+              	projectStartDay = startDay.getDate();
+              	projectEndDay = endDay.getDate();
+              	peopleProject = people.getText();
+				
+				//생성한 스프린트를 리스트에 추가하는 메소드 호출
+				mainPage.makeProjectBtn(projectTitle, projectStartDay, projectEndDay,peopleProject);
                   
                }
             });
-      addProject.add(sprintPanel);
+      
+      
+     
+      addProject.add(projectPanel);
       addProject.setResizable(false); 
       addProject.setVisible(true);
    

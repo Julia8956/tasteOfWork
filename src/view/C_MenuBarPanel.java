@@ -120,7 +120,7 @@ public class C_MenuBarPanel extends JPanel implements MouseListener,ActionListen
 		JLabel Sprint_Title = new JLabel();
 		
 		//스프린트명 선택된 것으로 받아서 출력(민)
-		Sprint_Title.setText("프로젝트 명 - " + selectedSprint);
+		Sprint_Title.setText(selectedSprint.getSelectedProject().getProjectTitle() + " " + selectedSprint);
 		
 		Sprint_Title.setFont(new Font("맑은 고딕",Font.BOLD,19));
 		Sprint_Title.setAlignmentX(CENTER_ALIGNMENT);

@@ -17,13 +17,12 @@ import javax.swing.BorderFactory;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.UIManager;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
@@ -141,12 +140,20 @@ public class B_CalendarPanel extends JPanel {
 		
 		//calendarTable.setFillsViewportHeight(true);
 		
-		
-		
 		//calendarTable.setRowHeight(calendarTable.getColumn(0).getWidth());
 		calendarTable.setRowHeight(70);
 		//DefaultTableCellRenderer cellAlingCenter = new DefaultTableCellRenderer();
 		
+		
+		calendarTable.getColumn("SUN").setCellRenderer(new DefaultTableCellRenderer() {
+			@Override
+			public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+					int row, int column) {
+				setBackground(Color.RED);
+				setForeground(Color.RED);
+				return this;
+			}
+		});
 		
 		/*MultiLineTableCellRenderer renderer = new MultiLineTableCellRenderer();
 		calendarTable.setDefaultRenderer(String[].class, renderer);*/

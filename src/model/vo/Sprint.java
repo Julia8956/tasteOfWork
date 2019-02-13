@@ -10,16 +10,20 @@ public class Sprint {
 	private String sprintTitle;
 	private Date sprintStartDay;
 	private Date sprintEndDay;
+	private Project selectedProject;
 	
-	public Sprint(String sprintTitle, Date sprintStartDay, Date sprintEndDay) {
+	public Sprint(Project selectedProject, String sprintTitle, Date sprintStartDay, Date sprintEndDay) {
 		super();
+		this.selectedProject = selectedProject;
 		this.sprintTitle = sprintTitle;
 		this.sprintStartDay = sprintStartDay;
 		this.sprintEndDay = sprintEndDay;
 	}
 	
 	
-	
+	public Project getSelectedProject() {
+		return selectedProject;
+	}
 	
 	public String getSprintTitle() {
 		return sprintTitle;

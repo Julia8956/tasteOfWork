@@ -6,6 +6,7 @@ import java.awt.GridBagLayout;
 
 import javax.swing.JPanel;
 
+import model.vo.Project;
 import model.vo.Sprint;
 
 //프로젝트 메인 페이지
@@ -16,10 +17,17 @@ public class B_ProjectPage extends JPanel{
 	public static final Color POPUP_COLOR = new Color(1f, 0.7f, 0.7f, 0.8f);
 	private B_ProjectPage projectPage;
 	
-	public B_ProjectPage(MainFrame mainFrame) {
+	private A_MainPage mainPage;
+	private Project selectedProject;
+	
+	public B_ProjectPage(MainFrame mainFrame, A_MainPage mainPage, Project selectedProject) {
 		
 		this.mainFrame = mainFrame;
 		this.projectPage = this;
+		
+		this.mainPage = mainPage;
+		//현재페이지와 연결된 객체
+		this.selectedProject = selectedProject;
 		
 		this.setSize(1024, 768);
 		this.setBackground(Color.BLUE);
@@ -36,7 +44,7 @@ public class B_ProjectPage extends JPanel{
 		gc.weighty = 0.0;
 		gc.gridwidth = GridBagConstraints.REMAINDER;
 		//gc.gridheight = 1;
-		gridbag.setConstraints(new B_HomeBarPanel(this), gc);
+		gridbag.setConstraints(new B_HomeBarPanel(this, selectedProject), gc);
 		
 		//디데이패널
 		gc.weightx = 1;
@@ -60,7 +68,7 @@ public class B_ProjectPage extends JPanel{
 		gc.weighty = 1;
 		gc.gridwidth = 1;
 		//gc.gridheight = 1;
-		gridbag.setConstraints(new B_SprintPanel(this, mainFrame), gc);
+		gridbag.setConstraints(new B_SprintPanel(this, mainFrame, selectedProject), gc);
 		
 		
 		//달력패널
@@ -85,11 +93,11 @@ public class B_ProjectPage extends JPanel{
 	}
 	
 	public void goToMainPage() {
-		ChangePanel.changePanel(mainFrame, this, new A_MainPage(mainFrame));
+		ChangePanel.changePanel(mainFrame, this, mainPage);
 	}
 	
-	public void goToSprintPage(Sprint selected) {
-		ChangePanel.changePanel(mainFrame, this, new C_SprintMainPage(mainFrame, this, selected));
+	public void goToSprintPage(Sprint selectedSprint) {
+		ChangePanel.changePanel(mainFrame, this, new C_SprintMainPage(mainFrame, this, selectedSprint));
 	}
 	
 	

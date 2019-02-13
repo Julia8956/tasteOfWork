@@ -5,24 +5,18 @@ import java.awt.Color;
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
+
+import model.vo.Project;
 
 public class A_MainPage extends JPanel {
    
@@ -31,11 +25,12 @@ public class A_MainPage extends JPanel {
    private A_MainPage mainPage;
    private Dialog mainDial;
    private A_LoginPage lp;
-   
+   private A_AddProject ap;
    private JPanel projectbtnPanel = new JPanel();
    private JPanel newprojectbtnPanel = new JPanel();
- 
+   private Project newProject;
    
+   private ArrayList<Project> projectArrList = new ArrayList<Project>();
    
    public A_MainPage(MainFrame mf) {
       
@@ -43,6 +38,7 @@ public class A_MainPage extends JPanel {
       this.mf=mf;
       this.mainPage=this;
       this.lp = lp;
+   
       
       this.setSize(1024, 768);
       this.setLayout(new BorderLayout());
@@ -173,35 +169,51 @@ public class A_MainPage extends JPanel {
 	}
 	   
    }
-   public void makebtn() {
-	      JButton btn = new JButton("버튼");
-	      //btn.setSize(100, 100);
+   public void makeProjectBtn(String projectTitle, Date projectStartDay, Date projectEndDay, String peopleProject) {
+	  
+	   //매개변수 이용해서 Project 객체 생성하고 Arraylist에 올리기
+	   Project newProject = new Project(projectTitle, projectStartDay, projectEndDay, peopleProject);
+	   projectArrList.add(newProject);
 
-	      //btn.setSize(150,50);
-	      //btn.setLocation(400,350);
+	   //생성한 객체의 title 필드만 이용해서 버튼생성 
+	   JButton projectBtn = new JButton(newProject.getProjectTitle());
 
-	      //JPanel projectbtnPanel = new JPanel();
-	      // projectbtnPanel.setLocation(500,500);
+	   projectBtn.setPreferredSize(new Dimension(150,50));
+	   projectBtn.setVisible(true);
+	   newprojectbtnPanel.add(projectBtn);
+	   newprojectbtnPanel.revalidate();
 
-	      btn.setPreferredSize(new Dimension(100,100));
-	      btn.setVisible(true);
-	      //projectbtnPanel.setPreferredSize(new Dimension(500,500));
-	      newprojectbtnPanel.add(btn);
-	      newprojectbtnPanel.revalidate();
+	   //생성된 버튼에 이벤트 연결
+	   projectBtn.addActionListener(new ActionListener() {
 
-	      //생성된 버튼에 이벤트 연결(changePanel)
-	      btn.addActionListener(new ActionListener() {
-	      
-	      @Override
-	      public void actionPerformed(ActionEvent e) {
-	         goToProjectPage();
-	      }
+		   @Override
+		   public void actionPerformed(ActionEvent e) {
+			   //버튼 이름
+			   String titleSelected = projectBtn.getText();
+			   Project selectedProject = null;
+			   for(int i = 0; i < projectArrList.size(); i++) {
+				   //arrayList에 있는 객체의 title필드값
+				   String projectTitle = projectArrList.get(i).getProjectTitle();
+				   //버튼이름과 객체의 title필드값이 같으면 selectedProject 객체에 해당 객체 덮어쓰기
+				   if(titleSelected.equals(projectTitle)) {
+					   selectedProject = projectArrList.get(i);
+					   break;
+				   }
+				   
+			   }
+			   //선택된 프로젝트가 null이아니면 해당 프로젝트 페이지로 가는 메소드 호출
+			   if(selectedProject != null) {
+				   goToProjectPage(selectedProject);
+			   }else {
+				   System.out.println("선택하신 프로젝트가 존재하지 않습니다!");
+			   }
+		   }
 	   });
 	      //mainPage.add(projectbtnPanel, BorderLayout.CENTER);
 
 	   }
-   public void goToProjectPage() {
-	   ChangePanel.changePanel(mf, this, new B_ProjectPage(mf));
+   public void goToProjectPage(Project selectedProject) {
+	   ChangePanel.changePanel(mf, this, new B_ProjectPage(mf, this, selectedProject));
    }
 
    public void goToLoginPage() {
@@ -211,6 +223,8 @@ public class A_MainPage extends JPanel {
    public Dialog getMainDial() {
 	      return mainDial;
 	   }
+
+		
 
 }
 
