@@ -26,7 +26,7 @@ import org.jdesktop.swingx.JXDatePicker;
 
 public class A_AddSprint extends JPanel {
    
-   //private JFrame sf;
+
    public JPanel addSprint;
    private JButton plusButton;
    private Dialog AddSprint;
@@ -249,8 +249,7 @@ public class A_AddSprint extends JPanel {
       AddSprint.add(okBtn);
       AddSprint.setResizable(false); 
       AddSprint.setUndecorated(true);
-      //AddSprint.setVisible(true);
-     // sf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      
      
       
    }
