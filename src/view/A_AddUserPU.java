@@ -23,12 +23,13 @@ public class A_AddUserPU extends JPanel{
 	private Dialog userPU;
 	private A_MainPage mainPage;
 	private JButton logoutbtn;
-	
+	private A_LoginPage lp;
 	
 	public A_AddUserPU() {}
 	
-	public A_AddUserPU(MainFrame mf) {
-		
+	public A_AddUserPU(MainFrame mf, A_LoginPage lp) {
+		this.mf = mf;
+		this.lp = lp;
 		//사용자 @@@@@@@@@@@@@@@@@@@@@@@@@@@
 		//사용자 Menu
 		userPU = new Dialog(mf,"사용자 정보"); 
@@ -113,9 +114,9 @@ class LogoutEvent implements ActionListener{
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == logoutbtn) {
-			mainPage.goToLoginPage();
-		}
+		userPU.dispose();
+		ChangePanel.changePanel(mf, lp, new A_LoginPage(mf,lp));
+
 	}
 	
 	

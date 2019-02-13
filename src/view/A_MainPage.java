@@ -29,8 +29,12 @@ public class A_MainPage extends JPanel {
    private MainFrame mf;
    private JButton sprintAdd;
    private A_MainPage mainPage;
+   private Dialog mainDial;
+   private A_LoginPage lp;
    
    private JPanel projectbtnPanel = new JPanel();
+   private JPanel newprojectbtnPanel = new JPanel();
+ 
    
    
    public A_MainPage(MainFrame mf) {
@@ -38,7 +42,7 @@ public class A_MainPage extends JPanel {
       
       this.mf=mf;
       this.mainPage=this;
-      
+      this.lp = lp;
       
       this.setSize(1024, 768);
       this.setLayout(new BorderLayout());
@@ -128,16 +132,27 @@ public class A_MainPage extends JPanel {
       
       projectbtnPanel.setSize(800, 768);
       projectbtnPanel.setBackground(Color.YELLOW);
-      projectbtnPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+      projectbtnPanel.setLayout(new BorderLayout());
+      
+      newprojectbtnPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+      newprojectbtnPanel.setBackground(Color.YELLOW);
+      
+      JPanel ingPanel = new JPanel();
+      ingPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+      JLabel ingLabel = new JLabel("진행중인 프로젝트");
+      ingPanel.add(ingLabel);
+      
+      projectbtnPanel.add(ingPanel, "North");
+      projectbtnPanel.add(newprojectbtnPanel,"Center");
+      
       this.add(projectbtnPanel, "Center");
-   
+      
       JButton btn1 = new JButton("버튼1");
-      projectbtnPanel.add(btn1);
+      newprojectbtnPanel.add(btn1);
       //this.add(projectbtnPanel,BorderLayout.CENTER);
       //this.add(projectbtnPanel);
       
    
-
    }
    class ProEvent implements ActionListener{
 
@@ -153,44 +168,50 @@ public class A_MainPage extends JPanel {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		new A_AddUserPU(mf).getUserPU().setVisible(true);
+		
+		new A_AddUserPU(mf,lp).getUserPU().setVisible(true);
 	}
 	   
    }
    public void makebtn() {
-	   JButton btn = new JButton("버튼");
-	   //btn.setSize(100, 100);
+	      JButton btn = new JButton("버튼");
+	      //btn.setSize(100, 100);
 
-	   //btn.setSize(150,50);
-	   //btn.setLocation(400,350);
+	      //btn.setSize(150,50);
+	      //btn.setLocation(400,350);
 
-	   //JPanel projectbtnPanel = new JPanel();
-	   // projectbtnPanel.setLocation(500,500);
+	      //JPanel projectbtnPanel = new JPanel();
+	      // projectbtnPanel.setLocation(500,500);
 
-	   btn.setPreferredSize(new Dimension(100,100));
-	   btn.setVisible(true);
-	   //projectbtnPanel.setPreferredSize(new Dimension(500,500));
-	   projectbtnPanel.add(btn);
-	   projectbtnPanel.revalidate();
+	      btn.setPreferredSize(new Dimension(100,100));
+	      btn.setVisible(true);
+	      //projectbtnPanel.setPreferredSize(new Dimension(500,500));
+	      newprojectbtnPanel.add(btn);
+	      newprojectbtnPanel.revalidate();
 
-	   //생성된 버튼에 이벤트 연결(changePanel)
-	   btn.addActionListener(new ActionListener() {
-		
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			goToProjectPage();
-		}
-	});
-	   //mainPage.add(projectbtnPanel, BorderLayout.CENTER);
+	      //생성된 버튼에 이벤트 연결(changePanel)
+	      btn.addActionListener(new ActionListener() {
+	      
+	      @Override
+	      public void actionPerformed(ActionEvent e) {
+	         goToProjectPage();
+	      }
+	   });
+	      //mainPage.add(projectbtnPanel, BorderLayout.CENTER);
 
-   }
+	   }
    public void goToProjectPage() {
 	   ChangePanel.changePanel(mf, this, new B_ProjectPage(mf));
    }
 
    public void goToLoginPage() {
-		ChangePanel.changePanel(mf, this, new A_LoginPage(mf));
+		ChangePanel.changePanel(mf, this, new A_LoginPage(mf,lp));
 	}
+   
+   public Dialog getMainDial() {
+	      return mainDial;
+	   }
+
 }
 
    

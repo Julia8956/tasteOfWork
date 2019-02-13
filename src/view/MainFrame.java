@@ -6,6 +6,8 @@ import java.awt.Toolkit;
 import javax.swing.JFrame;
 
 public class MainFrame extends JFrame {
+	
+	private A_LoginPage lp;
 	public MainFrame() {
 		
 		
@@ -19,8 +21,8 @@ public class MainFrame extends JFrame {
 		
 				this.setLocation(xPos, yPos);
 		
-		//new A_LoginPage(this);
-		new B_ProjectPage(this);
+		new A_LoginPage(this,lp);
+		//new B_ProjectPage(this);
 		//new C_SprintMainPage(this);
 		
 		

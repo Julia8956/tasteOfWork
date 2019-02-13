@@ -2,6 +2,7 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -22,8 +23,12 @@ import javax.swing.JTextField;
 		private MainFrame mf;
 		private A_LoginPage lp;
 		
-		public A_LoginPage(MainFrame mf) {
+		
+		public A_LoginPage(MainFrame mf,A_LoginPage lp) {
 			this.mf= mf;
+			
+			this.lp = lp;
+			
 			this.lp = this;
 			
 			this.setSize(1024, 768);
@@ -221,5 +226,6 @@ import javax.swing.JTextField;
 			}
 		}
 	
-
+	  
+	   
 }

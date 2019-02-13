@@ -73,10 +73,14 @@ public class A_AddProject extends JPanel implements ActionListener{
       proName.setLocation(10,85);
       proName.setSize(485,40);
       addProject.add(proName);
+      
+      
+      
     //textField에 마우스 클릭시 내용지워지고 빈화면으로 바뀜
       proName.addMouseListener(new MouseAdapter() {
          @Override
          public void mouseClicked(MouseEvent e) {
+        	 
             //아무것도 입력되지 않은 상태에서만 빈칸으로 만들기
             if (nameCtn == 0) {
                proName.setText("");
@@ -89,23 +93,14 @@ public class A_AddProject extends JPanel implements ActionListener{
           start.setSize(50, 40);
           start.setFont(new Font("", Font.BOLD, 15));
           addProject.add(start);
-    //시작일
+  
           JXDatePicker startDay = new DatePicker().getDatePicker();
-          
-          //JTextField startDay = new JTextField("스프린트 시작일", 15);
           startDay.setLocation(70, 135);
           startDay.setSize(120, 40);
           startDay.setFont(new Font("", Font.PLAIN, 15));
           addProject.add(startDay);   
 
-          /*startDay.addMouseListener(new MouseAdapter() {
-       @Override
-       public void mouseClicked(MouseEvent e) {
-          if(startDayCtn == 0) {
-             startDay.setText("");
-          }
-       }
-    });*/
+          
 
     startDay.addKeyListener(new KeyAdapter() {
        @Override
@@ -135,10 +130,10 @@ public class A_AddProject extends JPanel implements ActionListener{
 
 
 
-//종료일
+
    JXDatePicker endDayPicker = new DatePicker().getDatePicker();
    
-   //JTextField endDay = new JTextField("스프린트 종료일", 15);
+
    endDayPicker.setLocation(360, 135);
    endDayPicker.setSize(120, 40);
    endDayPicker.setFont(new Font("", Font.PLAIN, 15));
@@ -190,10 +185,7 @@ public class A_AddProject extends JPanel implements ActionListener{
       sprintTable.getTableHeader().setReorderingAllowed(false);
 
      
-     // sprintTable.setEditColumn(false);
-     // sprintTable.setEditingColumn(0);
-      //sprintTable.setEditingRow(0);
-      
+     
       JScrollPane pane = new JScrollPane(sprintTable);   
       pane.setLocation(10,245);
       pane.setSize(480,100);
@@ -243,11 +235,12 @@ public class A_AddProject extends JPanel implements ActionListener{
       cancelBtn.setFocusPainted(false); 
       cancelBtn.setContentAreaFilled(false);
       cancelBtn.setRolloverIcon(cancelbtn2);
-     //  JButton cancelBtn = new JButton("취소");
+  
       cancelBtn.setLocation(282,495);
       cancelBtn.setSize(100,40);
       sprintPanel.add(cancelBtn);
-      //cancelBtn.addActionListener(this);
+
+
       //취소 버튼 클릭시 프로젝트 생성 팝업창 닫힘
       cancelBtn.addActionListener(new ActionListener() {
                
@@ -258,17 +251,7 @@ public class A_AddProject extends JPanel implements ActionListener{
                }
             });
       
-     /* JButton home = new JButton(new ImageIcon("images/home.png"));
-      
-      ImageIcon home2 = new ImageIcon("images/home2.png");
-      home.setBorderPainted(false); 
-      home.setFocusPainted(false); 
-      home.setContentAreaFilled(false);
-      home.setRolloverIcon(home2);
-      home.setLocation(10,12);
-      home.setSize(40, 40);*/
-      
-      
+  
       
       
       
@@ -291,16 +274,13 @@ public class A_AddProject extends JPanel implements ActionListener{
                   mainPage.makebtn();
                   addProject.dispose();
                   
-                  //MainPage m = new MainPage(mf);
-                  
                   
                }
             });
       addProject.add(sprintPanel);
       addProject.setResizable(false); 
       addProject.setVisible(true);
-     // mf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+   
    }
   
 
@@ -325,7 +305,7 @@ public class A_AddProject extends JPanel implements ActionListener{
             System.out.println(id);
             people.append("\n" + id);
             
-            //System.out.println(id);
+            
          }
          
       }
