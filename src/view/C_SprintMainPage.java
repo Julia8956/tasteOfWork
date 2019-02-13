@@ -1,18 +1,26 @@
 package view;
 
-import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
 import javax.swing.JPanel;
 
+import model.vo.Sprint;
+
 public class C_SprintMainPage extends JPanel{
 	private MainFrame mf;
 	private C_SprintMainPage sprintPage;
-	
-	public C_SprintMainPage(MainFrame mf) {
+	//в萄蹺陛(團)
+	private B_ProjectPage projectPage;
+	private Sprint selectedSprint;
+	//衙偃滲熱熱薑(團)
+	public C_SprintMainPage(MainFrame mf, B_ProjectPage projectPage, Sprint selectedSprint) {
 		this.mf = mf;
 		this.sprintPage = sprintPage;
+		
+		//(團)
+		this.projectPage = projectPage;
+		this.selectedSprint = selectedSprint;
 		
 		this.setSize(1024,768);
 		//this.setBackground(Color.WHITE);
@@ -26,7 +34,8 @@ public class C_SprintMainPage extends JPanel{
 		gc.weighty = 0.0;
 		gc.gridwidth= GridBagConstraints.REMAINDER;
 		//gc.gridheight = 1;
-		gridBag.setConstraints(new C_MenuBarPanel(this, this.mf), gc);
+		//衙偃滲熱熱薑(團)
+		gridBag.setConstraints(new C_MenuBarPanel(this, this.mf, this.selectedSprint), gc);
 	
 		
 		//OPENぬ割
@@ -63,6 +72,6 @@ public class C_SprintMainPage extends JPanel{
 	}
 	
 	public void goToProjectPage() {
-		ChangePanel.changePanel(mf, this, new B_ProjectPage(mf));
+		ChangePanel.changePanel(mf, this, projectPage);
 	}
 }

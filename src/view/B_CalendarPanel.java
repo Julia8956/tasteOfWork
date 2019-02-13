@@ -42,7 +42,7 @@ public class B_CalendarPanel extends JPanel {
 		//this.setPreferredSize(new Dimension(400, 688));
 		//this.setLocation(350, 80);
 		
-		this.setBackground(Color.WHITE);
+		this.setBackground(B_ProjectPage.BG_COLOR);
 		this.setLayout(new BorderLayout());
 		this.setBorder(BorderFactory.createEmptyBorder(20, 30, 20, 30));
 		//this -> 캘린더 넣을 영역패널
@@ -56,7 +56,7 @@ public class B_CalendarPanel extends JPanel {
 		
 		//calendar -> 캘린더구성할 패널
 		JPanel calendar = new JPanel();
-		calendar.setBackground(Color.WHITE);
+		calendar.setBackground(B_ProjectPage.BG_COLOR);
 		calendar.setLayout(new BorderLayout());
 		//calendar.setSize(300, 300);
 		
@@ -65,13 +65,13 @@ public class B_CalendarPanel extends JPanel {
 		
 		//월이름, 이전달, 다음달 버튼 포함 패널
 		JPanel calendarHeadPanel = new JPanel();
-		calendarHeadPanel.setBackground(Color.WHITE);
+		calendarHeadPanel.setBackground(B_ProjectPage.BG_COLOR);
 		calendarHeadPanel.setLayout(new BorderLayout());
 		calendarHeadPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 20, 0));
 		
 		
 		JPanel showTodayPanel = new JPanel();
-		showTodayPanel.setBackground(Color.WHITE);
+		showTodayPanel.setBackground(B_ProjectPage.BG_COLOR);
 		showTodayPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 		
 		JLabel showToday = new JLabel();
@@ -175,9 +175,9 @@ public class B_CalendarPanel extends JPanel {
 		scroll.setSize(calendarTable.getSize());
 		scroll.setViewportBorder(BorderFactory.createEmptyBorder());
 		scroll.setViewportBorder(null);
-		scroll.getViewport().setBackground(Color.WHITE);
-		scroll.setBackground(Color.WHITE);
-		scroll.setForeground(Color.WHITE);
+		scroll.getViewport().setBackground(B_ProjectPage.BG_COLOR);
+		//scroll.setBackground(Color.WHITE);
+		//scroll.setForeground(Color.WHITE);
 		scroll.setBorder(BorderFactory.createEmptyBorder());
 		//scroll.setViewportBorder(null);
 		
@@ -186,7 +186,7 @@ public class B_CalendarPanel extends JPanel {
 		
 		
 		JPanel southPanel = new JPanel();
-		southPanel.setBackground(Color.white);
+		southPanel.setBackground(B_ProjectPage.BG_COLOR);
 		southPanel.setSize(300, 500);
 		calendar.add(southPanel, "South");
 		

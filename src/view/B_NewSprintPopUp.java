@@ -1,6 +1,5 @@
 package view;
 
-import java.awt.Color;
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -11,6 +10,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -26,12 +26,16 @@ public class B_NewSprintPopUp extends JPanel {
 	private MainFrame mainFrame;
 	private JButton plusButton;
 	private Dialog newSprintPopUp;
+	private String sprintTitle;
+	private Date sprintStartDay;
+	private Date sprintEndDay;
+	
 	private int nameCtn = 0;
 	//private int startDayCtn = 0;
 	//private int endDayCtn = 0;
 	private int descriptionCtn = 0;
 	
-	public B_NewSprintPopUp(MainFrame mainFrame) {
+	public B_NewSprintPopUp(MainFrame mainFrame, B_SprintPanel sprintPanel) {
 		
 		newSprintPopUp = new Dialog(mainFrame, "새 스프린트 만들기");
 		//newSprintPopUp.setBackground(Color.darkGray);
@@ -49,7 +53,7 @@ public class B_NewSprintPopUp extends JPanel {
 		newSprintPopUp.setLayout(null);
 		//newSprintPopUp.setOpacity(0.5f);
 		newSprintPopUp.setUndecorated(true);
-		newSprintPopUp.setBackground(new Color(1f, 0.9f, 0.1f, 0.8f));
+		newSprintPopUp.setBackground(B_ProjectPage.POPUP_COLOR);
 		
 		setUIFont (new javax.swing.plaf.FontUIResource("맑은 고딕", Font.ITALIC, 15));
 		
@@ -297,11 +301,16 @@ public class B_NewSprintPopUp extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				//스프린트 목록에 스프린트 이름 추가되고, 세부 스프린트 페이지 생성되어야함
+				//세부 스프린트 페이지는 리스트에 생성되어야함
+				sprintTitle = sprintName.getText();
+				sprintStartDay = startDayPicker.getDate();
+				sprintEndDay = endDayPicker.getDate();
+				//생성한 스프린트를 리스트에 추가하는 메소드 호출
+				sprintPanel.addSprintOnList(sprintTitle, sprintStartDay, sprintEndDay);
+				
 				//확인버튼 클릭시 팝업창 닫히고
 				newSprintPopUp.dispose();
-				//스프린트 목록에 스프린트 이름 추가되고, 세부 스프린트 페이지 생성되어야함
-				//세부 스프린트 페이지는 리스트에 생성된 스프린트 이름 클릭시 창 넘어가야 함
-				
 			}
 		});
 		

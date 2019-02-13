@@ -15,8 +15,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
+
+import model.vo.Sprint;
 
 
 
@@ -25,16 +25,21 @@ public class C_MenuBarPanel extends JPanel implements MouseListener,ActionListen
 	private MainFrame mf;
 	private C_SprintMainPage sprintMain;
 	private C_MenuBarPanel MenuPanel;
+	//받아온 selectedSprint 필드에저장(민)
+	private Sprint selectedSprint;
 	
 	private JButton User_btn;
 	private JButton home;
 	private JButton back;
 	private JButton Member_btn ;
 	
-	public C_MenuBarPanel(C_SprintMainPage sprintMain, MainFrame mf) {
+	//매개변수수정(민)
+	public C_MenuBarPanel(C_SprintMainPage sprintMain, MainFrame mf, Sprint selectedSprint) {
 		this.sprintMain = sprintMain;
 		this.MenuPanel = this;
 		this.mf = mf;
+		//(민)
+		this.selectedSprint = selectedSprint;
 		
 		//this.setPreferredSize(new Dimension(1024,65));
 		this.setBackground(Color.GRAY);
@@ -113,7 +118,10 @@ public class C_MenuBarPanel extends JPanel implements MouseListener,ActionListen
 		pro_Panel.add(progressBar);
 		
 		JLabel Sprint_Title = new JLabel();
-		Sprint_Title.setText("프로젝트 명 - 스프린트명 (yyyy/MM/dd ~ yyyy/MM/dd)");
+		
+		//스프린트명 선택된 것으로 받아서 출력(민)
+		Sprint_Title.setText("프로젝트 명 - " + selectedSprint);
+		
 		Sprint_Title.setFont(new Font("맑은 고딕",Font.BOLD,19));
 		Sprint_Title.setAlignmentX(CENTER_ALIGNMENT);
 		Sprint_Title.setAlignmentY(CENTER_ALIGNMENT);

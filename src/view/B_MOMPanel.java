@@ -29,7 +29,7 @@ public class B_MOMPanel extends JPanel implements ActionListener{
 		//this.setPreferredSize(new Dimension(274, 688));
 		//this.setLocation(750, 80);
 		
-		this.setBackground(Color.WHITE);
+		this.setBackground(B_ProjectPage.BG_COLOR);
 
 
 		// this.setSize(350, 688);
@@ -53,11 +53,11 @@ public class B_MOMPanel extends JPanel implements ActionListener{
 
 		// 회의록 생성버튼, 회의록 리스트 패널
 		JPanel MOMPanel = new JPanel();
-		MOMPanel.setBackground(Color.WHITE);
+		MOMPanel.setBackground(B_ProjectPage.BG_COLOR);
 		MOMPanel.setLayout(new BorderLayout());
 
 		JPanel newMOMPanel = new JPanel();
-		newMOMPanel.setBackground(Color.WHITE);
+		newMOMPanel.setBackground(B_ProjectPage.BG_COLOR);
 		newMOMPanel.setLayout(new FlowLayout(FlowLayout.TRAILING));
 
 		// 회의록 생성 버튼 (클릭시 팝업 떠야함)

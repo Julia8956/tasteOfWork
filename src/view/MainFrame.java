@@ -17,7 +17,7 @@ public class MainFrame extends JFrame {
 		int xPos = (dim.width / 2) - (this.getWidth() / 2);
 		int yPos = (dim.height / 2) - (this.getHeight() / 2);
 		
-				this.setLocation(xPos, yPos);
+		this.setLocation(xPos, yPos);
 		
 		//new A_LoginPage(this);
 		new B_ProjectPage(this);

@@ -1,18 +1,19 @@
 package view;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
 import javax.swing.JPanel;
-import javax.swing.UIManager;
+
+import model.vo.Sprint;
 
 //프로젝트 메인 페이지
 public class B_ProjectPage extends JPanel{
 
 	private MainFrame mainFrame;
-	
+	public static final Color BG_COLOR = new Color(204, 245,255); 
+	public static final Color POPUP_COLOR = new Color(1f, 0.7f, 0.7f, 0.8f);
 	private B_ProjectPage projectPage;
 	
 	public B_ProjectPage(MainFrame mainFrame) {
@@ -87,6 +88,9 @@ public class B_ProjectPage extends JPanel{
 		ChangePanel.changePanel(mainFrame, this, new A_MainPage(mainFrame));
 	}
 	
+	public void goToSprintPage(Sprint selected) {
+		ChangePanel.changePanel(mainFrame, this, new C_SprintMainPage(mainFrame, this, selected));
+	}
 	
 	
 	
