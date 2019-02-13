@@ -19,9 +19,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.UIManager;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
+import model.vo.Project;
 import model.vo.Sprint;
 
 public class B_SprintPanel extends JPanel implements ActionListener {
@@ -36,11 +35,16 @@ public class B_SprintPanel extends JPanel implements ActionListener {
 	private JList sprintJList;
 	private ArrayList<Sprint> sprintArrList = new ArrayList<Sprint>();
 	
-	public B_SprintPanel(B_ProjectPage projectPage, MainFrame mainFrame) {
+	private Project selectedProject;
+	
+	public B_SprintPanel(B_ProjectPage projectPage, MainFrame mainFrame, Project selectedProject) {
 		
 		this.mainFrame = mainFrame;
 		this.projectPage = projectPage;
 		this.sprintPanel = this;
+		
+		this.selectedProject = selectedProject;
+		
 		//this.setSize(350, 688);
 		//this.setPreferredSize(new Dimension(350, 688));
 		//this.setLocation(0, 80);
@@ -94,8 +98,8 @@ public class B_SprintPanel extends JPanel implements ActionListener {
 			public void mouseClicked(MouseEvent e) {
 
 				if(e.getClickCount() == 2) {
-					Sprint selected = (Sprint)sprintJList.getSelectedValue();
-					projectPage.goToSprintPage(selected);
+					Sprint selectedSprint = (Sprint)sprintJList.getSelectedValue();
+					projectPage.goToSprintPage(selectedSprint);
 					
 				}
 			}
@@ -154,7 +158,7 @@ public class B_SprintPanel extends JPanel implements ActionListener {
 	public void addSprintOnList(String sprintTitle, Date sprintStartDay, Date sprintEndDay) {
 		//받아온 스프린트명, 시작일, 종료일로 Sprint객체 생성해서 arrayList에 올리기
 		
-		Sprint newSprint = new Sprint(sprintTitle, sprintStartDay, sprintEndDay);
+		Sprint newSprint = new Sprint(selectedProject, sprintTitle, sprintStartDay, sprintEndDay);
 		sprintArrList.add(newSprint);
 		sprintModel.addElement(newSprint);
 		sprintPanel.revalidate();

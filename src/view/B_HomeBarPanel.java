@@ -3,7 +3,6 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,6 +18,8 @@ import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import model.vo.Project;
+
 public class B_HomeBarPanel extends JPanel implements MouseListener, ActionListener {
 
 	private MainFrame mf;
@@ -27,12 +28,16 @@ public class B_HomeBarPanel extends JPanel implements MouseListener, ActionListe
 	private JButton User_btn;
 	private JButton homeButton;
 	private JButton backButton;
+	
+	private Project selectedProject;
 
-	public B_HomeBarPanel(B_ProjectPage projectPage) {
+	public B_HomeBarPanel(B_ProjectPage projectPage, Project selectedProject) {
 
 		this.projectPage = projectPage;
 		this.homeBarPanel = this;
 		this.mf = mf;
+		
+		this.selectedProject = selectedProject;
 
 		// this.setSize(1024, 80);
 		this.setPreferredSize(new Dimension(1024, 65));
@@ -98,7 +103,7 @@ public class B_HomeBarPanel extends JPanel implements MouseListener, ActionListe
 		pro_Panel.add(progressBar);
 
 		JLabel Sprint_Title = new JLabel();
-		Sprint_Title.setText("프로젝트 명 - 스프린트명 (yyyy/MM/dd ~ yyyy/MM/dd)");
+		Sprint_Title.setText(selectedProject.toString());
 		Sprint_Title.setFont(new Font("맑은 고딕", Font.BOLD, 19));
 		Sprint_Title.setAlignmentX(CENTER_ALIGNMENT);
 		Sprint_Title.setAlignmentY(CENTER_ALIGNMENT);
