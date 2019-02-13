@@ -12,7 +12,7 @@ public class B_ProjectNamePanel extends JPanel {
 	public B_ProjectNamePanel(B_ProjectPage projectPage) {
 		
 		this.setLayout(new FlowLayout(FlowLayout.TRAILING));
-		this.setBackground(Color.WHITE);
+		this.setBackground(B_ProjectPage.BG_COLOR);
 		//프로젝트명 : 프로젝트 생성시 입력한 이름으로 받아와야 함
 		JLabel projectName = new JLabel("회의록", JLabel.RIGHT);
 		projectName.setHorizontalAlignment(JLabel.CENTER);

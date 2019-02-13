@@ -35,7 +35,7 @@ public class B_MOMPopUp extends JPanel {
 		Mompopup = new Dialog(mainFrame, "»õ È¸ÀÇ·Ï");
 		Mompopup.setLayout(null);
 		Mompopup.setUndecorated(true);
-		Mompopup.setBackground(new Color(0.5f, 0.5f, 0.5f, 0.9f));
+		Mompopup.setBackground(B_ProjectPage.POPUP_COLOR);
 		
 		
 		//ÀüÃ¼ ÆùÆ® ½ºÅ¸ÀÏ Àû¿ë
@@ -83,7 +83,7 @@ public class B_MOMPopUp extends JPanel {
 		writerLabel.setSize(100, 45);
 		writerLabel.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 20));
 		//±Û¾¾»ö±ò Èò»öÀ¸·Î º¯°æ
-		writerLabel.setForeground(Color.WHITE);
+		//writerLabel.setForeground(Color.WHITE);
 		
 		Mompopup.add(writerLabel);
 
@@ -98,7 +98,7 @@ public class B_MOMPopUp extends JPanel {
 		DayLabel.setSize(140, 40);
 		DayLabel.setFont(new Font("¸¼Àº °íµñ", Font.BOLD,20));
 		//±Û¾¾»ö±ò Èò»öÀ¸·Î º¯°æ
-		DayLabel.setForeground(Color.WHITE);
+		//DayLabel.setForeground(Color.WHITE);
 		Mompopup.add(DayLabel);
 		//´Þ·Â
 		JXDatePicker Day = new DatePicker().getDatePicker();
@@ -113,7 +113,7 @@ public class B_MOMPopUp extends JPanel {
 		attend.setSize(100, 45);
 		attend.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 20));
 		//±Û¾¾»ö±ò Èò»öÀ¸·Î º¯°æ
-		attend.setForeground(Color.WHITE);
+		//attend.setForeground(Color.WHITE);
 		Mompopup.add(attend);
 
 		// Âü¼®ÀÚ TextÇÊµå
@@ -141,7 +141,7 @@ public class B_MOMPopUp extends JPanel {
 		plusButton.setSize(30, 40);
 		plusButton.setToolTipText("Âü¼®ÀÚ Ãß°¡");
 		//±Û¾¾»ö±ò Èò»öÀ¸·Î º¯°æ
-		plusButton.setForeground(Color.WHITE);
+		//plusButton.setForeground(Color.WHITE);
 
 		Mompopup.add(plusButton);
 
@@ -190,7 +190,7 @@ public class B_MOMPopUp extends JPanel {
 		text.setSize(100, 45);
 		text.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 20));
 		//±Û¾¾»ö±ò Èò»öÀ¸·Î º¯°æ
-		text.setForeground(Color.WHITE);
+		//text.setForeground(Color.WHITE);
 		Mompopup.add(text);
 
 		// ³»¿ë ÀÛ¼º Ä­
