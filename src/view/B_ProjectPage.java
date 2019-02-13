@@ -1,10 +1,12 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
 import javax.swing.JPanel;
+import javax.swing.UIManager;
 
 //프로젝트 메인 페이지
 public class B_ProjectPage extends JPanel{
@@ -72,7 +74,7 @@ public class B_ProjectPage extends JPanel{
 		//gc.weighty = 0.1;
 		gc.gridwidth = GridBagConstraints.REMAINDER;
 		//gc.gridheight = 1;
-		gridbag.setConstraints(new B_MOMPanel(this), gc);
+		gridbag.setConstraints(new B_MOMPanel(this, mainFrame), gc);
 		//new MOMPanel(this);
 		
 		this.setVisible(true);
@@ -84,6 +86,8 @@ public class B_ProjectPage extends JPanel{
 	public void goToMainPage() {
 		ChangePanel.changePanel(mainFrame, this, new A_MainPage(mainFrame));
 	}
+	
+	
 	
 	
 	

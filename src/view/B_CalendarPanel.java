@@ -124,6 +124,7 @@ public class B_CalendarPanel extends JPanel {
 		String[] columns = {"SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"};
 		//요일을 열로 하고, 행은 null로 하는 테이블모델만들기
 		model = new DefaultTableModel(null, columns);
+		
 		//model.isCellEditable();
 		JTable calendarTable = new JTable(model);
 		//Dimension d = new Dimension(300, 300);
@@ -139,6 +140,7 @@ public class B_CalendarPanel extends JPanel {
 		calendarTable.getTableHeader().setReorderingAllowed(false);
 		
 		//calendarTable.setFillsViewportHeight(true);
+		
 		
 		
 		//calendarTable.setRowHeight(calendarTable.getColumn(0).getWidth());
@@ -173,13 +175,21 @@ public class B_CalendarPanel extends JPanel {
 		scroll.setSize(calendarTable.getSize());
 		scroll.setViewportBorder(BorderFactory.createEmptyBorder());
 		scroll.setViewportBorder(null);
-		
+		scroll.getViewport().setBackground(Color.WHITE);
 		scroll.setBackground(Color.WHITE);
+		scroll.setForeground(Color.WHITE);
 		scroll.setBorder(BorderFactory.createEmptyBorder());
 		//scroll.setViewportBorder(null);
 		
 		calendar.add(calendarHeadPanel, "North");
 		calendar.add(scroll, "Center");
+		
+		
+		JPanel southPanel = new JPanel();
+		southPanel.setBackground(Color.white);
+		southPanel.setSize(300, 500);
+		calendar.add(southPanel, "South");
+		
 		
 		
 		this.add(calendar, "Center");

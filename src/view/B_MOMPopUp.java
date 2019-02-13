@@ -17,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 
 import org.jdesktop.swingx.JXDatePicker;
 
@@ -30,9 +31,17 @@ public class B_MOMPopUp extends JPanel {
 
 	public B_MOMPopUp(MainFrame mainFrame) {
 
+		this.mainFrame = mainFrame;
 		Mompopup = new Dialog(mainFrame, "»õ È¸ÀÇ·Ï");
 		Mompopup.setLayout(null);
+		Mompopup.setUndecorated(true);
+		Mompopup.setBackground(new Color(0.5f, 0.5f, 0.5f, 0.9f));
+		
+		
+		//ÀüÃ¼ ÆùÆ® ½ºÅ¸ÀÏ Àû¿ë
+		setUIFont (new javax.swing.plaf.FontUIResource("¸¼Àº °íµñ", Font.ITALIC, 15));
 
+		
 		// ÆË¾÷À§Ä¡ Á¶Á¤(È­¸é °¡¿îµ¥)
 		Mompopup.setSize(515, 620);
 		Toolkit tk = Toolkit.getDefaultToolkit();
@@ -41,11 +50,10 @@ public class B_MOMPopUp extends JPanel {
 		int yPos = (dim.height / 2) - (Mompopup.getHeight() / 2);
 		Mompopup.setLocation(xPos, yPos);
 
+		
 		// ÀÌ¸§
 		JTextField momName = new JTextField("È¸ÀÇ¸í", 30);
-		momName.setFont(new Font("¸¼Àº °íµñ", Font.BOLD,
-
-				15));
+		//momName.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 15));
 		momName.setLocation(20, 50);
 		momName.setSize(450, 45);
 		Mompopup.add(momName);
@@ -73,7 +81,10 @@ public class B_MOMPopUp extends JPanel {
 		JLabel writerLabel = new JLabel("ÀÛ¼ºÀÚ");
 		writerLabel.setLocation(40, 115);
 		writerLabel.setSize(100, 45);
-		writerLabel.setFont(new Font("¸¼Àº °íµñ", Font.BOLD,20));
+		writerLabel.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 20));
+		//±Û¾¾»ö±ò Èò»öÀ¸·Î º¯°æ
+		writerLabel.setForeground(Color.WHITE);
+		
 		Mompopup.add(writerLabel);
 
 		JTextField writer = new JTextField(50);
@@ -86,6 +97,8 @@ public class B_MOMPopUp extends JPanel {
 		DayLabel.setLocation(280, 115);
 		DayLabel.setSize(140, 40);
 		DayLabel.setFont(new Font("¸¼Àº °íµñ", Font.BOLD,20));
+		//±Û¾¾»ö±ò Èò»öÀ¸·Î º¯°æ
+		DayLabel.setForeground(Color.WHITE);
 		Mompopup.add(DayLabel);
 		//´Þ·Â
 		JXDatePicker Day = new DatePicker().getDatePicker();
@@ -99,6 +112,8 @@ public class B_MOMPopUp extends JPanel {
 		attend.setLocation(40, 175);
 		attend.setSize(100, 45);
 		attend.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 20));
+		//±Û¾¾»ö±ò Èò»öÀ¸·Î º¯°æ
+		attend.setForeground(Color.WHITE);
 		Mompopup.add(attend);
 
 		// Âü¼®ÀÚ TextÇÊµå
@@ -117,9 +132,7 @@ public class B_MOMPopUp extends JPanel {
 		// Âü¼®ÀÚ ÀÔ·ÂÈÄ +¹öÆ° Å¬¸¯½Ã ¾Æ·¡ textArea·Î ³Ñ¾î°¡¾ß ÇÔ
 		plusButton = new JButton("+");
 
-		plusButton.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN,
-
-				20));
+		plusButton.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 20));
 		plusButton.setLocation(440, 175);
 		plusButton.setOpaque(false);
 		plusButton.setContentAreaFilled(false);
@@ -127,6 +140,8 @@ public class B_MOMPopUp extends JPanel {
 		plusButton.setBorder(null);
 		plusButton.setSize(30, 40);
 		plusButton.setToolTipText("Âü¼®ÀÚ Ãß°¡");
+		//±Û¾¾»ö±ò Èò»öÀ¸·Î º¯°æ
+		plusButton.setForeground(Color.WHITE);
 
 		Mompopup.add(plusButton);
 
@@ -174,6 +189,8 @@ public class B_MOMPopUp extends JPanel {
 		text.setLocation(40, 300);
 		text.setSize(100, 45);
 		text.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 20));
+		//±Û¾¾»ö±ò Èò»öÀ¸·Î º¯°æ
+		text.setForeground(Color.WHITE);
 		Mompopup.add(text);
 
 		// ³»¿ë ÀÛ¼º Ä­
@@ -234,11 +251,22 @@ public class B_MOMPopUp extends JPanel {
 			}
 		});
 
-		Mompopup.setUndecorated(true);
 	}
 
 	public Dialog getMomPopup() {
 		return Mompopup;
 	}
 
+	//ÀüÃ¼ ÆùÆ®Àû¿ë ¸Þ¼Òµå
+	public static void setUIFont (javax.swing.plaf.FontUIResource f){
+	    java.util.Enumeration keys = UIManager.getDefaults().keys();
+	    while (keys.hasMoreElements()) {
+	      Object key = keys.nextElement();
+	      Object value = UIManager.get (key);
+	      if (value instanceof javax.swing.plaf.FontUIResource)
+	        UIManager.put (key, f);
+	      }
+	 } 
+	
+	
 }
