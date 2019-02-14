@@ -6,23 +6,34 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import org.jdesktop.swingx.JXDatePicker;
 
+import model.vo.Work;
+
 //import org.jdesktop.swingx.JXDatePicker;
 
 public class C_CreatePU extends JPanel{
 	private MainFrame mf;
 	private Dialog cp;
+	private String work_name;
+	private String work_subject;
 	
-	public C_CreatePU(MainFrame mf) {
+	public C_CreatePU() {}
+	
+	public C_CreatePU(MainFrame mf, C_ProgressPanel progressPanel) {}
+	
+	public C_CreatePU(MainFrame mf, C_DonePanel DoenPanel) {}
+	
+	public C_CreatePU(MainFrame mf, C_OpenPanel openPanel) {
+		
 		
 		cp = new Dialog(mf,"할일 생성");
 		
@@ -46,7 +57,7 @@ public class C_CreatePU extends JPanel{
 		
 		
 		//사용자가 할일의 이름을 입력하여 이름을 정해준다
-		//CheckPU wN의 라벨로 들어간다
+		
 		JTextField wT = new JTextField(15);	//할일 TextField
 		wT.setLocation(100, 40);			
 		wT.setSize(230, 25);
@@ -62,17 +73,18 @@ public class C_CreatePU extends JPanel{
 		
 		JXDatePicker term1DayPicker = new DatePicker().getDatePicker();
 		term1DayPicker.setLocation(30, 110);	//30,210
-		term1DayPicker.setSize(100, 40);
+		term1DayPicker.setSize(120, 40);
 		cp.add(term1DayPicker);
 		
 		JLabel wave = new JLabel(" ~ ");
 		wave.setSize(60, 50);
+		wave.setFont(new Font("",Font.BOLD,10));
 		wave.setLocation(170, 100);
 		
 		
 		JXDatePicker term2DayPicker = new DatePicker().getDatePicker();
 		term2DayPicker.setLocation(220, 110);
-		term2DayPicker.setSize(100, 40);
+		term2DayPicker.setSize(120, 40);
 		cp.add(term2DayPicker);
 		
 		JLabel dL = new JLabel("세부 내용");
@@ -81,31 +93,74 @@ public class C_CreatePU extends JPanel{
 		dL.setSize(100, 100);
 		
 		//사용자가 세부내용을 입력하는 부분, 입력을 끝내면 CheckPU dT 텍스트 필드에서 보여진다
-		JTextField dT = new JTextField(100);  //세부사항 TextField 
+		JTextField dT = new JTextField("세부 사항을 입력 하시오",100);  //세부사항 TextField 
 		dT.setLocation(30, 190);			
 		dT.setSize(300, 70);
+
+		//textField에 마우스 클릭시 내용지워지고 빈화면으로 바뀜
+		dT.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				//아무것도 입력되지 않은 상태에서만 빈칸으로 만들기
+				//if (nameCtn == 0) {
+				dT.setText("");
+				//}
+			}
+		});
+
 		
-		//긴급 라벨 !!!!!!!
-		JLabel emergencyL = new JLabel("긴급");
-		emergencyL.setSize(110, 110);
-		emergencyL.setLocation(250, 235);
+		//worksubject !!!!!!!
+		JLabel work_subjectLable = new JLabel("Label");
+		work_subjectLable.setSize(110, 110);
+		work_subjectLable.setLocation(30, 235);
 		
-		//긴급 체크박스
-		JCheckBox emergencyCB = new JCheckBox();
-		emergencyCB.setSize(50, 50);
-		emergencyCB.setLocation(280, 265);
+		//긴급 textField
+		JTextField work_subjectText = new JTextField("Label 입력",15);
+		work_subjectText.setSize(150, 25);
+		work_subjectText.setLocation(100, 280);
+
+		//textField에 마우스 클릭시 내용지워지고 빈화면으로 바뀜
+		work_subjectText.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				//아무것도 입력되지 않은 상태에서만 빈칸으로 만들기
+				//if (nameCtn == 0) {
+				work_subjectText.setText("");
+				//}
+			}
+		});
 		
 		//닫기 버튼을 누르면 창이 닫아진다
 		JButton closeB = new JButton("닫기");		
-		closeB.setSize(60, 30);
+		closeB.setSize(70, 30);
 		closeB.setLocation(30, 320);
 		
 		closeB.addActionListener(new CloseEvent());
 		
-		//저장 버튼을 누르면 변경 사항이 저장이 되어, CheckPU의 객체가 생성된다
+		//저장 버튼을 누르면 변경 사항이 저장이 되어, openpanel에 올라간다
 		JButton saveB = new JButton("저장");		
-		saveB.setSize(60, 30);					
+		saveB.setSize(70, 30);					
 		saveB.setLocation(250, 320);
+		
+		saveB.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				work_name = wT.getText();
+				work_subject = work_subjectText.getText();
+				
+				Work work = new Work();
+				work.setWork_name(work_name);
+				work.setLabel_name(work_subject);
+				
+				openPanel.addWorkOnList(work);
+				
+				cp.dispose();
+			}
+		});
+				
+				
+				
 		
 		cp.add(wL);
 		cp.add(dL);
@@ -113,8 +168,8 @@ public class C_CreatePU extends JPanel{
 		cp.add(dT);
 		cp.add(L_tearm);
 		cp.add(wave);
-		cp.add(emergencyL);
-		cp.add(emergencyCB);
+		cp.add(work_subjectText);
+		cp.add(work_subjectLable);
 		cp.add(closeB);
 		cp.add(saveB);
 		

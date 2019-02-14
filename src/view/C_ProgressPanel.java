@@ -11,7 +11,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.DefaultListModel;
-import javax.swing.DropMode;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -19,10 +18,8 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 
-import model.Work;
-
+import model.vo.Work;
 
 
 public class C_ProgressPanel extends JPanel implements ActionListener,MouseListener{
@@ -94,7 +91,7 @@ public class C_ProgressPanel extends JPanel implements ActionListener,MouseListe
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == Add_Work) {
-			new C_CreatePU(this.mainFrame).getCreatePU().setVisible(true);
+			//new C_CreatePU(this.mainFrame).getCreatePU().setVisible(true);
 		}
 	}
 
@@ -102,7 +99,7 @@ public class C_ProgressPanel extends JPanel implements ActionListener,MouseListe
 		//DefaultListModel<Work> model = new DefaultListModel<>();
 
 		String[] member = {"김규형","우리나"};
-		progrssmodel.addElement(new Work("할일명", member , true));
+		progrssmodel.addElement(new Work("할일명", member , "긴급"));
 		//String[] member2 = {"송낙규","최인효","김규형"};
 		//model.addElement(new Work("할일명2", member2, false));
 
@@ -120,8 +117,8 @@ public class C_ProgressPanel extends JPanel implements ActionListener,MouseListe
 		if (e.getSource() == progresslist) {
 			if (e.getClickCount() ==2) {
 				Work work = progresslist.getSelectedValue();
-				new C_CheckPU(this.mainFrame,work).getCheckPU().setVisible(true);
-				System.out.println("누름");
+				//new C_CheckPU(this.mainFrame,work).getCheckPU().setVisible(true);
+				//System.out.println("누름");
 
 			}
 		}

@@ -8,46 +8,48 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.Arrays;
-import java.util.HashSet;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-public class C_SprintDialog extends JPanel implements ActionListener{
+import model.vo.Work;
+
+public class C_SprintDialog extends JPanel {
 	private MainFrame mainframe;
 	private C_CheckPU checkpu;
 	private Dialog C_SprintDialog;
 
 	private int count = 0;
-	private String[] checkmember = new String[10];
+	//private String[] checkmember = new String[10];
 	private String result = "";
 
 	private JButton OK_btn;
-	
+
 	private String message;
+
+	private Work work;
 
 	public C_SprintDialog() {}
 
-	public C_SprintDialog(MainFrame mainframe,String message) {
+	public C_SprintDialog(MainFrame mainframe,C_CheckPU checkpu,String message) {
 		this.mainframe = mainframe;
-		
+		this.checkpu = checkpu;
+
 		this.message = message;
 
 		C_SprintDialog = new Dialog(mainframe,"할당자 선택창");
 		C_SprintDialog.setLayout(null);
 		C_SprintDialog.setSize(350,350);
-		
+
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		Dimension dim = tk.getScreenSize();
 		int xPos = (dim.width /2 )  - (C_SprintDialog.getWidth() / 2);
 		int yPos = (dim.height / 2) - (C_SprintDialog.getHeight() / 2);
-		
+
 		C_SprintDialog.setLocation(xPos, yPos);
 
 
@@ -76,31 +78,32 @@ public class C_SprintDialog extends JPanel implements ActionListener{
 			checkPanel.add(Ass_Check[i]);
 		}
 
-		//JLabel text = new JLabel("선택한 과일이 없습니다.");
-	
+
 		for (int i = 0  ; i < Ass_Check.length ; i++) {
 			Ass_Check[i].addItemListener(new ItemListener() {
 
 				@Override
 				public void itemStateChanged(ItemEvent e) {
 					int tep = 0;
-					String result1 = "";
-					
-					for (int i = 0; i < Ass_Check.length ; i++) {
-						if (Ass_Check[i].isSelected()) {							
-							
-							result += Ass_Check[i].getText() + "/";
-							
-							tep++;
-						}
+					//String result1 = "";
 
-						
+					for (int i = 0; i < Ass_Check.length ; i++) {
+						//체크가 되어있는지 지속적으로 체크하는 것이다.
+						if (Ass_Check[i].isSelected()) {
+							result += Ass_Check[i].getText() + "/";
+							tep++;
+
+							//text.setText(result);
+
+							if (tep == 0) {
+								result = "선택한 하세요";
+							}
+						}
 					}
 				}
-
 			});
 		}
-	
+
 
 		//System.out.println(text.getText()+"");
 
@@ -113,7 +116,7 @@ public class C_SprintDialog extends JPanel implements ActionListener{
 		OK_btn.setLocation(220, 290);
 		OK_btn.setSize(80,30);
 
-		OK_btn.addActionListener(this);
+		//OK_btn.addActionListener(this);
 
 		JButton Cancel_btn = new JButton("닫기");
 		Cancel_btn.setLocation(20, 290);
@@ -126,17 +129,18 @@ public class C_SprintDialog extends JPanel implements ActionListener{
 		C_SprintDialog.add(OK_btn);
 		C_SprintDialog.add(Cancel_btn);
 
-		//mainFrame.add(AssPanel);
+		OK_btn.addActionListener(new ActionListener() {
 
-		//return AssPanel;
-	}
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println(result);
 
-	public String[] getCheckmember() {
-		return checkmember;
-	}
+				checkpu.ChangeAss(result);
+				
+				C_SprintDialog.dispose();
+			}
 
-	public void setCheckmember(String[] checkmember) {
-		this.checkmember = checkmember;
+		});
 	}
 
 	public Dialog getAsspanel() {
@@ -151,32 +155,6 @@ public class C_SprintDialog extends JPanel implements ActionListener{
 			C_SprintDialog.dispose();
 		}
 
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == OK_btn) {
-			//new C_CheckPU().setMemeber(this.checkmember);
-			System.out.println(result);
-					
-			String[] name = result.split("/");
-			
-			name = new HashSet<String>(Arrays.asList(name)).toArray(new String[0]);
-			System.out.println("after length=" + name.length);
-			
-			/*String[]*/ checkmember = new String[name.length];
-			
-			for (int i = 0 ; i < checkmember.length ; i++) {
-				checkmember[i] = name[i];
-				System.out.println(checkmember[i]);
-			}
-			
-			//JList returnlist = new JList(checkmember);
-			
-			//new C_CheckPU(this.mainframe,new C_CheckPU().getName()).getDialogMember(checkmember);
-			
-			C_SprintDialog.dispose();
-		}
 	}
 
 
