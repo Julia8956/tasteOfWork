@@ -68,7 +68,7 @@ public class C_DonePanel extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == Add_Work) {
-			new C_CreatePU(mainFrame).getCreatePU().setVisible(true);
+		//	new C_CreatePU(mainFrame).getCreatePU().setVisible(true);
 		}
 	}
 

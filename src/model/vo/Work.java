@@ -1,5 +1,6 @@
-package model;
+package model.vo;
 
+import java.awt.Color;
 import java.util.Arrays;
 
 public class Work {
@@ -7,39 +8,59 @@ public class Work {
 	private String work_start;		//할일 시작날짜
 	private String work_end;		//할일 종료날짜
 	private String[] allocator;		//할당자
-	private boolean emergy; 		//긴급
+	private String label_name; 		//라벨이름
+	private Color label_color = Color.YELLOW;
+	
+	
+	
+	public Color getLabel_color() {
+		return label_color;
+	}
+
+	public void setLabel_color(Color label_color) {
+		this.label_color = label_color;
+	}
+
 	private String work_content; 	//할일 세부내용
 	private String feedback;		//피드백
 	
 	public Work() {}
 	
-	public Work(String work_name, String[] allocator, boolean emergy) {
+	public Work(String work_name, String[] allocator, String label_name) {
 		this.work_name = work_name;
 		this.allocator = allocator;
-		this.emergy = emergy;
+		this.label_name = label_name;
 	}
 
-	public Work(String work_name, String work_start, String work_end, boolean emergy) {
+	public Work(String work_name, String work_start, String work_end, String label_name) {
 		super();
 		this.work_name = work_name;
 		this.work_start = work_start;
 		this.work_end = work_end;
-		this.emergy = emergy;
+		this.label_name = label_name;
 	}
 
-	public Work(String work_name, String work_start, String work_end, String[] allocator, boolean emergy,
+	public Work(String work_name, String work_start, String work_end, String[] allocator, String label_name,
 			String work_content, String feedback) {
 		super();
 		this.work_name = work_name;
 		this.work_start = work_start;
 		this.work_end = work_end;
 		this.allocator = allocator;
-		this.emergy = emergy;
+		this.label_name = label_name;
 		this.work_content = work_content;
 		this.feedback = feedback;
 	}
 	
 	
+
+	public Work(String work_name, String[] allocator, String label_name, Color label_color) {
+		super();
+		this.work_name = work_name;
+		this.allocator = allocator;
+		this.label_name = label_name;
+		this.label_color = label_color;
+	}
 
 	public String getWork_name() {
 		return work_name;
@@ -73,12 +94,13 @@ public class Work {
 		this.allocator = allocator;
 	}
 
-	public boolean isEmergy() {
-		return emergy;
+
+	public String getLabel_name() {
+		return label_name;
 	}
 
-	public void setEmergy(boolean emergy) {
-		this.emergy = emergy;
+	public void setLabel_name(String label_name) {
+		this.label_name = label_name;
 	}
 
 	public String getWork_content() {
@@ -99,7 +121,7 @@ public class Work {
 
 	@Override
 	public String toString() {
-		return "Work [work_name=" + work_name + ", allocator=" + Arrays.toString(allocator) + ", emergy=" + emergy
+		return "Work [work_name=" + work_name + ", allocator=" + Arrays.toString(allocator) + ", emergy=" + label_name
 				+ "]";
 	}
 	

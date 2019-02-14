@@ -178,7 +178,7 @@ public class C_AddInvitePU extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == Fire_Button) {
 			String message = "강퇴시킬 멤버를 고르세요.";
-			new C_SprintDialog(this.mf,message).getAsspanel().setVisible(true);	
+			//new C_SprintDialog(this.mf,message).getAsspanel().setVisible(true);	
 		}
 	}
 	
