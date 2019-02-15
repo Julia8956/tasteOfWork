@@ -30,17 +30,22 @@ public class C_CheckPU extends JPanel implements ActionListener{
 	private MainFrame mf;
 	private Dialog checkpu;
 
-	private String work_title;
-	private JButton iB;
-	private JButton label_btn;
-	private Color color;
-	private JComboBox asscom;
-	private JButton reviseB;
+	private String work_title; 		//할일명
+	private JButton iB;				//
+	private JButton label_btn;		//라벨 색깔 버튼
+	private Color color;			//색깔
+	private JComboBox asscom;		//컴보박스 - 할당자
+	private JButton reviseB;		//닫기
 	
-	private JTextField wN;
-	private JTextField label_Text;
+	private JTextField wN;			//할일명 TextField
+	private JTextField label_Text;	//라벨 TextField
+	private JTextField fT;			//
+	private JTextArea fa;
+	private JButton insertB;
 	
 	private C_OpenPanel openpanel;
+	private C_ProgressPanel progresspanel;
+	private C_DonePanel donepanel;
 	
 	public Color getColor() {
 		return color;
@@ -54,12 +59,10 @@ public class C_CheckPU extends JPanel implements ActionListener{
 
 	private Work work;
 	
-	//CheckPopUp 할일을 누르면 세부사항이 보이는 창
-	public C_CheckPU(MainFrame mf,Work work,C_OpenPanel openpanel) {
+	public C_CheckPU(MainFrame mf,Work work) {
 		this.mf = mf;
 		this.work = work;
-		this.openpanel = openpanel;
-
+		
 		checkpu= new Dialog(mf, "할일 생성");
 
 		checkpu.setBounds(200, 100, 500, 680);
@@ -198,23 +201,25 @@ public class C_CheckPU extends JPanel implements ActionListener{
 
 
 		//피드백을 입력 한다
-		JTextField fT = new JTextField(100);	
+		/*JTextField*/ fT = new JTextField(100);	
 		fT.setSize(300, 65);
 		fT.setLocation(50, 320);
 
 
 
 		//입력버튼을 누르면 이제 피드백 내용으로 입력값이 전달된다
-		JButton insertB = new JButton("입력");
+		/*JButton*/ insertB = new JButton("입력");
 		insertB.setSize(65, 65);
 		insertB.setLocation(360, 320);
+		
+		insertB.addActionListener(this);
 
 		JLabel fDL = new JLabel("피드백내용");	
 		fDL.setSize(100, 70);
 		fDL.setLocation(50, 365);
 
 		//피드백을 을 입력하면, 이곳에 저장 된다
-		JTextArea fa = new JTextArea();
+		/*JTextArea*/ fa = new JTextArea();
 		fa.setEditable(false);
 		/*fa.setSize(365, 270);
 		fa.setLocation(50, 410);*/
@@ -223,18 +228,7 @@ public class C_CheckPU extends JPanel implements ActionListener{
 		faScroller.setSize(365, 160);
 		faScroller.setLocation(50, 410);
 
-		fT.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				String text = fT.getText();
-				fa.append(text + "\n");
-
-				fT.setText("");
-				fT.requestFocus();
-
-			}
-		});
+		fT.addActionListener(this);
 
 		JButton deleteB = new JButton("삭제"); //삭제할 내용을 삭제 한다
 		deleteB.setSize(60, 30);
@@ -245,7 +239,7 @@ public class C_CheckPU extends JPanel implements ActionListener{
 		reviseB.setSize(60, 30);
 		reviseB.setLocation(350, 600);
 
-		reviseB.addActionListener(this);
+		
 
 		checkpu.add(wN);
 		checkpu.add(dT);
@@ -263,8 +257,88 @@ public class C_CheckPU extends JPanel implements ActionListener{
 		checkpu.add(faScroller);
 		checkpu.add(deleteB);
 		checkpu.add(reviseB);
+		
+	}
+	
+	//CheckPopUp 할일을 누르면 세부사항이 보이는 창
+	public C_CheckPU(MainFrame mf,Work work,C_OpenPanel openpanel) {
+		this(mf,work);
+		
+		this.openpanel = openpanel;
+		
+		reviseB.addActionListener(new ActionListener() {
 
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String work_name = wN.getText();
+				String Allocator = (String)asscom.getSelectedItem();
+				String label_name = label_Text.getText();
+				Color btn_color = label_btn.getBackground();
+				
+				work.setWork_name(work_name);
+				work.setLabel_name(label_name);
+				work.setLabel_color(btn_color);
+				
+				openpanel.changeWorkOnList(work);
+				
+				checkpu.dispose();
+			}
+			
+		});
+	}
+	
+	public C_CheckPU(MainFrame mf, Work work , C_ProgressPanel progresspanel) {
+		this(mf,work);
+		
+		this.progresspanel = progresspanel;
+		
+		reviseB.addActionListener(new ActionListener() {
 
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String work_name = wN.getText();
+				String Allocator = (String)asscom.getSelectedItem();
+				String label_name = label_Text.getText();
+				Color btn_color = label_btn.getBackground();
+				
+				work.setWork_name(work_name);
+				work.setLabel_name(label_name);
+				work.setLabel_color(btn_color);
+				
+				progresspanel.changeWorkOnList(work);
+				
+				checkpu.dispose();
+			}
+			
+		});
+	}
+	
+	public C_CheckPU(MainFrame mf, Work work, C_DonePanel donepanel) {
+		this(mf,work);
+		
+		this.donepanel = donepanel;
+		
+		reviseB.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String work_name = wN.getText();
+				String Allocator = (String)asscom.getSelectedItem();
+				String label_name = label_Text.getText();
+				Color btn_color = label_btn.getBackground();
+				
+				work.setWork_name(work_name);
+				work.setLabel_name(label_name);
+				work.setLabel_color(btn_color);
+				
+				donepanel.changeWorkOnList(work);
+				
+				checkpu.dispose();
+			}
+			
+		});
+		
+		
 	}
 
 
@@ -305,19 +379,13 @@ public class C_CheckPU extends JPanel implements ActionListener{
 			new C_ColorDialog(mf,this).getColordialog().setVisible(true);
 		}
 		
-		if (e.getSource() == reviseB) {
-			String work_name = wN.getText();
-			String Allocator = (String)asscom.getSelectedItem();
-			String label_name = label_Text.getText();
-			Color btn_color = label_btn.getBackground();
+		if (e.getSource() == fT || e.getSource() == insertB) {
+			String text = fT.getText();
+			fa.append(text + "\n");
+
+			fT.setText("");
+			fT.requestFocus();
 			
-			work.setWork_name(work_name);
-			work.setLabel_name(label_name);
-			work.setLabel_color(btn_color);
-			
-			openpanel.changeWorkOnList(work);
-			
-			checkpu.dispose();
 		}
 	}
 
