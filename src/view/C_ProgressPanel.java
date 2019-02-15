@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -30,8 +31,11 @@ public class C_ProgressPanel extends JPanel implements ActionListener,MouseListe
 	private JTable progress_Table;
 	private JButton Add_Work;
 	
+	private ArrayList<Work> workArrList = new ArrayList<Work>(); //추가 한부분
+	
 	private JList<Work> progresslist;
 	DefaultListModel<Work> progrssmodel = new DefaultListModel<>();
+	private int index; 
 	
 	
 	public C_ProgressPanel(C_SprintMainPage sprintMain,MainFrame mainFrame) {
@@ -91,7 +95,7 @@ public class C_ProgressPanel extends JPanel implements ActionListener,MouseListe
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == Add_Work) {
-			//new C_CreatePU(this.mainFrame).getCreatePU().setVisible(true);
+			new C_CreatePU(this.mainFrame,this.progressPanel).getCreatePU().setVisible(true);
 		}
 	}
 
@@ -116,12 +120,15 @@ public class C_ProgressPanel extends JPanel implements ActionListener,MouseListe
 	public void mouseClicked(MouseEvent e) {
 		if (e.getSource() == progresslist) {
 			if (e.getClickCount() ==2) {
+				/*int*/ index = progresslist.getSelectedIndex();
 				Work work = progresslist.getSelectedValue();
-				//new C_CheckPU(this.mainFrame,work).getCheckPU().setVisible(true);
+				new C_CheckPU(this.mainFrame,work,this.progressPanel).getCheckPU().setVisible(true);
 				//System.out.println("누름");
+
 
 			}
 		}
+		
 	}
 
 		@Override
@@ -148,6 +155,26 @@ public class C_ProgressPanel extends JPanel implements ActionListener,MouseListe
 			
 		}
 		
+		//C_CreatePU에서 확인 버튼을 누르면 실행할 메소드
+		public void addWorkOnList(Work newwork) {
+			//입력한 할일명, 긴급표시 Work객체 생성 해서 List에 올리기
+			//Work newWork = new Work();
+			newwork.setAllocator(null);
+
+			progrssmodel.addElement(new Work(newwork.getWork_name(),newwork.getAllocator(),newwork.getLabel_name()));
+			workArrList.add(newwork);
+
+			progressPanel.revalidate();
+		}
 		
+		//C_CheckPU에서 확인버튼 느렴 실행하는 메소드
+		public void changeWorkOnList(Work changework) {
+			progrssmodel.removeElementAt(index);
+			
+			progrssmodel.addElement(new Work(changework.getWork_name(),changework.getAllocator(),changework.getLabel_name(),changework.getLabel_color()));
+			workArrList.add(changework);
+			
+			progressPanel.revalidate();
+		}
 
 }
