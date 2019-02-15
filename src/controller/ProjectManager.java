@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import model.dao.ProjectDao;
-import model.dao.SprintDao;
 import model.vo.Project;
 import model.vo.Sprint;
 
@@ -12,7 +11,7 @@ public class ProjectManager {
 
 	private ProjectDao pdao;
 	private ArrayList<Sprint> sprints = new ArrayList<Sprint>(); 
-	private SprintDao sdao;
+	//private SprintDao sdao;
 	private ArrayList<String> ids = new ArrayList<String>();
 
 	public ProjectManager() {}
