@@ -1,29 +1,42 @@
 package model.vo;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import view.C_SprintMainPage;
+public class Sprint implements Serializable{
 
-public class Sprint {
-
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	//private Project selectedProject;
 	private String sprintTitle;
 	private Date sprintStartDay;
 	private Date sprintEndDay;
-	private Project selectedProject;
+	private String sprintDetail;
+	private String sprintToDo;
 	
-	public Sprint(Project selectedProject, String sprintTitle, Date sprintStartDay, Date sprintEndDay) {
+	public Sprint() {}
+	
+	public Sprint(/*Project selectedProject,*/ String sprintTitle, Date sprintStartDay, Date sprintEndDay,
+			String sprintDetail, String sprintToDo) {
 		super();
-		this.selectedProject = selectedProject;
+		/*this.selectedProject = selectedProject;*/
 		this.sprintTitle = sprintTitle;
 		this.sprintStartDay = sprintStartDay;
 		this.sprintEndDay = sprintEndDay;
+		this.sprintDetail = sprintDetail;
+		this.sprintToDo = sprintToDo;
+				
 	}
 	
 	
-	public Project getSelectedProject() {
+	/*public Project getSelectedProject() {
 		return selectedProject;
-	}
+	}*/
 	
 	public String getSprintTitle() {
 		return sprintTitle;
@@ -70,7 +83,7 @@ public class Sprint {
 	@Override
 	public String toString() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		return sprintTitle + " " + sdf.format(sprintStartDay) + " ~ " + sdf.format(sprintEndDay);
+		return sprintTitle + " (" + sdf.format(sprintStartDay) + " ~ " + sdf.format(sprintEndDay) + ") ";
 	}
 
 

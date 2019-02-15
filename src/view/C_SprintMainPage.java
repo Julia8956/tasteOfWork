@@ -5,6 +5,7 @@ import java.awt.GridBagLayout;
 
 import javax.swing.JPanel;
 
+import model.vo.Project;
 import model.vo.Sprint;
 
 public class C_SprintMainPage extends JPanel{
@@ -12,14 +13,16 @@ public class C_SprintMainPage extends JPanel{
 	private C_SprintMainPage sprintPage;
 	//в萄蹺陛(團)
 	private B_ProjectPage projectPage;
+	private Project selectedProject;
 	private Sprint selectedSprint;
 	//衙偃滲熱熱薑(團)
-	public C_SprintMainPage(MainFrame mf, B_ProjectPage projectPage, Sprint selectedSprint) {
+	public C_SprintMainPage(MainFrame mf, B_ProjectPage projectPage, Project selectedProject, Sprint selectedSprint) {
 		this.mf = mf;
 		this.sprintPage = sprintPage;
 		
 		//(團)
 		this.projectPage = projectPage;
+		this.selectedProject = selectedProject;
 		this.selectedSprint = selectedSprint;
 		
 		this.setSize(1024,768);
@@ -35,7 +38,7 @@ public class C_SprintMainPage extends JPanel{
 		gc.gridwidth= GridBagConstraints.REMAINDER;
 		//gc.gridheight = 1;
 		//衙偃滲熱熱薑(團)
-		gridBag.setConstraints(new C_MenuBarPanel(this, this.mf, this.selectedSprint), gc);
+		gridBag.setConstraints(new C_MenuBarPanel(this, this.mf, this.selectedProject, this.selectedSprint), gc);
 	
 		
 		//OPENぬ割

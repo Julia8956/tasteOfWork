@@ -15,9 +15,10 @@ public class B_ProjectPage extends JPanel{
 	private MainFrame mainFrame;
 	public static final Color BG_COLOR = new Color(204, 245,255); 
 	public static final Color POPUP_COLOR = new Color(1f, 0.7f, 0.7f, 0.8f);
-	private B_ProjectPage projectPage;
 	
 	private A_MainPage mainPage;
+	private B_ProjectPage projectPage;
+	
 	private Project selectedProject;
 	
 	public B_ProjectPage(MainFrame mainFrame, A_MainPage mainPage, Project selectedProject) {
@@ -30,7 +31,7 @@ public class B_ProjectPage extends JPanel{
 		this.selectedProject = selectedProject;
 		
 		this.setSize(1024, 768);
-		this.setBackground(Color.BLUE);
+		//this.setBackground(Color.BLUE);
 		GridBagLayout gridbag = new GridBagLayout();
 		this.setLayout(gridbag);
 		GridBagConstraints gc = new GridBagConstraints();
@@ -96,8 +97,8 @@ public class B_ProjectPage extends JPanel{
 		ChangePanel.changePanel(mainFrame, this, mainPage);
 	}
 	
-	public void goToSprintPage(Sprint selectedSprint) {
-		ChangePanel.changePanel(mainFrame, this, new C_SprintMainPage(mainFrame, this, selectedSprint));
+	public void goToSprintPage(Project selectedProject, Sprint selectedSprint) {
+		ChangePanel.changePanel(mainFrame, this, new C_SprintMainPage(mainFrame, this, selectedProject, selectedSprint));
 	}
 	
 	

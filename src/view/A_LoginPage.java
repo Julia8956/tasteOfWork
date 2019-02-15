@@ -24,10 +24,8 @@ import javax.swing.JTextField;
 		private A_LoginPage lp;
 		
 		
-		public A_LoginPage(MainFrame mf,A_LoginPage lp) {
+		public A_LoginPage(MainFrame mf) {
 			this.mf= mf;
-			
-			this.lp = lp;
 			
 			this.lp = this;
 			
