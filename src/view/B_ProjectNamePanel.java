@@ -18,7 +18,7 @@ public class B_ProjectNamePanel extends JPanel {
 		projectName.setHorizontalAlignment(JLabel.CENTER);
 		projectName.setVerticalAlignment(JLabel.CENTER);
 		projectName.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 20));
-		this.add(projectName);
+		//this.add(projectName);
 		
 		projectPage.add(this);
 	}

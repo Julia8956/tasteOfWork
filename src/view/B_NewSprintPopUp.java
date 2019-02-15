@@ -21,14 +21,21 @@ import javax.swing.UIManager;
 
 import org.jdesktop.swingx.JXDatePicker;
 
+import model.vo.Project;
+import model.vo.Sprint;
+
 public class B_NewSprintPopUp extends JPanel {
 	
 	private MainFrame mainFrame;
 	private JButton plusButton;
 	private Dialog newSprintPopUp;
+	
+	//Sprint필드에 저장할 속성
 	private String sprintTitle;
 	private Date sprintStartDay;
 	private Date sprintEndDay;
+	private String sprintDetail;
+	private String sprintToDo;
 	
 	private int nameCtn = 0;
 	//private int startDayCtn = 0;
@@ -296,20 +303,23 @@ public class B_NewSprintPopUp extends JPanel {
 		okBtn.setLocation(385,610);
 		okBtn.setSize(90,40);
 		newSprintPopUp.add(okBtn);
-		//버튼에 이벤트 연결
+		
+		
+		
+		//확인버튼 클릭시 이벤트 연결
 		okBtn.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//스프린트 목록에 스프린트 이름 추가되고, 세부 스프린트 페이지 생성되어야함
-				//세부 스프린트 페이지는 리스트에 생성되어야함
 				sprintTitle = sprintName.getText();
 				sprintStartDay = startDayPicker.getDate();
 				sprintEndDay = endDayPicker.getDate();
-				//생성한 스프린트를 리스트에 추가하는 메소드 호출
-				sprintPanel.addSprintOnList(sprintTitle, sprintStartDay, sprintEndDay);
+				sprintDetail = description.getText();
+				sprintToDo = toDoList.getText();
 				
-				//확인버튼 클릭시 팝업창 닫히고
+				
+				sprintPanel.addSprintOnList(sprintTitle, sprintStartDay, sprintEndDay, sprintDetail, sprintToDo);
+				
 				newSprintPopUp.dispose();
 			}
 		});
@@ -335,5 +345,6 @@ public class B_NewSprintPopUp extends JPanel {
 	        UIManager.put (key, f);
 	      }
 	 } 
+	
 	
 }

@@ -7,8 +7,6 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Date;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -16,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import controller.ProjectManager;
 import model.vo.Project;
 
 public class A_MainPage extends JPanel {
@@ -28,9 +27,9 @@ public class A_MainPage extends JPanel {
    private A_AddProject ap;
    private JPanel projectbtnPanel = new JPanel();
    private JPanel newprojectbtnPanel = new JPanel();
-   private Project newProject;
+  // private Project newProject;
    
-   private ArrayList<Project> projectArrList = new ArrayList<Project>();
+   //private ArrayList<Project> projectArrList = new ArrayList<Project>();
    
    public A_MainPage(MainFrame mf) {
       
@@ -169,14 +168,14 @@ public class A_MainPage extends JPanel {
 	}
 	   
    }
-   public void makeProjectBtn(String projectTitle, Date projectStartDay, Date projectEndDay, String peopleProject) {
+   public void makeProjectBtn(String projectTitle) {
 	  
 	   //매개변수 이용해서 Project 객체 생성하고 Arraylist에 올리기
-	   Project newProject = new Project(projectTitle, projectStartDay, projectEndDay, peopleProject);
-	   projectArrList.add(newProject);
+	   //Project newProject = new Project(projectTitle, projectStartDay, projectEndDay, peopleProject);
+	   //projectArrList.add(newProject);
 
-	   //생성한 객체의 title 필드만 이용해서 버튼생성 
-	   JButton projectBtn = new JButton(newProject.getProjectTitle());
+	   //넘겨받은 projectTitle만 이용해서 버튼생성 
+	   JButton projectBtn = new JButton(projectTitle);
 
 	   projectBtn.setPreferredSize(new Dimension(150,50));
 	   projectBtn.setVisible(true);
@@ -190,23 +189,11 @@ public class A_MainPage extends JPanel {
 		   public void actionPerformed(ActionEvent e) {
 			   //버튼 이름
 			   String titleSelected = projectBtn.getText();
-			   Project selectedProject = null;
-			   for(int i = 0; i < projectArrList.size(); i++) {
-				   //arrayList에 있는 객체의 title필드값
-				   String projectTitle = projectArrList.get(i).getProjectTitle();
-				   //버튼이름과 객체의 title필드값이 같으면 selectedProject 객체에 해당 객체 덮어쓰기
-				   if(titleSelected.equals(projectTitle)) {
-					   selectedProject = projectArrList.get(i);
-					   break;
-				   }
-				   
-			   }
-			   //선택된 프로젝트가 null이아니면 해당 프로젝트 페이지로 가는 메소드 호출
-			   if(selectedProject != null) {
-				   goToProjectPage(selectedProject);
-			   }else {
-				   System.out.println("선택하신 프로젝트가 존재하지 않습니다!");
-			   }
+			  
+			   Project selectedProject = new ProjectManager().getProject(titleSelected);
+			   
+			   goToProjectPage(selectedProject);
+			   
 		   }
 	   });
 	      //mainPage.add(projectbtnPanel, BorderLayout.CENTER);
@@ -217,7 +204,7 @@ public class A_MainPage extends JPanel {
    }
 
    public void goToLoginPage() {
-		ChangePanel.changePanel(mf, this, new A_LoginPage(mf,lp));
+		ChangePanel.changePanel(mf, this, new A_LoginPage(mf));
 	}
    
    public Dialog getMainDial() {

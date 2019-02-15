@@ -1,25 +1,35 @@
 package model.vo;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
-public class Project {
+public class Project implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected String projectTitle;
 	protected Date projectStartDay;
 	protected Date projectEndDay;
-	protected String projectPeople;
+	protected transient ArrayList<Sprint> sprints;
+	protected ArrayList<String> ids;
 	
 
 	public Project() {}
 	
 	
 
-	public Project(String projectTitle, Date projectStartDay, Date projectEndDay, String projectPeople) {
+	public Project(String projectTitle, Date projectStartDay, Date projectEndDay, 
+			ArrayList<Sprint> sprints, ArrayList<String> ids) {
 		super();
 		this.projectTitle = projectTitle;
 		this.projectStartDay = projectStartDay;
 		this.projectEndDay = projectEndDay;
-		this.projectPeople = projectPeople;
+		this.sprints = sprints;
+		this.ids = ids;
 	}
 
 
@@ -36,25 +46,24 @@ public class Project {
 	}
 
 
-
-
-	public String getProjectPeople() {
-		return projectPeople;
-	}
-
-
-
-
-	public void setProjectPeople(String projectPeople) {
-		this.projectPeople = projectPeople;
-	}
-
-
-
-
 	public Date getProjectEndDay() {
 		return projectEndDay;
 	}
+
+	
+
+	public ArrayList<Sprint> getSprints() {
+		return sprints;
+	}
+
+
+
+	public ArrayList<String> getIds() {
+		return ids;
+	}
+
+
+
 
 
 
@@ -77,13 +86,23 @@ public class Project {
 		this.projectEndDay = projectEndDay;
 	}
 
+	
 
+	public void setSprints(ArrayList<Sprint> sprints) {
+		this.sprints = sprints;
+	}
+
+
+
+	public void setIds(ArrayList<String> ids) {
+		this.ids = ids;
+	}
 
 
 	@Override
 	public String toString() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		return projectTitle + "\n " + sdf.format(projectStartDay) + " ~ " + sdf.format(projectEndDay) /*+ projectPeople*/;
+		return projectTitle + "  (" + sdf.format(projectStartDay) + " ~ " + sdf.format(projectEndDay) + ")" /*+ projectPeople*/;
 	}
 
 

@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -20,20 +21,23 @@ import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.UIManager;
 
+import controller.ProjectManager;
 import model.vo.Project;
 import model.vo.Sprint;
 
-public class B_SprintPanel extends JPanel implements ActionListener {
+public class B_SprintPanel extends JPanel implements ActionListener, MouseListener {
 
 
 	private MainFrame mainFrame;
 	private B_ProjectPage projectPage;
 	private B_SprintPanel sprintPanel;
+	
 	private JButton newSprintButton;
 	private String[] sprintInfo;
 	private DefaultListModel sprintModel;
 	private JList sprintJList;
-	private ArrayList<Sprint> sprintArrList = new ArrayList<Sprint>();
+	
+	//private ArrayList<Sprint> sprintArrList = new ArrayList<Sprint>();
 	
 	private Project selectedProject;
 	
@@ -83,27 +87,33 @@ public class B_SprintPanel extends JPanel implements ActionListener {
 		sprintPanel.add(newSprintPanel, "North");
 		
 		
-		//생성된 스프린트 리스트 (선택해서 스프린트 페이지로 넘어가도록 만들어야 함)
-		sprintModel =  new DefaultListModel();
+		//생성된 스프린트 리스트
+		sprintModel = new DefaultListModel();
+		/*ArrayList<Sprint> sprintList = this.selectedProject.getSprints();
+		for(int i = 0; i < sprintList.size(); i++) {
+			sprintModel.addElement(sprintList.get(i));
+		}*/
+		sprintListUpdate();
 		//스프린트 리스트 올릴 리스트
 		sprintJList = new JList(sprintModel);
 		sprintJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		sprintJList.setToolTipText("더블클릭시 해당 스프린트로 이동");
+		sprintJList.addMouseListener(this);
 		
 		//스프린트리스트에 이벤트 연결
-		sprintJList.addMouseListener(new MouseAdapter() {
+		/*sprintJList.addMouseListener(new MouseAdapter() {
 			
-					
+				
 			@Override
 			public void mouseClicked(MouseEvent e) {
 
 				if(e.getClickCount() == 2) {
 					Sprint selectedSprint = (Sprint)sprintJList.getSelectedValue();
-					projectPage.goToSprintPage(selectedSprint);
+					projectPage.goToSprintPage(this.selectedProject, selectedSprint);
 					
 				}
 			}
-		});
+		});*/
 		
 		
 		/*sprintJList.addListSelectionListener(new ListSelectionListener() {
@@ -134,6 +144,9 @@ public class B_SprintPanel extends JPanel implements ActionListener {
 		
 		projectPage.add(this);
 	}
+	
+	
+	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -155,18 +168,66 @@ public class B_SprintPanel extends JPanel implements ActionListener {
 	} 
 
 	//팝업에서 확인버튼 누르면 실행할 메소드
-	public void addSprintOnList(String sprintTitle, Date sprintStartDay, Date sprintEndDay) {
+	public void addSprintOnList(String sprintTitle, Date sprintStartDay, Date sprintEndDay, String sprintDetail, String sprintToDo) {
 		//받아온 스프린트명, 시작일, 종료일로 Sprint객체 생성해서 arrayList에 올리기
 		
-		Sprint newSprint = new Sprint(selectedProject, sprintTitle, sprintStartDay, sprintEndDay);
-		sprintArrList.add(newSprint);
-		sprintModel.addElement(newSprint);
+		
+		selectedProject = new ProjectManager().addNewSprint(selectedProject, sprintTitle, sprintStartDay, sprintEndDay, sprintDetail, sprintToDo);
+		sprintListUpdate();
+		//sprintModel.addElement(newSprint);
 		sprintPanel.revalidate();
 		
 	}
 
 
+	//스프린트 리스트에 스프린트 업데이트 
+	public void sprintListUpdate() {
+		sprintModel.clear();
+		ArrayList<Sprint> sprintList = selectedProject.getSprints();
+		for(int i = 0; i < sprintList.size(); i++) {
+			sprintModel.addElement(sprintList.get(i));
+		}
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		
+		if(e.getSource() == sprintJList) {
+			if(e.getClickCount() == 2) {
+				Sprint selectedSprint = (Sprint)sprintJList.getSelectedValue();
+				projectPage.goToSprintPage(selectedProject, selectedSprint);
+			}
+		}
+	}
 	
+	
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+
 	
 	
 	
