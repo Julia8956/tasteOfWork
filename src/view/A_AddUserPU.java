@@ -115,7 +115,7 @@ class LogoutEvent implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		userPU.dispose();
-		ChangePanel.changePanel(mf, lp, new A_LoginPage(mf,lp));
+		ChangePanel.changePanel(mf, lp, new A_LoginPage(mf));
 
 	}
 	

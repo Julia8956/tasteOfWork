@@ -12,10 +12,15 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import controller.A_MemberManager;
+import model.dao.A_MemberDao;
+
 public class A_FindIdPwd extends JPanel {
 	
 	private MainFrame mf;
 	private Dialog a_findIdPwd;
+	private A_MemberDao memberDao = new A_MemberDao();
+	private A_MemberManager a_mm = new A_MemberManager();
 	
 	
 	public A_FindIdPwd(MainFrame mf) {
@@ -50,25 +55,6 @@ public class A_FindIdPwd extends JPanel {
 		email2.setSize(150,50);
 		
 		
-		JButton find1 = new JButton("찾기");
-		find1.setLocation(195, 250);
-		find1.setSize(70,50);
-		
-		JButton find2 = new JButton("찾기");
-		find2.setLocation(615, 250);
-		find2.setSize(70,50);
-		
-		JButton cancel = new JButton("취소");
-		cancel.setLocation(615, 350);
-		cancel.setSize(70,50);
-		cancel.addActionListener(new ActionListener() {
-            
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            	a_findIdPwd.dispose();
-               
-            }
-         });
 		
 		JTextField namet1 = new JTextField(20);
 		namet1.setLocation(60, 100);
@@ -108,6 +94,42 @@ public class A_FindIdPwd extends JPanel {
 		JLabel pwdcon = new JLabel(new ImageIcon(pwdicon));
 		pwdcon.setLocation(450,50);
 		pwdcon.setSize(193,37);
+		
+		
+		JButton find1 = new JButton("찾기");
+		find1.setLocation(195, 250);
+		find1.setSize(70,50);
+		find1.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				a_mm.findId(namet1.getText(), phonet1.getText(), emailt1.getText());
+			}
+		});
+		
+		
+		JButton find2 = new JButton("찾기");
+		find2.setLocation(615, 250);
+		find2.setSize(70,50);
+		find2.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				a_mm.findId(idt.getText(), phonet1.getText(), emailt1.getText());				
+			}
+		});
+		
+		JButton cancel = new JButton("취소");
+		cancel.setLocation(615, 350);
+		cancel.setSize(70,50);
+		cancel.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				a_findIdPwd.dispose();
+				
+			}
+		});
 		
 		
 		a_findIdPwd.add(idcon);

@@ -17,16 +17,22 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import controller.A_MemberManager;
+import model.dao.A_MemberDao;
+
 
 
 	public class A_LoginPage extends JPanel{
 		private MainFrame mf;
 		private A_LoginPage lp;
-		
+		private JTextField idt;
+		private JTextField pwdt;
+		private A_MemberDao memberDao = new A_MemberDao();
+		private A_MemberManager a_mm = new A_MemberManager();
 		
 		public A_LoginPage(MainFrame mf) {
 			this.mf= mf;
-			
+		
 			this.lp = this;
 			
 			this.setSize(1024, 768);
@@ -131,11 +137,22 @@ import javax.swing.JTextField;
 			ImageIcon login_btn2 = new ImageIcon("images/login1.PNG");
 			//login_btn.setLocation(620, 350);
 			login_btn.setPreferredSize(new Dimension(80,60));
-			login_btn.addMouseListener(new MyMouseAdapter1());
 			login_btn.setBorderPainted(false);
 			login_btn.setFocusPainted(false);
 			login_btn.setContentAreaFilled(false);
 			login_btn.setRolloverIcon(login_btn2);
+			login_btn.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					
+						
+					
+						a_mm.loginMember(idt.getText(), pwdt.getText() ,lp);
+					
+
+				}
+			});
 			
 			//login_btn.addActionListener(this)
 			
@@ -216,14 +233,12 @@ import javax.swing.JTextField;
 		
 		
 	}
-	  class MyMouseAdapter1 extends MouseAdapter{
-		
-		@Override
-		public void mouseClicked(MouseEvent e) {
-			ChangePanel.changePanel(mf, lp, new A_MainPage(mf));
+	  
+	  public void goToMainPage(A_LoginPage lp) {
+			this.lp = lp;
+				ChangePanel.changePanel(mf, lp ,new A_MainPage(mf));
 			}
-		}
-	
+		   
 	  
 	   
 }
