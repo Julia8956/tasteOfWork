@@ -54,10 +54,13 @@ public class B_SprintPanel extends JPanel implements ActionListener, MouseListen
 		//this.setLocation(0, 80);
 		//this.setBackground(Color.WHITE);
 		this.setLayout(new BorderLayout());
+		this.setBorder(BorderFactory.createEmptyBorder(20, 50, 50, 20));
+		this.setBackground(B_ProjectPage.BG_COLOR);
+		
 		
 		
 		//전체 폰트 스타일 적용
-		setUIFont (new javax.swing.plaf.FontUIResource("맑은 고딕", Font.PLAIN, 15));
+		//setUIFont (new javax.swing.plaf.FontUIResource("맑은 고딕", Font.PLAIN, 15));
 		
 		
 		//스프린트생성버튼, 스프린트 리스트 패널
@@ -167,7 +170,6 @@ public class B_SprintPanel extends JPanel implements ActionListener, MouseListen
 		}
 	} 
 
-	//팝업에서 확인버튼 누르면 실행할 메소드
 	public void addSprintOnList(String sprintTitle, Date sprintStartDay, Date sprintEndDay, String sprintDetail, String sprintToDo) {
 		//받아온 스프린트명, 시작일, 종료일로 Sprint객체 생성해서 arrayList에 올리기
 		
@@ -180,13 +182,14 @@ public class B_SprintPanel extends JPanel implements ActionListener, MouseListen
 	}
 
 
-	//스프린트 리스트에 스프린트 업데이트 
 	public void sprintListUpdate() {
 		sprintModel.clear();
+		//ArrayList<Sprint> sprintList = new ProjectManager().getSprintList();
 		ArrayList<Sprint> sprintList = selectedProject.getSprints();
 		for(int i = 0; i < sprintList.size(); i++) {
 			sprintModel.addElement(sprintList.get(i));
 		}
+		//this.revalidate();
 	}
 
 	@Override

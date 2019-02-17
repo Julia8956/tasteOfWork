@@ -52,7 +52,7 @@ public class B_ProjectPage extends JPanel{
 		//gc.weighty = 0.05;
 		gc.gridwidth = 1;
 		//gc.gridheight = 1;
-		gridbag.setConstraints(new B_DdayPanel(this), gc);
+		gridbag.setConstraints(new B_DdayPanel(this, selectedProject), gc);
 		
 		//프로젝트명 패널
 		gc.weightx = 0.5;
@@ -77,14 +77,14 @@ public class B_ProjectPage extends JPanel{
 		//gc.weighty = 0.9;
 		gc.gridwidth = 1;
 		//gc.gridheight = 1;
-		gridbag.setConstraints(new B_CalendarPanel(this), gc);
+		gridbag.setConstraints(new B_CalendarPanel(this, selectedProject), gc);
 		
 		//회의록 패널
 		gc.weightx = 1;
 		//gc.weighty = 0.1;
 		gc.gridwidth = GridBagConstraints.REMAINDER;
 		//gc.gridheight = 1;
-		gridbag.setConstraints(new B_MOMPanel(this, mainFrame), gc);
+		gridbag.setConstraints(new B_MOMPanel(this, mainFrame, selectedProject), gc);
 		//new MOMPanel(this);
 		
 		this.setVisible(true);
