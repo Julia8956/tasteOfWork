@@ -124,6 +124,7 @@ import model.dao.A_MemberDao;
 			JTextField pwdt = new JTextField(20);
 			//pwdt.setLocation(410, 400);
 			//pwdt.setSize(20, 40);
+			
 
 			PwdPanel.add(password);
 			PwdPanel.add(pwdt);

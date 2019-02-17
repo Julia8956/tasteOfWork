@@ -162,30 +162,30 @@ public class A_JoinPage extends JPanel {
             	String phones = phonet.getText();
             	String emails = emailt.getText();
             	
-            	if(idt.getText().equals(" ")){
+            	if(ids.equals("")){
             		JOptionPane.showMessageDialog(null, "아이디를 입력해주세요");
-    			}else if(pwdt.getText().equals(" ")){
+    			}else if(pwds.equals("")){
     				JOptionPane.showMessageDialog(null, "비밀번호를 입력해주세요");
-    			}else if(pwdt1.getText().equals(" ")){
+    			}else if(pwds1.equals("")){
         			JOptionPane.showMessageDialog(null, "비밀번호를 입력해주세요");
         		
-    			}else if(pwdt.getText().equals(pwdt1)) {
-    				
-    				JOptionPane.showMessageDialog(null, "비밀번호를 똑같이 입력하세요");
         			
-    			}else if(namet.getText().equals(" ")){
+    			}else if(names.equals("")){
     				JOptionPane.showMessageDialog(null, "이름을 입력해주세요");
-    			}else if(gendert.getText().equals(" ")){
+    			}else if(genders.equals("")){
     				JOptionPane.showMessageDialog(null, "성별을 입력해주세요");
-    			}else if(phonet.getText().equals(" ")){
+    			}else if(phones.equals("")){
     				JOptionPane.showMessageDialog(null, "연락처를 입력해주세요");
-    			}else if(emailt.getText().equals(" ")){
-    				JOptionPane.showMessageDialog(null, "이메일을 입력해주세요");
     			
     			}else if(!integerOrNot(phones)){
     				JOptionPane.showMessageDialog(null, "전화번호는 '-'빼고 입력해주세요");
-				}else if(!(phones.substring(0,2).equals("01") && (phones.length() ==10 || phones.length() ==11))){
-					JOptionPane.showMessageDialog(null, "잘못된 전화번호를 입력하셨습니다.");
+    			}else if(!(phones.substring(0,2).equals("01") && (phones.length() ==10 || phones.length() ==11))){
+    				JOptionPane.showMessageDialog(null, "잘못된 전화번호를 입력하셨습니다.");
+    			
+    			
+    			}else if(emails.equals("")){
+    				JOptionPane.showMessageDialog(null, "이메일을 입력해주세요");
+    			
 				
 				}else {
             	

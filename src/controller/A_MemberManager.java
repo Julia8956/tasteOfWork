@@ -42,48 +42,62 @@ public class A_MemberManager {
 		//전체 멤버를 조회
 		ArrayList<A_Member> list = md.readMemberList();
 		
-		//System.out.println(id);
-		//System.out.println(pwd);
-		for(int i =0; i<list.size(); i++) {
+		for(int i = 0 ; i<list.size(); i++) {
 			System.out.println(list.get(i));
+		}
+		if(list==null) {
+			JOptionPane.showMessageDialog(null, "아이디/비밀번호를 입력해주세요");
 			
-		} //list에 배열이 들어가 있는지 확인했음
+		}
 		
-		/*System.out.println(id.hashCode());
-		System.out.println(list.get(1).getId().hashCode());*/ //해쉬코드 확인
-		
-		
-		/*System.out.println(pwd.hashCode());
-		System.out.println(list.get(1).getPwd().hashCode());*/
-		
-		
-		for(int i =0; i<list.size(); i++) {
-			if(list.get(i).getId().equals(id) && list.get(i).getPwd().equals(pwd)) {
-				lp.goToMainPage(lp);
+		if(list != null) {
+			if( id.equals(" ")&& (pwd.equals(" "))) {
+				JOptionPane.showMessageDialog(null, "아이디/비밀번호를 입력해주세요");
 				return;
+			
+			}else{
 				
-		}
-	}
-		
-		for(int i =0; i<list.size(); i++) {
-		if(list.get(i).getId() != id && list.get(i).getPwd()!= pwd) {
+				for(int i =0; i<list.size(); i++) {
 			
-			JOptionPane.showMessageDialog(null, "아이디와 비밀번호를 확인하세요"); 
-			return;
+				if(list.get(i).getId().equals(id) && list.get(i).getPwd().equals(pwd)) {
+					lp.goToMainPage(lp);
+					return;
+					}else if(id.equals(" ")&& (pwd.equals(" "))) {
+						JOptionPane.showMessageDialog(null, "아이디/비밀번호를 입력해주세요");
+						return;
+					}
+				}
+				for(int i =0; i<list.size(); i++) {
+					if(list.get(i).getId() != id && list.get(i).getPwd()!= pwd) {
+						
+						JOptionPane.showMessageDialog(null, "아이디와 비밀번호를 확인하세요"); 
+						return;
+						
+						
+					}else if(list.get(i).getId() == " " && list.get(i).getPwd()== " "){
+						JOptionPane.showMessageDialog(null, "아이디와 비밀번호를 입력하세요");
+						return;
+					}
+				}
+			}
 			
-		}else if(list.get(i).getId() == " " && list.get(i).getPwd()== " "){
-			JOptionPane.showMessageDialog(null, "아이디와 비밀번호를 입력하세요");
-			return;
+			
 		}
-		
-		
-		}
-		
 		
 	}
 	
 	public void idcheck(String id) {
 		ArrayList<A_Member> list = md.readMemberList();
+		if(list==null) {
+			if(id != "") {
+			JOptionPane.showMessageDialog(null, "사용할 수 있는 아이디 입니다.");
+			list = new ArrayList<A_Member>();
+			}else if(id==""){
+				JOptionPane.showMessageDialog(null, "아이디를 입력해주세요.");
+				list = new ArrayList<A_Member>();
+			}
+		}
+		
 		for(int i =0; i<list.size(); i++) {
 			if(list.get(i).getId().equals(id)) {
 				JOptionPane.showMessageDialog(null, "사용중인 아이디 입니다.");
@@ -105,6 +119,10 @@ public class A_MemberManager {
 		
 		ArrayList<A_Member> list = md.readMemberList();
 		
+		if(list==null) {
+			JOptionPane.showMessageDialog(null, "사용자 정보를 확인해주세요");
+			list = new ArrayList<A_Member>();
+		}
 		
 		
 		for(int i =0; i<list.size(); i++) {
@@ -126,20 +144,26 @@ public class A_MemberManager {
 	public void findPwd(String id, String phone, String email) {
 		ArrayList<A_Member> list = md.readMemberList();
 		
+		if(list==null) {
+			JOptionPane.showMessageDialog(null, "사용자 정보를 확인해주세요");
+			list = new ArrayList<A_Member>();
 		
+		}else {
 		
 		for(int i =0; i<list.size(); i++) {
 			
-			if(list.get(i).getName().equals(id) 
+			if(list.get(i).getId().equals(id) 
 					&& list.get(i).getPhone().equals(phone) 
 					&& list.get(i).getEmail().equals(email)) {
 				
 				JOptionPane.showMessageDialog(null, list.get(i).getName()+"님의 비밀번호는" +list.get(i).getPwd()+ "입니다");
 				return;
-			}
-		}
 			
-			JOptionPane.showMessageDialog(null, "일치하는 정보가 없습니다.");
+			}
+			
+		}
+		JOptionPane.showMessageDialog(null, "일치하는 정보가 없습니다.");
+	}	
 				
 	
 		}
