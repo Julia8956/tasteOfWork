@@ -2,7 +2,10 @@ package view;
 
 import java.awt.Color;
 import java.awt.Dialog;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -45,30 +48,38 @@ public class A_JoinPage extends JPanel {
 	public A_JoinPage(MainFrame mf) {
 		
 		
-		Image icon = new ImageIcon("images/joinin.PNG")
-				.getImage().getScaledInstance(208, 66, 0);
 		
 		
 		
 		a_joinPage = new Dialog(mf, "회원가입");
-		a_joinPage.setBackground(Color.GRAY);
-		a_joinPage.setSize(700, 700);
+		a_joinPage.setSize(500, 550);
+		Toolkit tk = Toolkit.getDefaultToolkit();
+		Dimension dim = tk.getScreenSize();
+		int xPos = (dim.width / 2) - (a_joinPage.getWidth() / 2);
+		int yPos = (dim.height / 2) - (a_joinPage.getHeight() / 2);
+		a_joinPage.setLocation(xPos, yPos);
 		a_joinPage.setLayout(null);
+		a_joinPage.setUndecorated(true);
+		a_joinPage.setBackground(B_ProjectPage.POPUP_COLOR);
 		
-		JLabel ilogo = new JLabel(new ImageIcon(icon));
-		ilogo.setLocation(270,100);
+		JLabel ilogo = new JLabel("회원가입");
+		ilogo.setLocation(180,0);
 		ilogo.setSize(208,66);
+		ilogo.setFont(new Font("맑은 고딕", Font.BOLD, 40));
+		ilogo.setForeground(Color.WHITE);
 		a_joinPage.add(ilogo);
 		
 		
 		JLabel id = new JLabel("아이디");
-		id.setLocation(180, 180);
+		id.setLocation(50, 100);
 		id.setSize(150, 50);
+		id.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		id.setForeground(Color.WHITE);
 		a_joinPage.add(id);
 		
-		JButton check = new JButton("아이디 중복확인");
-		check.setLocation(480, 180);
-		check.setSize(150, 40);
+		JButton check = new JButton(" 중복확인");
+		check.setLocation(390, 100);
+		check.setSize(100, 40);
 		check.addActionListener(new ActionListener() {
 			
 			@Override
@@ -79,74 +90,86 @@ public class A_JoinPage extends JPanel {
 		a_joinPage.add(check);
 		
 		idt = new JTextField(20);
-		idt.setLocation(270, 180);
+		idt.setLocation(180, 100);
 		idt.setSize(200, 40);
 		a_joinPage.add(idt);
 		
 		JLabel pwd = new JLabel("비밀번호");
-		pwd.setLocation(180, 230);
+		pwd.setLocation(50, 150);
 		pwd.setSize(150, 50);
+		pwd.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		pwd.setForeground(Color.WHITE);
 		a_joinPage.add(pwd);
 		
 		pwdt = new JTextField(20);
-		pwdt.setLocation(270, 230);
+		pwdt.setLocation(180, 150);
 		pwdt.setSize(200, 40);
 		a_joinPage.add(pwdt);
 		
 		JLabel pwd1 = new JLabel("비밀번호 확인");
-		pwd1.setLocation(180, 280);
+		pwd1.setLocation(50, 200);
 		pwd1.setSize(150, 50);
+		pwd1.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		pwd1.setForeground(Color.WHITE);
 		a_joinPage.add(pwd1);
 		
 		pwdt1 = new JTextField(20);
-		pwdt1.setLocation(270, 280);
+		pwdt1.setLocation(180, 200);
 		pwdt1.setSize(200, 40);
 		a_joinPage.add(pwdt1);
 		
 		JLabel name = new JLabel("이름");
-		name.setLocation(180, 330);
+		name.setLocation(50, 250);
 		name.setSize(150, 50);
+		name.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		name.setForeground(Color.WHITE);
 		a_joinPage.add(name);
 		
 		 namet = new JTextField(20);
-		namet.setLocation(270, 330);
+		namet.setLocation(180, 250);
 		namet.setSize(200, 40);
 		a_joinPage.add(namet);
 		
 		JLabel gender = new JLabel("성별(남자/여자)");
-		gender.setLocation(180, 380);
+		gender.setLocation(50, 300);
 		gender.setSize(150, 50);
+		gender.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		gender.setForeground(Color.WHITE);
 		a_joinPage.add(gender);
 		
 		 gendert = new JTextField(20);
-		gendert.setLocation(270, 380);
+		gendert.setLocation(180, 300);
 		gendert.setSize(200, 40);
 		a_joinPage.add(gendert);
 		
 		JLabel phone = new JLabel("연락처(-제외");
-		phone.setLocation(180, 430);
+		phone.setLocation(50, 350);
 		phone.setSize(150, 50);
+		phone.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		phone.setForeground(Color.WHITE);
 		a_joinPage.add(phone);
 		
 		 phonet = new JTextField(20);
-		phonet.setLocation(270, 430);
+		phonet.setLocation(180, 350);
 		phonet.setSize(200, 40);
 		a_joinPage.add(phonet);
 		
 		JLabel email = new JLabel("이메일");
-		email.setLocation(180, 480);
+		email.setLocation(50, 400);
 		email.setSize(150, 50);
+		email.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		email.setForeground(Color.WHITE);
 		a_joinPage.add(email);
 		
 		emailt = new JTextField(20);
-		emailt.setLocation(270, 480);
+		emailt.setLocation(180, 400);
 		emailt.setSize(200, 40);
 		a_joinPage.add(emailt);
 		
 		
 		
 		JButton join = new JButton("회원 가입");
-		join.setLocation(350, 550);
+		join.setLocation(350, 470);
 		join.setSize(100, 45);
 		join.addActionListener(new ActionListener() {
             
@@ -211,7 +234,7 @@ public class A_JoinPage extends JPanel {
 		a_joinPage.add(join);
 		
 		JButton cancel = new JButton("취소");
-		cancel.setLocation(250, 550);
+		cancel.setLocation(250, 470);
 		cancel.setSize(100, 45);
 		cancel.addActionListener(new ActionListener() {
             

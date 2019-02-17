@@ -2,7 +2,10 @@ package view;
 
 import java.awt.Color;
 import java.awt.Dialog;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -26,79 +29,101 @@ public class A_FindIdPwd extends JPanel {
 	public A_FindIdPwd(MainFrame mf) {
 		
 		a_findIdPwd = new Dialog(mf,"æ∆¿Ãµ/∫Òπ–π¯»£ √£±‚");
-		a_findIdPwd.setSize(700,700);
+		a_findIdPwd.setSize(620, 420);
+		Toolkit tk = Toolkit.getDefaultToolkit();
+		Dimension dim = tk.getScreenSize();
+		int xPos = (dim.width / 2) - (a_findIdPwd.getWidth() / 2);
+		int yPos = (dim.height / 2) - (a_findIdPwd.getHeight() / 2);
+		a_findIdPwd.setLocation(xPos, yPos);
 		a_findIdPwd.setLayout(null);
-		a_findIdPwd.setBackground(Color.gray);
+		a_findIdPwd.setUndecorated(true);
+		a_findIdPwd.setBackground(B_ProjectPage.POPUP_COLOR);
 		
 		JLabel name = new JLabel("¿Ã∏ß");
 		name.setLocation(10, 100);
-		name.setSize(150,50);
-		
+		name.setSize(150, 50);
+		name.setForeground(Color.WHITE);
+		name.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.BOLD, 15));
+
 		JLabel phone1 = new JLabel("ø¨∂Ù√≥");
 		phone1.setLocation(10, 150);
-		phone1.setSize(150,50);
-		
+		phone1.setSize(150, 50);
+		phone1.setForeground(Color.WHITE);
+		phone1.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.BOLD, 15));
+
 		JLabel email1 = new JLabel("¿Ã∏ﬁ¿œ");
 		email1.setLocation(10, 200);
-		email1.setSize(150,50);
-		
+		email1.setSize(150, 50);
+		email1.setForeground(Color.WHITE);
+		email1.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.BOLD, 15));
+
 		JLabel id = new JLabel("æ∆¿Ãµ");
-		id.setLocation(430, 100);
-		id.setSize(150,50);
-		
+		id.setLocation(350, 100);
+		id.setSize(150, 50);
+		id.setForeground(Color.WHITE);
+		id.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.BOLD, 15));
+
 		JLabel phone2 = new JLabel("ø¨∂Ù√≥");
-		phone2.setLocation(430, 150);
-		phone2.setSize(150,50);
-		
+		phone2.setLocation(350, 150);
+		phone2.setSize(150, 50);
+		phone2.setForeground(Color.WHITE);
+		phone2.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.BOLD, 15));
+
 		JLabel email2 = new JLabel("¿Ã∏ﬁ¿œ");
-		email2.setLocation(430, 200);
-		email2.setSize(150,50);
+		email2.setLocation(350, 200);
+		email2.setSize(150, 50);
+		email2.setForeground(Color.WHITE);
+		email2.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.BOLD, 15));
 		
 		
 		
 		JTextField namet1 = new JTextField(20);
 		namet1.setLocation(60, 100);
 		namet1.setSize(200, 40);
-		
+
 		JTextField phonet1 = new JTextField(20);
 		phonet1.setLocation(60, 150);
 		phonet1.setSize(200, 40);
-		
+
 		JTextField emailt1 = new JTextField(20);
 		emailt1.setLocation(60, 200);
 		emailt1.setSize(200, 40);
-		
+
 		JTextField idt = new JTextField(20);
-		idt.setLocation(480, 100);
+		idt.setLocation(400, 100);
 		idt.setSize(200, 40);
-		
+
 		JTextField phonet2 = new JTextField(20);
-		phonet2.setLocation(480, 150);
+		phonet2.setLocation(400, 150);
 		phonet2.setSize(200, 40);
-		
+
 		JTextField emailt2 = new JTextField(20);
-		emailt2.setLocation(480, 200);
+		emailt2.setLocation(400, 200);
 		emailt2.setSize(200, 40);
 		
 		
-		Image idicon = new ImageIcon("images/findId.PNG")
-				.getImage().getScaledInstance(163, 37, 0);
+		JLabel idLabel = new JLabel("æ∆¿Ãµ √£±‚");
+		idLabel.setLocation(10, 5);
+		idLabel.setSize(250, 66);
+		idLabel.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.BOLD, 30));
+		idLabel.setForeground(Color.WHITE);
 
-		JLabel idcon = new JLabel(new ImageIcon(idicon));
-		idcon.setLocation(10,50);
-		idcon.setSize(163,37);
-		
-		Image pwdicon = new ImageIcon("images/findPwd.PNG")
-				.getImage().getScaledInstance(193, 37, 0);
-
-		JLabel pwdcon = new JLabel(new ImageIcon(pwdicon));
-		pwdcon.setLocation(450,50);
-		pwdcon.setSize(193,37);
+		JLabel pwdLabel = new JLabel("∫Òπ–π¯»£ √£±‚");
+		pwdLabel.setLocation(330, 5);
+		pwdLabel.setSize(250, 66);
+		pwdLabel.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.BOLD, 30));
+		pwdLabel.setForeground(Color.WHITE);
 		
 		
-		JButton find1 = new JButton("√£±‚");
+//		JButton find1 = new JButton("√£±‚");
+		JButton find1 = new JButton(new ImageIcon("images/serchBtn1.png"));
+		ImageIcon find12 = new ImageIcon("images/serchBtn2.png");
+		find1.setBorderPainted(false);
+		find1.setFocusPainted(false);
+		find1.setContentAreaFilled(false);
+		find1.setRolloverIcon(find12);
 		find1.setLocation(195, 250);
-		find1.setSize(70,50);
+		find1.setSize(70, 50);
 		find1.addActionListener(new ActionListener() {
 			
 			@Override
@@ -108,9 +133,15 @@ public class A_FindIdPwd extends JPanel {
 		});
 		
 		
-		JButton find2 = new JButton("√£±‚");
-		find2.setLocation(615, 250);
-		find2.setSize(70,50);
+//		JButton find2 = new JButton("√£±‚");
+		JButton find2 = new JButton(new ImageIcon("images/serchBtn1.png"));
+		ImageIcon find22 = new ImageIcon("images/serchBtn2.png");
+		find2.setBorderPainted(false);
+		find2.setFocusPainted(false);
+		find2.setContentAreaFilled(false);
+		find2.setRolloverIcon(find22);
+		find2.setSize(100, 40);
+		find2.setLocation(535, 250);
 		find2.addActionListener(new ActionListener() {
 			
 			@Override
@@ -119,8 +150,13 @@ public class A_FindIdPwd extends JPanel {
 			}
 		});
 		
-		JButton cancel = new JButton("√Îº“");
-		cancel.setLocation(615, 350);
+		JButton cancel = new JButton(new ImageIcon("images/cancelbtn1.png"));
+		ImageIcon cancel2 = new ImageIcon("images/cancelbtn2.png");
+		cancel.setBorderPainted(false);
+		cancel.setFocusPainted(false);
+		cancel.setContentAreaFilled(false);
+		cancel.setRolloverIcon(cancel2);
+		cancel.setLocation(500, 350);
 		cancel.setSize(70,50);
 		cancel.addActionListener(new ActionListener() {
 			
@@ -132,8 +168,8 @@ public class A_FindIdPwd extends JPanel {
 		});
 		
 		
-		a_findIdPwd.add(idcon);
-		a_findIdPwd.add(pwdcon);
+		a_findIdPwd.add(idLabel);
+		a_findIdPwd.add(pwdLabel);
 		a_findIdPwd.add(name);
 		a_findIdPwd.add(phone1);
 		a_findIdPwd.add(phone2);
