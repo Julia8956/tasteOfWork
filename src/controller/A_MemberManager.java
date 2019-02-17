@@ -102,6 +102,7 @@ public class A_MemberManager {
 	}
    
 	public void findId(String name, String phone, String email) {
+		
 		ArrayList<A_Member> list = md.readMemberList();
 		
 		
