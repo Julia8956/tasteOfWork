@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -30,6 +32,15 @@ import model.dao.A_MemberDao;
 		private A_MemberDao memberDao = new A_MemberDao();
 		private A_MemberManager a_mm = new A_MemberManager();
 		
+		
+		ImageIcon icon = new ImageIcon("images/bg.png");
+		Image img = icon.getImage();
+
+		public void paintComponent(Graphics g) {
+			super.paintComponent(g);
+			g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
+		}
+		
 		public A_LoginPage(MainFrame mf) {
 			this.mf= mf;
 		
@@ -44,23 +55,23 @@ import model.dao.A_MemberDao;
 	        
 	        //여기서부터
 	        JPanel panel = new JPanel();
-	        panel.setBackground(Color.GRAY);
+	        panel.setOpaque(false);
 	        panel.setPreferredSize(new Dimension(1024,120));
 	        this.add(panel, BorderLayout.NORTH);
 	        
 	        JPanel panel2 = new JPanel();
-	        panel2.setBackground(Color.GRAY);
+	        panel2.setOpaque(false);
 	        panel2.setPreferredSize(new Dimension(50,768));
 	        this.add(panel2, BorderLayout.WEST);
 	        
 	        JPanel panel3 = new JPanel();
-	        panel3.setBackground(Color.GRAY);
+	        panel3.setOpaque(false);
 	        panel3.setPreferredSize(new Dimension(50,768));
 	        this.add(panel3, BorderLayout.EAST);
 	        
 	        
 	        JPanel panel4 = new JPanel();
-	        panel4.setBackground(Color.GRAY);
+	        panel4.setOpaque(false);
 	        panel4.setPreferredSize(new Dimension(1024,80));
 	        this.add(panel4, BorderLayout.SOUTH);
 	        //여기까지는 쓸모없는 패널로 그냥 mainPanel 위치 찹아주는 거입니다.
@@ -69,9 +80,9 @@ import model.dao.A_MemberDao;
 	        mainPanel.setPreferredSize(new Dimension(500,500));
 	       // mainPanel.setLayout(new BoxLayout(mainPanel,BoxLayout.Y_AXIS));
 	        mainPanel.setLayout(new BorderLayout());
-	       mainPanel.setBackground(Color.GRAY);
+	       mainPanel.setOpaque(false);
 	        
-	        JLabel logoimage = new JLabel(new ImageIcon("images/logo.PNG"));
+	        JLabel logoimage = new JLabel(new ImageIcon("images/logo2.PNG"));
 	        logoimage.setPreferredSize(new Dimension(100,300));
 
 	        mainPanel.add(logoimage,BorderLayout.NORTH);
@@ -80,12 +91,12 @@ import model.dao.A_MemberDao;
 	        //SubPanel.setLayout(null);
 	        SubPanel.setPreferredSize(new Dimension(100,300));
 	        SubPanel.setLayout(new BorderLayout());
-	        SubPanel.setBackground(Color.GRAY);
+	        SubPanel.setOpaque(false);
 	        
 	        JPanel LoginPanel =new JPanel();
 	        LoginPanel.setPreferredSize(new Dimension(300,100));
 	        LoginPanel.setLayout(new FlowLayout());
-	        LoginPanel.setBackground(Color.GRAY);
+	        LoginPanel.setOpaque(false);
 	        
 	        
 	        JPanel TextFieldPanel =new JPanel();
@@ -94,7 +105,7 @@ import model.dao.A_MemberDao;
 	        
 	        JPanel idPanel = new JPanel();
 	        idPanel.setLayout(new FlowLayout());
-	        idPanel.setBackground(Color.GRAY);
+	        idPanel.setOpaque(false);
 	        idPanel.setPreferredSize(new Dimension(50,80));
 	       
 	        
@@ -113,7 +124,7 @@ import model.dao.A_MemberDao;
 			
 			JPanel PwdPanel = new JPanel();
 			PwdPanel.setLayout(new FlowLayout());
-			PwdPanel.setBackground(Color.GRAY);
+			PwdPanel.setOpaque(false);
 			PwdPanel.setPreferredSize(new Dimension(50,80));
 
 			JLabel password = new JLabel("PWD");
@@ -130,6 +141,7 @@ import model.dao.A_MemberDao;
 			
 			TextFieldPanel.add(idPanel);
 			TextFieldPanel.add(PwdPanel);
+			TextFieldPanel.setOpaque(false);
 			
 			LoginPanel.add(TextFieldPanel);
 			
@@ -160,12 +172,12 @@ import model.dao.A_MemberDao;
 			
 			JPanel Buttons_panel = new JPanel();
 			Buttons_panel.setLayout(new BoxLayout(Buttons_panel,BoxLayout.Y_AXIS));
-			Buttons_panel.setBackground(Color.GREEN);
+			Buttons_panel.setOpaque(false);
 			Buttons_panel.setPreferredSize(new Dimension(50,5));
 
 			JPanel buttonpanel = new JPanel();
 			buttonpanel.setLayout(new FlowLayout());
-			buttonpanel.setBackground(Color.GRAY);
+			buttonpanel.setOpaque(false);
 			buttonpanel.setPreferredSize(new Dimension(50,80));
 			
 
