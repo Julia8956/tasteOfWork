@@ -13,6 +13,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Date;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -22,6 +23,7 @@ import javax.swing.JTextField;
 import org.jdesktop.swingx.JXDatePicker;
 
 import controller.ProjectManager;
+import model.vo.Project;
 import model.vo.Sprint;
 
 public class A_AddSprint {
@@ -29,13 +31,14 @@ public class A_AddSprint {
 	private MainFrame mf;
 	private A_MainPage mainPage;
 	
-	private ProjectManager pm;
+	//private ProjectManager pm;
 
 	public JPanel addSprint;
 	private JButton plusButton;
 	private Dialog AddSprint;
 
-	//Sprint필드에 저장할 속성
+	
+	private Project project;
 	private String sprintTitle;
 	private Date sprintStartDay;
 	private Date sprintEndDay;
@@ -43,21 +46,20 @@ public class A_AddSprint {
 	private String sprintToDo;
 
 	private int nameCtn = 0;
-	//private int startDayCtn = 0;
-	//private int endDayCtn = 0;
 	private int descriptionCtn = 0;
 
-	public A_AddSprint(MainFrame mf, A_MainPage mainPage, A_AddProject addProject, ProjectManager pm) {
+	public A_AddSprint(MainFrame mf, A_MainPage mainPage, A_AddProject addProject, Project project) {
 		//super(mf, mainPage);
 		this.mf = mf;
 		this.mainPage = mainPage;
+		this.project = project;
 		
-		this.pm = pm;
+		//this.pm = pm;
 		
 		
 		AddSprint = new Dialog(mf, "새 스프린트 만들기"); 
 
-		AddSprint.setSize(515, 680);
+		//AddSprint.setSize(515, 680);
 		AddSprint.setLayout(null);                 
 
 
@@ -72,8 +74,8 @@ public class A_AddSprint {
 
 
 		AddSprint.setUndecorated(true);
-		AddSprint.setBackground(MainFrame.POPUP_COLOR);
-
+		//AddSprint.setBackground(MainFrame.POPUP_COLOR);
+		AddSprint.setBackground(Color.PINK);
 
 
 		//이름
@@ -145,17 +147,23 @@ public class A_AddSprint {
 
 		//~
 		JLabel fromTo = new JLabel("~");
-		fromTo.setLocation(230, 115);
+		fromTo.setLocation(240, 115);
 		fromTo.setSize(308,40);
 		fromTo.setFont(new Font("",Font.PLAIN, 15));
 		AddSprint.add(fromTo);
 
+		JLabel end = new JLabel("종료일");
+		end.setLocation(290, 115);
+		end.setSize(50, 40);
+		end.setFont(new Font("", Font.BOLD, 15));
+		AddSprint.add(end);
+		
 
 		//종료일
 		JXDatePicker endDayPicker = new DatePicker().getDatePicker();
 
 		//JTextField endDay = new JTextField("스프린트 종료일", 15);
-		endDayPicker.setLocation(360, 115);
+		endDayPicker.setLocation(340, 115);
 		endDayPicker.setSize(120, 40);
 		endDayPicker.setFont(new Font("", Font.PLAIN, 15));
 		AddSprint.add(endDayPicker);
@@ -261,8 +269,16 @@ public class A_AddSprint {
 		});
 
 		//스프린트 생성 취소버튼
-		JButton cancelBtn = new JButton("취소");
-		cancelBtn.setLocation(275,610);
+		//JButton cancelBtn = new JButton("취소");
+		JButton cancelBtn  = new JButton(new ImageIcon("images/cancelbtn1.png"));
+		ImageIcon cancelbtn2 = new ImageIcon("images/cancelbtn2.png");
+		cancelBtn.setBorderPainted(false); 
+		cancelBtn.setFocusPainted(false); 
+		cancelBtn.setContentAreaFilled(false);
+		cancelBtn.setRolloverIcon(cancelbtn2);
+		
+		
+		cancelBtn.setLocation(282,610);
 		cancelBtn.setSize(90,40);
 		AddSprint.add(cancelBtn);
 
@@ -277,9 +293,14 @@ public class A_AddSprint {
 		});
 
 		//스프린트생성 확인버튼
-		JButton okBtn = new JButton("확인");
-		okBtn.setLocation(385,610);
-		okBtn.setSize(90,40);
+		JButton okBtn = new JButton(new ImageIcon("images/okbtn1.png"));
+		ImageIcon okbtn2 = new ImageIcon("images/okbtn2.png");
+		okBtn.setBorderPainted(false); 
+		okBtn.setFocusPainted(false); 
+		okBtn.setContentAreaFilled(false);
+		okBtn.setRolloverIcon(okbtn2);
+		okBtn.setLocation(392,615);
+		okBtn.setSize(100,40);
 		AddSprint.add(okBtn);
 		
 		
@@ -295,9 +316,13 @@ public class A_AddSprint {
 				sprintDetail = description.getText();
 				sprintToDo = toDoList.getText();
 				
-				Sprint newSprint = pm.makeNewSprint(sprintTitle, sprintStartDay, sprintEndDay, sprintDetail, sprintToDo);
-				
-				addProject.addSprintOnList(newSprint);
+				if(project == null) {
+					Sprint newSprint = new ProjectManager().makeNewSprint(sprintTitle, sprintStartDay, sprintEndDay, sprintDetail, sprintToDo);
+					addProject.putSprintOnList(newSprint);
+				}else {
+					Project projectUpdated = new ProjectManager().addNewSprint(project, sprintTitle, sprintStartDay, sprintEndDay, sprintDetail, sprintToDo);
+					addProject.updateSprintList(projectUpdated);
+				}
 				
 				AddSprint.dispose();
 			}
@@ -309,6 +334,10 @@ public class A_AddSprint {
 
 
 	}
+	
+	
+	
+	
 	public Dialog getAddSprint() {
 		return AddSprint;
 	}

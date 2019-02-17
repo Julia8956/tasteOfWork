@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.swing.DefaultListModel;
@@ -25,6 +26,7 @@ import javax.swing.JTextField;
 import org.jdesktop.swingx.JXDatePicker;
 
 import controller.ProjectManager;
+import model.vo.Project;
 import model.vo.Sprint;
 
 
@@ -41,26 +43,30 @@ public class A_AddProject extends JPanel implements ActionListener{
 	private JButton sprintAdd;
 	private JButton cancelBtn;
 	private DefaultListModel model;
-	private JList sprintList;
+	private JList sprintJList;
 	private JTextArea peoples;
 	
+	//private int okBtnClickedCtn;
 	
-	
-	private ProjectManager pm = new ProjectManager();
+	//private ProjectManager pm = new ProjectManager();
 
+	private Project project;
 	private String projectTitle;
 	private Date projectStartDay;
 	private Date projectEndDay;
 	private String peopleProject;
+	private ArrayList<Sprint> sprintList = new ArrayList<Sprint>();
 
 	private int nameCtn = 0;
-	//private int startDayCtn = 0;
-	//private int endDayCtn = 0;
-	//메인프레임을 전달받음
-	public A_AddProject(MainFrame mf, A_MainPage mainPage) {   //메인프레임클래스에서 MainFrame을 보냈기 때문에 가능가능
+	
+	
+	public A_AddProject(MainFrame mf, A_MainPage mainPage, Project project) {   //메인프레임클래스에서 MainFrame을 보냈기 때문에 가능가능
 
 		this.mf = mf;               //전달받은 MainFrame도 필드에다가 만듦
 		this.mainPage = mainPage;
+		this.project = project;
+		
+		
 		addProject = new Dialog(mf, "새 프로젝트 만들기");       //여기서 this는 AddProject의 객체이다. 
 
 
@@ -75,7 +81,8 @@ public class A_AddProject extends JPanel implements ActionListener{
 		addProject.setLocation(xPos, yPos);
 
 		addProject.setUndecorated(true);
-		addProject.setBackground(MainFrame.POPUP_COLOR);
+		//addProject.setBackground(MainFrame.POPUP_COLOR);
+		addProject.setBackground(Color.pink);
 		addProject.setLayout(null);               
 
 
@@ -88,7 +95,10 @@ public class A_AddProject extends JPanel implements ActionListener{
 
 		JTextField proName = new JTextField("프로젝트명",20);
 		proName.setLocation(10,85);
-		proName.setSize(485,40);
+		proName.setSize(485,50);
+		if(project != null) {
+			proName.setText(project.getProjectTitle());
+		}
 		addProject.add(proName);
 
 
@@ -104,61 +114,56 @@ public class A_AddProject extends JPanel implements ActionListener{
 				}
 			}
 		});
+		
+		
+		
+		
+		
 		//시작일
 		JLabel start = new JLabel("시작일");
-		start.setLocation(20, 135);
+		start.setLocation(20, 155);
 		start.setSize(50, 40);
 		start.setFont(new Font("", Font.BOLD, 15));
 		addProject.add(start);
 
 		JXDatePicker startDay = new DatePicker().getDatePicker();
-		startDay.setLocation(70, 135);
+		startDay.setLocation(70, 155);
 		startDay.setSize(120, 40);
 		startDay.setFont(new Font("", Font.PLAIN, 15));
-		addProject.add(startDay);   
+		if(project != null) {
+			startDay.setDate(project.getProjectStartDay());
+		}
+		addProject.add(startDay);
 
-
-
-		/*startDay.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				startDayCtn++;
-			}
-		});*/
 
 		JLabel middle = new JLabel("~");
-		middle.setLocation(250,135);
+		middle.setLocation(250,155);
 		middle.setSize(300,40);
-		middle.setFont(new Font("",Font.PLAIN, 15));
+		middle.setFont(new Font("",Font.BOLD, 15));
 		addProject.add(middle);
 
+		
 		//종료일
 		JLabel end = new JLabel("종료일");
-		end.setLocation(310, 135);
+		end.setLocation(310, 155);
 		end.setSize(50, 40);
 		end.setFont(new Font("", Font.BOLD, 15));
 		addProject.add(end);
 		
-		/*end.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				endDayCtn++;
-			}
-		});*/
-
-
-
 
 		JXDatePicker endDay = new DatePicker().getDatePicker();
-
-
-		endDay.setLocation(360, 135);
+		endDay.setLocation(360, 155);
 		endDay.setSize(120, 40);
 		endDay.setFont(new Font("", Font.PLAIN, 15));
+		if(project != null) {
+			endDay.setDate(project.getProjectEndDay());
+		}
 		addProject.add(endDay);
 
 
-
+		
+		
+		
 
 		//두번째 패널
 		JPanel projectPanel = new JPanel();
@@ -167,7 +172,7 @@ public class A_AddProject extends JPanel implements ActionListener{
 
 
 		JLabel sprintLabel = new JLabel("스프린트 추가");
-		sprintLabel.setLocation(15,160);
+		sprintLabel.setLocation(15,180);
 		sprintLabel.setSize(400, 100);
 		sprintLabel.setFont(new Font("",Font.BOLD, 20));
 
@@ -178,12 +183,12 @@ public class A_AddProject extends JPanel implements ActionListener{
 		//스프린트 추가 버튼
 		sprintAdd = new JButton("+");
 		sprintAdd.setFont(new Font("",Font.PLAIN, 20));
-		sprintAdd.setLocation(145,195);
+		sprintAdd.setLocation(145,210);
 		//sprintAdd.setBackground(Color.WHITE);
 		sprintAdd.setBorder(null);
 		sprintAdd.setSize(20,35);
 		sprintAdd .setOpaque(false);
-		sprintAdd .setBackground(Color.lightGray);
+		sprintAdd .setBackground(Color.ORANGE);
 
 		//스프린트 버튼 클릭시 스프린트 창 나오기
 		sprintAdd.addActionListener(this);
@@ -193,25 +198,20 @@ public class A_AddProject extends JPanel implements ActionListener{
 
 
 		model = new DefaultListModel();
-		sprintList = new JList(model);
-		
-		
-		/*String col[] = { "스프린트 명", "스프린트 시작일", "스프린트 종료일" };   
-
-		String values[][] = { { "자바킹킹","12-05-01"  }, 
-				{"자바킹", "12-05-02" },
-				{ "자바", "12-05-12" } };
-
-		JTable sprintTable = new JTable(values,col); 
-		sprintTable.getTableHeader().setReorderingAllowed(false);*/
-
-
-
-		JScrollPane pane = new JScrollPane(sprintList);   
+		if(project != null) {
+			
+			sprintList = project.getSprints();
+			for(int i = 0; i< sprintList.size(); i++) {
+				model.addElement(sprintList.get(i));
+			}
+		}
+		sprintJList = new JList(model);
+		JScrollPane pane = new JScrollPane(sprintJList);   
 		pane.setLocation(10,245);
 		pane.setSize(480,100);
 
 		projectPanel.add(pane);
+		projectPanel.setBackground(MainFrame.POPUP_COLOR);
 
 
 
@@ -242,10 +242,14 @@ public class A_AddProject extends JPanel implements ActionListener{
 
 
 		peoples = new JTextArea();
-		//people.setHorizontalAlignment(JTextField.CENTER);
 		peoples.setLocation(10,385);
 		peoples.setSize(480,90);
-
+		if(project != null) {
+			ArrayList<String> ids = project.getIds();
+			for(int i = 0; i < ids.size(); i++) {
+				peoples.setText(ids.get(i) + "\n");
+			}
+		}
 		projectPanel.add(peoples);
 
 
@@ -257,7 +261,7 @@ public class A_AddProject extends JPanel implements ActionListener{
 		cancelBtn.setContentAreaFilled(false);
 		cancelBtn.setRolloverIcon(cancelbtn2);
 
-		cancelBtn.setLocation(282,495);
+		cancelBtn.setLocation(292,495);
 		cancelBtn.setSize(100,40);
 		projectPanel.add(cancelBtn);
 
@@ -296,20 +300,23 @@ public class A_AddProject extends JPanel implements ActionListener{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//mainPage.makebtn();
-
+				//okBtnClickedCtn++;
 				projectTitle = proName.getText();
 				projectStartDay = startDay.getDate();
 				projectEndDay = endDay.getDate();
 				//peopleProject = peoples.getText();
-
-				//ProjectManager의 프로젝트 생성 메소드 호출
-				pm.makeNewProject(projectTitle, projectStartDay, projectEndDay);
-				
-				//타이틀로 메인페이지에 프로젝트페이지로 연결되는 버튼생성메소드 호출
-				mainPage.makeProjectBtn(projectTitle);
-
 				addProject.dispose();
+
+				
+				if(project == null) {
+					mainPage.makeNewProject(projectTitle, projectStartDay, projectEndDay, sprintList);
+				
+				}else {
+					//pm.modifyProject(project, projectTitle, projectStartDay, projectEndDay);
+					modifyProject(projectTitle, projectStartDay, projectEndDay);
+				}
+				
+				
 			}
 		});
 
@@ -330,20 +337,31 @@ public class A_AddProject extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 
 		if(e.getSource() == sprintAdd) {
-			new A_AddSprint(mf, mainPage, this, pm).getAddSprint().setVisible(true);
+			new A_AddSprint(mf, mainPage, this, project).getAddSprint().setVisible(true);
 		}
 	}
 	
-	
-	
-	public void addSprintOnList(Sprint newSprint) {
-		
+	public void putSprintOnList(Sprint newSprint) {
+		sprintList.add(newSprint);
 		model.addElement(newSprint);
-		//addProject.revalidate();
+		addProject.revalidate();
 	}
 	
 	
+	public void updateSprintList(Project projectUpdated) {
+		
+		model.clear();
+		project = projectUpdated;
+		sprintList = project.getSprints();
+		for(int i = 0; i < sprintList.size(); i++) {
+			model.addElement(sprintList.get(i));
+		}
+		addProject.revalidate();
+	}
 	
+	public void modifyProject(String projectTitle, Date projectStartDay, Date projectEndDay) {
+		mainPage.modifyProject(project, projectTitle, projectStartDay, projectEndDay, sprintList);
+	}
 	
 
 	//초대 +버튼 클릭시 동작하는 이벤트
@@ -353,7 +371,7 @@ public class A_AddProject extends JPanel implements ActionListener{
 			String id = JOptionPane.showInputDialog("초대 아이디를 입력하세요.");
 			peoples.append(id + "\n");
 			
-			pm.addPeople(id);
+			//pm.addPeople(id);
 		}
 	}
 	

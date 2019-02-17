@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Date;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -22,7 +23,7 @@ import model.vo.Project;
 
 public class B_HomeBarPanel extends JPanel implements MouseListener, ActionListener {
 
-	private MainFrame mf;
+	//private MainFrame mf;
 	private B_ProjectPage projectPage;
 	private B_HomeBarPanel homeBarPanel;
 	private JButton User_btn;
@@ -35,7 +36,7 @@ public class B_HomeBarPanel extends JPanel implements MouseListener, ActionListe
 
 		this.projectPage = projectPage;
 		this.homeBarPanel = this;
-		this.mf = mf;
+		//this.mf = mf;
 		
 		this.selectedProject = selectedProject;
 
@@ -90,8 +91,28 @@ public class B_HomeBarPanel extends JPanel implements MouseListener, ActionListe
 		// 진행바
 		JProgressBar progressBar = new JProgressBar();
 		progressBar.setMinimum(0);
-		progressBar.setMaximum(100);
-		progressBar.setValue(50);
+		
+		Date startDay = selectedProject.getProjectStartDay();
+		Date endDay = selectedProject.getProjectEndDay();
+		Date today = new Date();
+		
+		
+		long totalTime = endDay.getTime() - startDay.getTime(); 	//밀리세컨드
+		int totalDay = (int)(((((totalTime / 1000) / 60) / 60) / 24)); 
+		long timePast = today.getTime() - startDay.getTime();
+		int dayPast = (int)(((((timePast / 1000) / 60) / 60) / 24)) + 1;
+		
+		//int totalDay = B_DdayPanel.totalDay;
+		//int dayPast = B_DdayPanel.dayPast;
+		int progress;
+		if(totalDay != 0) {
+			progress = (int)(dayPast/totalDay);
+		}else {
+			progress = 0;
+		}
+		
+		progressBar.setMaximum(totalDay);
+		progressBar.setValue(progress);
 		progressBar.setForeground(Color.decode("#72f07e"));
 
 		// progressBar.setLocation(320,50);

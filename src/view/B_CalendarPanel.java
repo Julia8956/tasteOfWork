@@ -26,6 +26,8 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
+import model.vo.Project;
+
 public class B_CalendarPanel extends JPanel {
 
 	
@@ -35,7 +37,7 @@ public class B_CalendarPanel extends JPanel {
 	private B_CalendarPanel calendarPanel;
 	
 	
-	public B_CalendarPanel(B_ProjectPage projectPage) {
+	public B_CalendarPanel(B_ProjectPage projectPage, Project selectedProject) {
 		
 		//this.setSize(400, 688);
 		//this.setPreferredSize(new Dimension(400, 688));

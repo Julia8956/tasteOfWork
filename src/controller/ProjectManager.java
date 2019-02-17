@@ -36,8 +36,10 @@ public class ProjectManager {
 		sprints.add(newSprint);
 		project.setSprints(sprints);
 		
-		pdao = new ProjectDao(project.getProjectTitle());
-		pdao.addSprint(sprints);
+		if(project != null) {
+			pdao = new ProjectDao(project.getProjectTitle());
+			pdao.addSprint(sprints);
+		}
 		
 		return project;
 	
@@ -57,27 +59,49 @@ public class ProjectManager {
 	}
 	
 	
-	public void makeNewProject(String projectTitle, Date projectStartDay, Date projectEndDay) {
+	public void makeNewProject(String projectTitle, Date projectStartDay, Date projectEndDay, ArrayList<Sprint> sprintList) {
 		
 		//ArrayList<Project> projects = new ArrayList<Project>();
-		Project newProject = new Project(projectTitle, projectStartDay, projectEndDay, sprints,ids);
+		Project newProject = new Project(projectTitle, projectStartDay, projectEndDay, sprintList, ids);
 		pdao = new ProjectDao(projectTitle);
 		pdao.makeProject(newProject);
 		//projects.add(newProject);
 		
 		//sdao = new SprintDao();
 		
-		
+		//return newProject;
 	}
 	
 	public Project getProject(String titleSelected) {
 		
 		pdao = new ProjectDao(titleSelected);
+		//getSprintList();
 		return pdao.findProject();
 	}
 	
+	public ArrayList<Sprint> getSprintList() {
+		
+		//pdao = new ProjectDao(project.getProjectTitle());
+		sprints = pdao.getSprintList();
+		return sprints;
+	}
 	
+	public void modifyProject(Project project, String projectTitle, Date projectStartDay, Date projectEndDay, ArrayList<Sprint> sprintList) {
+		
+		pdao = new ProjectDao(project.getProjectTitle());
+		project.setProjectTitle(projectTitle);
+		project.setProjectStartDay(projectStartDay);
+		project.setProjectEndDay(projectEndDay);
+		project.setSprints(sprintList);
+		project.setIds(ids);
+		pdao.modifyProject(project);
+		
+		//return project;
+	}
 	
+	public void makeNewMOM(Project project) {
+		
+	}
 	
 	
 	

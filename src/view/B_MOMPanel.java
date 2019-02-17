@@ -3,14 +3,10 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -24,7 +20,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.UIManager;
 
 import model.vo.MOM;
-import model.vo.Sprint;
+import model.vo.Project;
 
 public class B_MOMPanel extends JPanel implements ActionListener {
 
@@ -36,16 +32,24 @@ public class B_MOMPanel extends JPanel implements ActionListener {
 	private DefaultListModel MOMModel;
 	private JList MOMJList;
 	private ArrayList<MOM> MOMArrList = new ArrayList<MOM>();
+	
+	private Project selectedProject;
 
-	public B_MOMPanel(B_ProjectPage projectPage, MainFrame mainFrame) {
+	public B_MOMPanel(B_ProjectPage projectPage, MainFrame mainFrame, Project selectedProject) {
 
 		this.mainFrame = mainFrame;
 		this.projectPage = projectPage;
 		this.MOMPanel = this;
+		
+		this.selectedProject = selectedProject;
 		this.setLayout(new BorderLayout());
 
+		//(¹Î)
+		this.setBackground(B_ProjectPage.BG_COLOR);
+		this.setBorder(BorderFactory.createEmptyBorder(20, 20, 50, 50));
+
 		// ÀüÃ¼ ÆùÆ® ½ºÅ¸ÀÏ Àû¿ë
-		setUIFont(new javax.swing.plaf.FontUIResource("¸¼Àº °íµñ", Font.PLAIN, 15));
+		//setUIFont(new javax.swing.plaf.FontUIResource("¸¼Àº °íµñ", Font.PLAIN, 15));
 		JPanel MOMPanel = new JPanel();
 		MOMPanel.setBackground(B_ProjectPage.BG_COLOR);
 		MOMPanel.setLayout(new BorderLayout());
