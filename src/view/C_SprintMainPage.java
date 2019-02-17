@@ -16,6 +16,8 @@ public class C_SprintMainPage extends JPanel{
 	private Project selectedProject;
 	private Sprint selectedSprint;
 	//매개변수수정(민)
+	
+	
 	public C_SprintMainPage(MainFrame mf, B_ProjectPage projectPage, Project selectedProject, Sprint selectedSprint) {
 		this.mf = mf;
 		this.sprintPage = sprintPage;
@@ -38,7 +40,7 @@ public class C_SprintMainPage extends JPanel{
 		gc.gridwidth= GridBagConstraints.REMAINDER;
 		//gc.gridheight = 1;
 		//매개변수수정(민)
-		gridBag.setConstraints(new C_MenuBarPanel(this, this.mf, this.selectedProject, this.selectedSprint), gc);
+		gridBag.setConstraints(new C_MenuBarPanel(this, this.mf, this.selectedProject, this.selectedSprint), gc); 
 	
 		
 		//OPEN패널
@@ -76,5 +78,10 @@ public class C_SprintMainPage extends JPanel{
 	
 	public void goToProjectPage() {
 		ChangePanel.changePanel(mf, this, projectPage);
+	}
+	public void goToLoginPage(C_SprintMainPage sprintPage) {
+		this.sprintPage=sprintPage;
+		System.out.println("로그아웃 메소드 스프리트메인으로 들어옴");
+		ChangePanel.changePanel(mf, sprintPage, new A_LoginPage(mf));
 	}
 }

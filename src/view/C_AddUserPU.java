@@ -15,9 +15,25 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import model.vo.Project;
+import model.vo.Sprint;
+import view.A_AddUserPU.LogoutEvent;
+
+
 public class C_AddUserPU extends JPanel{
 	private MainFrame mf; 
 	private Dialog userPU;
+	private JButton logoutbtn;
+	private JButton Editbtn;
+	
+	
+
+	private C_SprintMainPage sprintPage;
+	//필드추가(민)
+	private B_ProjectPage projectPage;
+	private Project selectedProject;
+	private Sprint selectedSprint;
+	
 	
 	public C_AddUserPU() {}
 	
@@ -81,6 +97,29 @@ public class C_AddUserPU extends JPanel{
 		closebtn.setLocation(250,285);
 		closebtn.addActionListener(new CloseEvent());
 		
+		logoutbtn = new JButton("로그아웃"); 
+		
+		logoutbtn.setSize(100, 30);
+		logoutbtn.setLocation(150, 285);
+		userPU.add(logoutbtn);
+		logoutbtn.addActionListener(new LogoutEvent());
+		
+		//정보 수정을 누르면 A_UserEdit로 경로 이동
+		
+		Editbtn = new JButton("개인정보 수정");
+		Editbtn.setSize(120,30);
+		Editbtn.setLocation(10, 285);
+		userPU.add(Editbtn);
+		
+		Editbtn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+					new A_UserEdit(mf).setVisible(true);
+				
+			}
+		});
+		
 		
 		userPU.add(closebtn);
 	}
@@ -96,5 +135,20 @@ public class C_AddUserPU extends JPanel{
 			userPU.dispose();
 		}
 
+	}
+	
+	class LogoutEvent implements ActionListener{
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+			System.out.println("로그아웃 메소드 들어옴");
+			
+			userPU.dispose();
+			ChangePanel.changePanel(mf, sprintPage, new A_LoginPage(mf));
+
+		}
+		
+		
 	}
 }
