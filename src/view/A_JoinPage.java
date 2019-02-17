@@ -160,7 +160,7 @@ public class A_JoinPage extends JPanel {
             	String names = namet.getText();
             	String genders = gendert.getText();
             	String phones = phonet.getText();
-            	String emails = phonet.getText();
+            	String emails = emailt.getText();
             	
             	if(idt.getText().equals(" ")){
             		JOptionPane.showMessageDialog(null, "아이디를 입력해주세요");

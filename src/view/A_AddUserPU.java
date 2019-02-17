@@ -24,6 +24,8 @@ public class A_AddUserPU extends JPanel{
 	private A_MainPage mainPage;
 	private JButton logoutbtn;
 	private A_LoginPage lp;
+	private Dialog userEdit;
+	private JButton Editbtn;
 	
 	public A_AddUserPU() {}
 	
@@ -92,8 +94,27 @@ public class A_AddUserPU extends JPanel{
 		logoutbtn.setSize(100, 30);
 		logoutbtn.setLocation(150, 285);
 		logoutbtn.addActionListener(new LogoutEvent());
-		
 		userPU.add(logoutbtn);
+		
+		//정보 수정을 누르면 A_UserEdit로 경로 이동
+				Editbtn = new JButton("개인정보 수정");
+				Editbtn.setSize(120,30);
+				Editbtn.setLocation(10, 285);
+				userPU.add(Editbtn);
+				
+				Editbtn.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+							new A_UserEdit(mf).setVisible(true);
+						
+					}
+				});
+		
+		
+		
+		
+		
 		userPU.add(closebtn);
 	}
 	

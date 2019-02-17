@@ -36,14 +36,13 @@ public class A_MemberDao {
 			System.out.println("파일이 없습니다.");
 		
 		} catch (ClassNotFoundException | IOException e) {
-			e.printStackTrace();
-		
+			System.out.println("파일이 없습니다.");
 		} finally {
 			if(ois != null) {
 				try {
 					ois.close();
 				} catch (IOException e) {
-					e.printStackTrace();
+					System.out.println("파일이 없습니다.");
 				}
 			}
 		}
