@@ -29,7 +29,7 @@ public class C_MenuBarPanel extends JPanel implements MouseListener,ActionListen
 	//받아온 selectedSprint 필드에저장(민)
 	private Project selectedProject;
 	private Sprint selectedSprint;
-	
+	private C_SprintMainPage sprintPage;
 	private JButton User_btn;
 	private JButton home;
 	private JButton back;
@@ -123,7 +123,7 @@ public class C_MenuBarPanel extends JPanel implements MouseListener,ActionListen
 		JLabel Sprint_Title = new JLabel();
 		
 		//스프린트명 선택된 것으로 받아서 출력(민)
-		Sprint_Title.setText(selectedProject.getProjectTitle() + " " + selectedSprint);
+		Sprint_Title.setText(selectedProject.getProjectTitle() + " " + selectedSprint);	//에러
 		
 		Sprint_Title.setFont(new Font("맑은 고딕",Font.BOLD,19));
 		Sprint_Title.setAlignmentX(CENTER_ALIGNMENT);
