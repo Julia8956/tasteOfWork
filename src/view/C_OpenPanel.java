@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -18,29 +19,47 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
 
+import controller.WorkManager;
+import model.dao.WorkDao;
+import model.vo.Project;
+import model.vo.Sprint;
 import model.vo.Work;
 
 public class C_OpenPanel extends JPanel implements ActionListener,MouseListener{
 	private MainFrame mainFrame;
 	private C_OpenPanel openPanel;
 	private C_SprintMainPage sprintMain;
+
 	private JButton Add_Work;
+	private JButton Open_move_button;
 
 	private ArrayList<Work> workArrList = new ArrayList<Work>(); //추가 한부분
 
+	private Work work = new Work();
+	private WorkManager wm = new WorkManager();
+	private WorkDao wdao = new WorkDao();
+	
+	private Project selectproject;
+	private Sprint selectsprint;
+
 	private JList<Work> openworklist;
 	private DefaultListModel<Work> model = new DefaultListModel<>();
-	
+
 	private int index ;
 
 	//public C_OpenPanel() {}
 
-	public C_OpenPanel(C_SprintMainPage sprintMain,MainFrame mainFrame) {
+	public C_OpenPanel(C_SprintMainPage sprintMain,MainFrame mainFrame,Project selectProject, Sprint selectSprint) {
 		this.mainFrame = mainFrame;
 		this.sprintMain = sprintMain;
 		this.openPanel = this;
-
+		
+		this.selectproject = selectProject;
+		this.selectsprint = selectSprint;
+		
+		wdao = new WorkDao(selectproject.getProjectTitle(),selectsprint.getSprintTitle());
 		//this.setBackground(Color.white);
 
 		this.setPreferredSize(new Dimension(340,700));
@@ -49,23 +68,39 @@ public class C_OpenPanel extends JPanel implements ActionListener,MouseListener{
 
 		//OPEN이라고 글자 나오는 거
 		JPanel Open_Title_panel = new JPanel();
-		Open_Title_panel.setPreferredSize(new Dimension(340,55));
-		Open_Title_panel.setBackground(Color.decode("#2ecc71"));
+		Open_Title_panel.setPreferredSize(new Dimension(340,45));
+		Open_Title_panel.setBackground(Color.decode("#B0D0D6"));
+		Open_Title_panel.setLayout(new BorderLayout());
 
+		JLabel sub_label = new JLabel();
+		sub_label.setPreferredSize(new Dimension(130,55));
 
 		JLabel Open_Title_label = new JLabel("OPEN");
-		Open_Title_label.setFont(new Font("Serif",Font.BOLD,25));
-		Open_Title_label.setForeground(Color.white);
+		Open_Title_label.setFont(new Font("Tahoma",Font.PLAIN,25));
+		Open_Title_label.setForeground(Color.DARK_GRAY);
 
-		Open_Title_panel.add(Open_Title_label);
+
+		/*JButton*/ Open_move_button = new JButton(">");
+		Open_move_button.setPreferredSize(new Dimension(50,55));
+
+		Open_Title_panel.add(sub_label,"West");
+		Open_Title_panel.add(Open_Title_label,"Center");
+		Open_Title_panel.add(Open_move_button,"East");
+
+
 
 
 		JScrollPane open_scroll = new JScrollPane(openworklist = createopenworklists());
 		open_scroll.setPreferredSize(new Dimension(340,600));
 		open_scroll.setBackground(Color.white);
 
+		workUpdate();
+		
 		//리스트 확인창 이벤트
 		openworklist.addMouseListener(this);
+
+		//리스트 선택
+		openworklist.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
 		//OPEN 마지막에 버튼 창
 		JPanel btn_Panel = new JPanel();
@@ -103,8 +138,9 @@ public class C_OpenPanel extends JPanel implements ActionListener,MouseListener{
 			if (e.getClickCount() ==2) {
 				/*int*/ index = openworklist.getSelectedIndex();
 				Work work = openworklist.getSelectedValue();
-				new C_CheckPU(this.mainFrame,work,this.openPanel).getCheckPU().setVisible(true);
-				//System.out.println("누름");
+				if (work != null) {
+					new C_CheckPU(this.mainFrame,work,this.openPanel).getCheckPU().setVisible(true);
+				}
 
 			}
 		}
@@ -136,22 +172,21 @@ public class C_OpenPanel extends JPanel implements ActionListener,MouseListener{
 
 
 	private JList<Work> createopenworklists(){
-		//DefaultListModel<Work> model = new DefaultListModel<>();
+		model.clear();
 
-		String[] member = {"문지원","정민지","우리나"};
-		model.addElement(new Work("할일명", member , "긴급"));
-		String[] member2 = {"송낙규","최인효","김규형"};
-		model.addElement(new Work("할일명2", member2, "실행"));
+		workUpdate();
+
+		ArrayList<Work> worklist = wm.getWorklist();
 
 
 		JList<Work> list = new JList<Work>(model);
 
-		list.setCellRenderer(new C_WorkRenderer());
 
-
-
+		list.setCellRenderer(new C_WorkRenderer());		
+		
+		openPanel.repaint();
+		
 		return list;
-
 	}
 
 
@@ -159,10 +194,7 @@ public class C_OpenPanel extends JPanel implements ActionListener,MouseListener{
 	public void addWorkOnList(Work newwork) {
 		//입력한 할일명, 긴급표시 Work객체 생성 해서 List에 올리기
 		//Work newWork = new Work();
-		newwork.setAllocator(null);
-
-		model.addElement(new Work(newwork.getWork_name(),newwork.getAllocator(),newwork.getLabel_name()));
-		workArrList.add(newwork);
+		findWorkList();
 
 		openPanel.revalidate();
 	}
@@ -170,12 +202,80 @@ public class C_OpenPanel extends JPanel implements ActionListener,MouseListener{
 	//C_CheckPU에서 확인버튼 느렴 실행하는 메소드
 	public void changeWorkOnList(Work changework) {
 		model.removeElementAt(index);
-		
+
 		model.addElement(new Work(changework.getWork_name(),changework.getAllocator(),changework.getLabel_name(),changework.getLabel_color()));
 		workArrList.add(changework);
-		
+
 		openPanel.revalidate();
 	}
 
+	public void findWorkList() {
+		model.clear();
+
+		//Work work = wm.getWork(selectedworkname);
+
+		ArrayList<Work> list = wm.getWorklist();
+
+		if (list == null) {
+
+		}else {
+
+			for (int i = 0 ; i < list.size() ; i++) {
+
+				if (list.get(i).getWork_inf().equals("open")) {
+
+					model.addElement(list.get(i));
+				}
+			}
+		}
+		
+		openPanel.revalidate();
+	}
+	
+	public void ModifyWork(Work work2, String work_name, Date work_start, Date work_end, String work_content,
+			String[] allocator, String feedback, String label_name, Color label_color) {
+		
+		wm.ModifyWork(selectproject,selectsprint,work2, work_name, work_start, work_end, work_content, allocator, feedback, label_name, label_color);
+		
+		findWorkList();
+	}
+
+	public void makeNewWork(String work_name, Date work_start, Date work_end, String work_content, 
+		 String label_name, Color btn_color,String[] allocator,String feedback) {
+		wm.makeWork(selectproject,selectsprint,work_name, work_start, work_end, work_content, label_name, btn_color, allocator, feedback,"open");
+		
+		findWorkList();
+	}
+	
+	
+	public void workUpdate() {
+		model.clear();
+
+		ArrayList<Work> worklist = wdao.getWorkList();
+		
+		for (int i = 0 ; i < worklist.size() ; i++) {
+			if (worklist.get(i).getWork_inf().equals("open")) {				
+				model.addElement(worklist.get(i));
+			}
+		}
+		
+	}
+
+	public void DeleteWork(Work work2, String work_name) {
+		wm.DeleteWork(selectproject,selectsprint,work2);
+		
+		findWorkList();
+	}
+
+	public void dragMotion(Work work) {
+		wm.ChangWork(selectproject,selectsprint,work);
+		
+		System.out.println(work);
+		
+		DeleteWork(work,work.getWork_name());	
+	}
+
+	
+	
 
 }

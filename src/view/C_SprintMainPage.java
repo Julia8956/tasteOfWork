@@ -5,6 +5,7 @@ import java.awt.GridBagLayout;
 
 import javax.swing.JPanel;
 
+import model.vo.A_Member;
 import model.vo.Project;
 import model.vo.Sprint;
 
@@ -48,37 +49,40 @@ public class C_SprintMainPage extends JPanel{
 		gc.weighty = 1;
 		gc.gridwidth = 1;
 		//gc.gridheight = 1;
-		gridBag.setConstraints(new C_OpenPanel(this, this.mf), gc);
+		gridBag.setConstraints(new C_OpenPanel(this, this.mf,this.selectedProject,this.selectedSprint), gc);
 		
 		//IN Progress 패널
 		gc.weightx = 1;
 		//gc.weighty = 0.9;
 		gc.gridwidth = 1;
 		//gc.gridheight = 1;
-		gridBag.setConstraints(new C_ProgressPanel(this, this.mf), gc);
+		gridBag.setConstraints(new C_ProgressPanel(this, this.mf,this.selectedProject,this.selectedSprint), gc);
 		
 		//Done 패널
 		gc.weightx = 1;
 		//gc.weighty = 0.9;
 		gc.gridwidth = GridBagConstraints.REMAINDER;
 		//gc.gridwidth = 1;
-		gridBag.setConstraints(new C_DonePanel(this, this.mf), gc);
+		gridBag.setConstraints(new C_DonePanel(this, this.mf,this.selectedProject,this.selectedSprint), gc);
 		
 		this.setVisible(true);
-		
+				
 		mf.add(this);
 		
 	}
 	
 	
 	public void goToMainPage() {
+		A_Member user = new A_Member();
 		
-		ChangePanel.changePanel(mf, this, new A_MainPage(mf));
+		ChangePanel.changePanel(mf, this, new A_MainPage(mf,user));
 	}
 	
 	public void goToProjectPage() {
 		ChangePanel.changePanel(mf, this, projectPage);
 	}
+	
+	
 	public void goToLoginPage(C_SprintMainPage sprintPage) {
 		this.sprintPage=sprintPage;
 		System.out.println("로그아웃 메소드 스프리트메인으로 들어옴");

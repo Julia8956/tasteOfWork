@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -20,6 +21,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import controller.WorkManager;
+import model.dao.WorkDao;
+import model.vo.Project;
+import model.vo.Sprint;
 import model.vo.Work;
 
 
@@ -30,6 +35,11 @@ public class C_ProgressPanel extends JPanel implements ActionListener,MouseListe
 	
 	private JTable progress_Table;
 	private JButton Add_Work;
+	private JButton Progress_move_button;
+	
+	private Work work = new Work();
+	private WorkManager wm = new WorkManager();
+	private WorkDao wdao = new WorkDao();
 	
 	private ArrayList<Work> workArrList = new ArrayList<Work>(); //추가 한부분
 	
@@ -37,11 +47,18 @@ public class C_ProgressPanel extends JPanel implements ActionListener,MouseListe
 	DefaultListModel<Work> progrssmodel = new DefaultListModel<>();
 	private int index; 
 	
+	private Project selectproject;
+	private Sprint selectsprint;	
 	
-	public C_ProgressPanel(C_SprintMainPage sprintMain,MainFrame mainFrame) {
+	public C_ProgressPanel(C_SprintMainPage sprintMain,MainFrame mainFrame,Project selectProject, Sprint selectSprint) {
 		this.mainFrame = mainFrame;
 		this.sprintMain = sprintMain;
 		this.progressPanel = this;
+		
+		this.selectproject = selectProject;
+		this.selectsprint = selectSprint;
+		
+		wdao = new WorkDao(selectproject.getProjectTitle(),selectsprint.getSprintTitle());
 		
 		this.setPreferredSize(new Dimension(340,700));
 		//this.setBackground(Color.yellow);
@@ -49,15 +66,23 @@ public class C_ProgressPanel extends JPanel implements ActionListener,MouseListe
 		
 		//In Progress이라고 글자 나오는 거
 		JPanel Progress_Title_panel = new JPanel();
-		Progress_Title_panel.setPreferredSize(new Dimension(340,55));
-		Progress_Title_panel.setBackground(Color.decode("#f1c40f"));
-
-
+		Progress_Title_panel.setPreferredSize(new Dimension(340,45));
+		Progress_Title_panel.setBackground(Color.decode("#FAF4C0"));
+		Progress_Title_panel.setLayout(new BorderLayout());
+		
+		JLabel sub_label = new JLabel();
+		sub_label.setPreferredSize(new Dimension(120,55));
+		
 		JLabel Progress_Title_label = new JLabel("In Progress");
-		Progress_Title_label.setFont(new Font("Serif",Font.BOLD,25));
-		Progress_Title_label.setForeground(Color.white);
+		Progress_Title_label.setFont(new Font("Tahoma",Font.PLAIN,25));
+		Progress_Title_label.setForeground(Color.DARK_GRAY);
 
-		Progress_Title_panel.add(Progress_Title_label);
+		Progress_move_button = new JButton(">");
+		Progress_move_button.setPreferredSize(new Dimension(50,55));
+		
+		Progress_Title_panel.add(sub_label,"West");
+		Progress_Title_panel.add(Progress_Title_label,"Center");
+		Progress_Title_panel.add(Progress_move_button,"East");
 
 		this.add(Progress_Title_panel,"North");
 		
@@ -100,21 +125,58 @@ public class C_ProgressPanel extends JPanel implements ActionListener,MouseListe
 	}
 
 	private JList<Work> createprogresslist(){
-		//DefaultListModel<Work> model = new DefaultListModel<>();
+		progrssmodel.clear();
 
-		String[] member = {"김규형","우리나"};
-		progrssmodel.addElement(new Work("할일명", member , "긴급"));
-		//String[] member2 = {"송낙규","최인효","김규형"};
-		//model.addElement(new Work("할일명2", member2, false));
+		workUpdate();
 
+		ArrayList<Work> worklist = wm.getWorklist();
 
+		
 		JList<Work> list = new JList<Work>(progrssmodel);
+		
 
-		list.setCellRenderer(new C_WorkRenderer());
+		list.setCellRenderer(new C_WorkRenderer());		
 
 		return list;
 
 	}
+	
+	private void workUpdate() {
+		progrssmodel.clear();
+
+		ArrayList<Work> worklist = wdao.getWorkList();
+		
+		for (int i = 0 ; i < worklist.size() ; i++) {
+			if (worklist.get(i).getWork_inf().equals("progress")) {				
+				progrssmodel.addElement(worklist.get(i));
+			}
+		}
+	}
+	
+	
+	public void findWorkList() {
+		progrssmodel.clear();
+		
+		//Work work = wm.getWork(selectedworkname);
+		
+		ArrayList<Work> list = wm.getWorklist();
+
+		if (list == null) {
+
+		}else {
+
+			for (int i = 0 ; i < list.size() ; i++) {
+
+				if (list.get(i).getWork_inf().equals("progress")) {
+
+					progrssmodel.addElement(list.get(i));
+				}
+			}
+		}
+		
+		progressPanel.revalidate();
+	}
+	
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -160,8 +222,9 @@ public class C_ProgressPanel extends JPanel implements ActionListener,MouseListe
 			//입력한 할일명, 긴급표시 Work객체 생성 해서 List에 올리기
 			//Work newWork = new Work();
 			newwork.setAllocator(null);
+			newwork.setWork_inf("progress");
 
-			progrssmodel.addElement(new Work(newwork.getWork_name(),newwork.getAllocator(),newwork.getLabel_name()));
+			progrssmodel.addElement(new Work(newwork.getWork_name(),newwork.getAllocator(),newwork.getLabel_name(),newwork.getLabel_color()));
 			workArrList.add(newwork);
 
 			progressPanel.revalidate();
@@ -176,5 +239,48 @@ public class C_ProgressPanel extends JPanel implements ActionListener,MouseListe
 			
 			progressPanel.revalidate();
 		}
+		
+		
+		//open_peanel에서 move버튼 클릭시 실행 메소드
+		public void moveWorkList(Work moveWork) {
+			progrssmodel.addElement(new Work(moveWork.getWork_name(),moveWork.getAllocator(),moveWork.getLabel_name(),moveWork.getLabel_color()));
+			moveWork.setWork_inf("progress");
+
+			workArrList.add(moveWork);
+
+			progressPanel.revalidate();
+		}
+		
+
+		public void makeNewWork(String work_name, Date work_start, Date work_end, String work_content,
+				String work_subject, Color label_color, String[] allocator, String feedback) {
+			// TODO Auto-generated method stub
+			
+			wm.makeWork(selectproject,selectsprint,work_name, work_start, work_end, work_content, work_subject, label_color, allocator, feedback,"progress");
+			
+			findWorkList();
+		}
+
+		public void ModifyWork(Work work2, String work_name, Date work_start, Date work_end, String work_content,
+				String[] allocator, String feedback, String label_name, Color label_color) {
+			
+			wm.ModifyWork(selectproject,selectsprint,work2, work_name, work_start, work_end, work_content, allocator, feedback, label_name, label_color);
+			
+			findWorkList();
+		}
+
+		public void repaintWork() {
+			System.out.println("2번");
+			findWorkList();
+		}
+
+		public void DeleteWork(Work work2, String work_name) {
+
+			wm.DeleteWork(selectproject,selectsprint,work2);
+			
+			findWorkList();
+		}
+		
+	
 
 }

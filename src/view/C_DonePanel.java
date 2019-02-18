@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -19,6 +20,10 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import controller.WorkManager;
+import model.dao.WorkDao;
+import model.vo.Project;
+import model.vo.Sprint;
 import model.vo.Work;
 
 
@@ -31,15 +36,27 @@ public class C_DonePanel extends JPanel implements ActionListener,MouseListener{
 	
 	private ArrayList<Work> workArrList = new ArrayList<Work>(); //추가 한부분
 
+	private Work work = new Work();
+	private WorkManager wm = new WorkManager();
+	private WorkDao wdao = new WorkDao();
+	
 	private JList<Work> doneworklist;
-	private DefaultListModel<Work> model = new DefaultListModel<>();
+	private DefaultListModel<Work> donemodel = new DefaultListModel<>();
 	
 	private int index ;
 	
-	public C_DonePanel(C_SprintMainPage sprintMain,MainFrame mainFrame) {
+	private Project selectproject;
+	private Sprint selectsprint;
+	
+	public C_DonePanel(C_SprintMainPage sprintMain,MainFrame mainFrame,Project selectproject,Sprint selectsprint) {
 		this.mainFrame = mainFrame;
 		this.sprintMain = sprintMain;
 		this.DoenPanel = this;
+		
+		this.selectproject = selectproject;
+		this.selectsprint = selectsprint;
+		
+		wdao = new WorkDao(selectproject.getProjectTitle(),selectsprint.getSprintTitle());
 		
 		this.setPreferredSize(new Dimension(340,700));
 		//this.setBackground(Color.blue);
@@ -48,13 +65,13 @@ public class C_DonePanel extends JPanel implements ActionListener,MouseListener{
 
 		//In Progress이라고 글자 나오는 거
 		JPanel Done_Title_panel = new JPanel();
-		Done_Title_panel.setPreferredSize(new Dimension(340,55));
-		Done_Title_panel.setBackground(Color.decode("#3498db"));
+		Done_Title_panel.setPreferredSize(new Dimension(340,45));
+		Done_Title_panel.setBackground(Color.decode("#D5D5D5"));
 
 
 		JLabel Done_Title_label = new JLabel("Done");
-		Done_Title_label.setFont(new Font("Serif",Font.BOLD,25));
-		Done_Title_label.setForeground(Color.white);
+		Done_Title_label.setFont(new Font("Tahoma",Font.PLAIN,25));
+		Done_Title_label.setForeground(Color.DARK_GRAY);
 
 		Done_Title_panel.add(Done_Title_label);
 
@@ -96,22 +113,55 @@ public class C_DonePanel extends JPanel implements ActionListener,MouseListener{
 	}
 	
 	private JList<Work> createopenworklists(){
-		//DefaultListModel<Work> model = new DefaultListModel<>();
-/*
-		String[] member = {"문지원","정민지","우리나"};
-		model.addElement(new Work("할일명", member , "긴급"));
-		String[] member2 = {"송낙규","최인효","김규형"};
-		model.addElement(new Work("할일명2", member2, "실행"));*/
+		donemodel.clear();
 
+		workUpdate();
 
-		JList<Work> list = new JList<Work>(model);
+		ArrayList<Work> worklist = wm.getWorklist();
 
-		list.setCellRenderer(new C_WorkRenderer());
+		
+		JList<Work> list = new JList<Work>(donemodel);
+		
 
-
+		list.setCellRenderer(new C_WorkRenderer());		
 
 		return list;
 
+	}
+	
+	private void workUpdate() {
+		donemodel.clear();
+
+		ArrayList<Work> worklist = wdao.getWorkList();
+		
+		for (int i = 0 ; i < worklist.size() ; i++) {
+			if (worklist.get(i).getWork_inf().equals("done")) {				
+				donemodel.addElement(worklist.get(i));
+			}
+		}
+	}
+	
+	public void findWorkList() {
+		donemodel.clear();
+		
+		//Work work = wm.getWork(selectedworkname);
+		
+		ArrayList<Work> list = wm.getWorklist();
+
+		if (list == null) {
+
+		}else {
+
+			for (int i = 0 ; i < list.size() ; i++) {
+
+				if (list.get(i).getWork_inf().equals("done")) {
+
+					donemodel.addElement(list.get(i));
+				}
+			}
+		}
+		
+		DoenPanel.revalidate();
 	}
 
 
@@ -121,7 +171,7 @@ public class C_DonePanel extends JPanel implements ActionListener,MouseListener{
 		//Work newWork = new Work();
 		newwork.setAllocator(null);
 
-		model.addElement(new Work(newwork.getWork_name(),newwork.getAllocator(),newwork.getLabel_name()));
+		donemodel.addElement(new Work(newwork.getWork_name(),newwork.getAllocator(),newwork.getLabel_name(),newwork.getLabel_color()));
 		workArrList.add(newwork);
 
 		DoenPanel.revalidate();
@@ -129,9 +179,9 @@ public class C_DonePanel extends JPanel implements ActionListener,MouseListener{
 
 	//C_CheckPU에서 확인버튼 느렴 실행하는 메소드
 	public void changeWorkOnList(Work changework) {
-		model.removeElementAt(index);
+		donemodel.removeElementAt(index);
 		
-		model.addElement(new Work(changework.getWork_name(),changework.getAllocator(),changework.getLabel_name(),changework.getLabel_color()));
+		donemodel.addElement(new Work(changework.getWork_name(),changework.getAllocator(),changework.getLabel_name(),changework.getLabel_color()));
 		workArrList.add(changework);
 		
 		DoenPanel.revalidate();
@@ -174,5 +224,28 @@ public class C_DonePanel extends JPanel implements ActionListener,MouseListener{
 		
 	}
 
+	public void makeNewWork(String work_name, Date work_start, Date work_end, String work_content,
+			String work_subject, Color label_color, String[] allocator, String feedback) {
+		// TODO Auto-generated method stub
+		
+		wm.makeWork(selectproject,selectsprint,work_name, work_start, work_end, work_content, work_subject, label_color, allocator, feedback,"done");
+		
+		findWorkList();
+	}
+
+	public void ModifyWork(Work work2, String work_name, Date work_start, Date work_end, String work_content,
+			String[] allocator, String feedback, String label_name, Color label_color) {
+		
+		wm.ModifyWork(selectproject,selectsprint,work2, work_name, work_start, work_end, work_content, allocator, feedback, label_name, label_color);
+		
+		findWorkList();
+	}
+
+	public void DeleteWork(Work work2, String work_name) {
+		// TODO Auto-generated method stub
+		wm.DeleteWork(selectproject,selectsprint,work2);
+		
+		findWorkList();
+	}
 
 }
