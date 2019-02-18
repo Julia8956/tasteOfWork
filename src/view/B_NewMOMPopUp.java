@@ -15,8 +15,10 @@ import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import java.util.Date;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -26,29 +28,37 @@ import org.jdesktop.swingx.JXDatePicker;
 
 import model.vo.MOM;
 
-public class B_newMOMPopUp extends JPanel {
+public class B_NewMOMPopUp extends JPanel {
 
 	private MainFrame mainFrame;
 	private JButton plusButton;
 	private Dialog newMompopup;
+	
+	
 	private String MOMTitle;
 	private String MOMWriter;
 	private String MOMPerson;
 	private String MOMDescription;
 	private Date MOMDay;
+	
+	private MOM momSelected;
+	
 	private int nameCtn = 0;
 	private int descriptionCtn = 0;
 
-	public B_newMOMPopUp(MainFrame mainFrame, B_MOMPanel MOMPanel) {
+	public B_NewMOMPopUp(MainFrame mainFrame, B_MOMPanel MOMPanel, MOM momSelected) {
 
 		this.mainFrame = mainFrame;
+		this.momSelected = momSelected;
+		
+		
 		newMompopup = new Dialog(mainFrame, "새 회의록");
 		newMompopup.setLayout(null);
 		newMompopup.setUndecorated(true);
 		newMompopup.setBackground(B_ProjectPage.POPUP_COLOR);
 
 		// 전체 폰트 스타일 적용
-		setUIFont(new javax.swing.plaf.FontUIResource("맑은 고딕", Font.ITALIC, 15));
+		//setUIFont(new javax.swing.plaf.FontUIResource("맑은 고딕", Font.ITALIC, 15));
 
 		// 팝업위치 조정(화면 가운데)
 		newMompopup.setSize(515, 620);
@@ -60,7 +70,7 @@ public class B_newMOMPopUp extends JPanel {
 
 		// 이름
 		JTextField MOMName = new JTextField("회의명", 30);
-		// MOMName.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		MOMName.setFont(new Font("맑은 고딕", Font.BOLD, 15));
 		MOMName.setLocation(20, 50);
 		MOMName.setSize(450, 45);
 		newMompopup.add(MOMName);
@@ -88,6 +98,7 @@ public class B_newMOMPopUp extends JPanel {
 		writerLabel.setLocation(40, 115);
 		writerLabel.setSize(100, 45);
 		writerLabel.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+		writerLabel.setForeground(Color.WHITE);
 		// 글씨색깔 흰색으로 변경
 		// writerLabel.setForeground(Color.WHITE);
 
@@ -108,6 +119,12 @@ public class B_newMOMPopUp extends JPanel {
 		newMompopup.add(DayLabel);
 		// 달력
 		JXDatePicker Day = new DatePicker().getDatePicker();
+		JButton btn_pick = (JButton) Day.getComponent(1);
+		ImageIcon startIcon = new ImageIcon("images/Calendar.png");
+		btn_pick.setIcon(startIcon);
+		btn_pick.setBorderPainted(false);
+		btn_pick.setFocusPainted(false);
+		btn_pick.setContentAreaFilled(false);
 		Day.setLocation(330, 120);
 		Day.setSize(140, 40);
 		Day.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
@@ -141,7 +158,7 @@ public class B_newMOMPopUp extends JPanel {
 		plusButton.setLocation(440, 175);
 		plusButton.setOpaque(false);
 		plusButton.setContentAreaFilled(false);
-		plusButton.setBackground(Color.lightGray);
+		plusButton.setForeground(Color.WHITE);
 		plusButton.setBorder(null);
 		plusButton.setSize(30, 40);
 		plusButton.setToolTipText("참석자 추가");
@@ -194,14 +211,13 @@ public class B_newMOMPopUp extends JPanel {
 		text.setLocation(40, 300);
 		text.setSize(100, 45);
 		text.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+		text.setForeground(Color.white);
 		// 글씨색깔 흰색으로 변경
 		// text.setForeground(Color.WHITE);
 		newMompopup.add(text);
 
 		// 내용 작성 칸
-		JTextArea description = new JTextArea("내용 작성", 3,
-
-				30);
+		JTextArea description = new JTextArea("내용 작성", 3, 30);
 		description.setLocation(130, 300);
 		description.setSize(350, 220);
 		newMompopup.add(description);
@@ -214,11 +230,51 @@ public class B_newMOMPopUp extends JPanel {
 				}
 			}
 		});
+		
+		if (momSelected != null) {
+			MOMName.setText(momSelected.getMOMTitle());
+			writer.setText(momSelected.getMOMWriter());
+			Day.setDate(momSelected.getMOMDay());
+			person.setText(momSelected.getMOMPerson());
+			description.setText(momSelected.getMOMDescription());
+		
+		}
+		
+		
+		// 삭제 버튼
+		JButton deleteBtn = new JButton("삭제");
+		deleteBtn.setLocation(170, 550);
+		deleteBtn.setSize(90, 40);
+		newMompopup.add(deleteBtn);
+
+		deleteBtn.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+
+				if (momSelected != null) {
+					int answer = JOptionPane.showConfirmDialog(null, "회의록을 삭제하시겠습니까?");
+					if(answer == 0) {
+						MOMPanel.deleteMOM(momSelected);
+					}
+				}
+				newMompopup.dispose();
+
+			}
+		});
+
+
 
 		// 취소버튼
-		JButton cancelBtn = new JButton("취소");
+		JButton cancelBtn = new JButton(new ImageIcon("images/cancelbtn11.png"));
+		ImageIcon cancelBtn2 = new ImageIcon("images/cancelbtn22.png");
+		cancelBtn.setBorderPainted(false);
+		cancelBtn.setFocusPainted(false);
+		cancelBtn.setContentAreaFilled(false);
+		cancelBtn.setRolloverIcon(cancelBtn2);
+		cancelBtn.setSize(100, 50);
 		cancelBtn.setLocation(275, 550);
-		cancelBtn.setSize(90, 40);
 		newMompopup.add(cancelBtn);
 
 		// 취소버튼 클릭시 팝업창 닫힘
@@ -234,9 +290,14 @@ public class B_newMOMPopUp extends JPanel {
 		});
 
 		// 확인버튼
-		JButton okBtn = new JButton("확인");
+		JButton okBtn = new JButton(new ImageIcon("images/okbtn1.png"));
+		ImageIcon okBtn2 = new ImageIcon("images/okbtn2.png");
+		okBtn.setBorderPainted(false);
+		okBtn.setFocusPainted(false);
+		okBtn.setContentAreaFilled(false);
+		okBtn.setRolloverIcon(okBtn2);
+		okBtn.setSize(100, 50);
 		okBtn.setLocation(385, 550);
-		okBtn.setSize(90, 40);
 		newMompopup.add(okBtn);
 		// 버튼에 이벤트 연결
 		okBtn.addActionListener(new ActionListener() {
@@ -251,9 +312,14 @@ public class B_newMOMPopUp extends JPanel {
 				MOMPerson = person.getText();
 				MOMDescription = description.getText();
 				// 생성한 회의록을 리스트에 추가하는 메소드 호출
-				MOMPanel.addMOMOnList(MOMTitle, MOMDay);
+				if(momSelected == null) {
+					MOMPanel.addMOMOnList(MOMTitle, MOMWriter, MOMDay, MOMPerson, MOMDescription);
+				}else {
+					MOMPanel.modifyMOM(momSelected, MOMTitle, MOMWriter, MOMDay, MOMPerson, MOMDescription);
+				}
+				
 
-				MOM mom = new MOM(MOMTitle, MOMDay);
+				/*MOM mom = new MOM(MOMTitle, MOMDay);
 				try (ObjectOutputStream object = new ObjectOutputStream(
 						new FileOutputStream("MOMList/MOM_" + MOMTitle + ".txt"))) {
 					object.writeObject(mom);
@@ -262,20 +328,9 @@ public class B_newMOMPopUp extends JPanel {
 
 				} catch (Exception e1) {
 					e1.printStackTrace();
-				}
+				}*/
 
-				// try (BufferedWriter bw = new BufferedWriter(new FileWriter("MOMList/MOM_"
-				// +MOMTitle + ".txt"))) {
-				// //오브젝트 아웃풋
-				// bw.write(MOMTitle + "/"); // 회의록 제목
-				// bw.write(MOMWriter + "/"); // 작성자
-				//// bw.(MOMDay); // 날짜
-				// bw.write(MOMPerson + "/"); // 참석자
-				// bw.write(MOMDescription); // 내용
-				//
-				// } catch (IOException e1) {
-				// e1.printStackTrace();
-				// }
+				
 
 				// 확인버튼 클릭시 팝업창 닫히고
 				newMompopup.dispose();

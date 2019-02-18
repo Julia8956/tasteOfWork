@@ -14,9 +14,10 @@ public class Project implements Serializable{
 	protected String projectTitle;
 	protected Date projectStartDay;
 	protected Date projectEndDay;
-	protected transient ArrayList<Sprint> sprints;
+	protected transient ArrayList<Sprint> sprintList;
 	protected String projectAdmin;
 	protected ArrayList<String> memberList;
+	protected transient ArrayList<MOM> MOMList;
 	
 
 	public Project() {}
@@ -24,14 +25,15 @@ public class Project implements Serializable{
 	
 
 	public Project(String projectTitle, Date projectStartDay, Date projectEndDay, 
-			ArrayList<Sprint> sprints, String projectAdmin, ArrayList<String> memberList) {
+			ArrayList<Sprint> sprintList, String projectAdmin, ArrayList<String> memberList, ArrayList<MOM> MOMList) {
 		super();
 		this.projectTitle = projectTitle;
 		this.projectStartDay = projectStartDay;
 		this.projectEndDay = projectEndDay;
-		this.sprints = sprints;
+		this.sprintList = sprintList;
 		this.projectAdmin = projectAdmin;
 		this.memberList = memberList;
+		this.MOMList = MOMList;
 	}
 
 
@@ -40,63 +42,52 @@ public class Project implements Serializable{
 		return projectTitle;
 	}
 
-
-
-
 	public Date getProjectStartDay() {
 		return projectStartDay;
 	}
-
 
 	public Date getProjectEndDay() {
 		return projectEndDay;
 	}
 
-	
-
-	public ArrayList<Sprint> getSprints() {
-		return sprints;
+	public ArrayList<Sprint> getSprintList() {
+		return sprintList;
 	}
 
 	public String getProjectAdmin() {
 		return projectAdmin;
 	}
 
-
 	public ArrayList<String> getMemberList() {
 		return memberList;
 	}
 
+	public ArrayList<MOM> getMOMList() {
+		return MOMList;
+	}
 
 
-
-
-
+	
+	
+	
+	
+	
 
 	public void setProjectTitle(String projectTitle) {
 		this.projectTitle = projectTitle;
 	}
 
-
-
-
 	public void setProjectStartDay(Date projectStartDay) {
 		this.projectStartDay = projectStartDay;
 	}
-
-
-
 
 	public void setProjectEndDay(Date projectEndDay) {
 		this.projectEndDay = projectEndDay;
 	}
 
-	
-
-	public void setSprints(ArrayList<Sprint> sprints) {
-		this.sprints = sprints;
+	public void setSprintList(ArrayList<Sprint> sprintList) {
+		this.sprintList = sprintList;
 	}
-
 
 	public void setProjectAdmin(String projectAdmin) {
 		this.projectAdmin = projectAdmin;
@@ -106,7 +97,13 @@ public class Project implements Serializable{
 		this.memberList = memberList;
 	}
 
+	public void setMOMList(ArrayList<MOM> mOMList) {
+		MOMList = mOMList;
+	}
 
+	
+	
+	
 	@Override
 	public String toString() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
