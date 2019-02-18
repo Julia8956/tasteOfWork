@@ -14,6 +14,7 @@ import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -21,7 +22,7 @@ import javax.swing.UIManager;
 
 import org.jdesktop.swingx.JXDatePicker;
 
-import model.vo.Project;
+import controller.ProjectManager;
 import model.vo.Sprint;
 
 public class B_NewSprintPopUp extends JPanel {
@@ -41,8 +42,10 @@ public class B_NewSprintPopUp extends JPanel {
 	//private int startDayCtn = 0;
 	//private int endDayCtn = 0;
 	private int descriptionCtn = 0;
+	private Sprint selectedSprint;
 	
-	public B_NewSprintPopUp(MainFrame mainFrame, B_SprintPanel sprintPanel) {
+	public B_NewSprintPopUp(MainFrame mainFrame, B_SprintPanel sprintPanel, Sprint selectedSprint) {
+		this.selectedSprint = selectedSprint;
 		
 		newSprintPopUp = new Dialog(mainFrame, "새 스프린트 만들기");
 		//newSprintPopUp.setBackground(Color.darkGray);
@@ -67,7 +70,11 @@ public class B_NewSprintPopUp extends JPanel {
 		
 		//이름
 		JTextField sprintName = new JTextField("새 스프린트 이름", 30);
-		//sprintName.setFont(new Font("",Font.BOLD, 20));
+
+		if(selectedSprint != null) {
+			sprintName.setText(selectedSprint.getSprintTitle());
+		}
+		
 		sprintName.setLocation(30, 50);				
 		sprintName.setSize(450,45);
 		newSprintPopUp.add(sprintName);
@@ -92,10 +99,6 @@ public class B_NewSprintPopUp extends JPanel {
 			}
 		});
 		
-		/*if(sprintName.getText().equals("")) {
-			sprintName.setText("새 스프린트 이름");
-		}*/
-
 		//시작일
 		JLabel start = new JLabel("시작일");
 		start.setLocation(30, 115);
@@ -106,28 +109,16 @@ public class B_NewSprintPopUp extends JPanel {
 		
 		//시작일
 		JXDatePicker startDayPicker = new DatePicker().getDatePicker();
+		if(selectedSprint != null) {
+			startDayPicker.setDate(selectedSprint.getSprintStartDay());
+		}
 		
-		//JTextField startDay = new JTextField("스프린트 시작일", 15);
 		startDayPicker.setLocation(80, 115);
 		startDayPicker.setSize(120, 40);
 		///startDayPicker.setFont(new Font("맑은 고딕", Font., 15));
 		newSprintPopUp.add(startDayPicker);	
 		
-		/*startDayPicker.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if(startDayCtn == 0) {
-					startDayPicker.setText("");
-				}
-			}
-		});*/
 		
-		/*tartDayPicker.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				startDayCtn++;
-			}
-		});*/
 		
 		
 		//~
@@ -150,36 +141,26 @@ public class B_NewSprintPopUp extends JPanel {
 		//종료일
 		JXDatePicker endDayPicker = new DatePicker().getDatePicker();
 		
-		//JTextField endDay = new JTextField("스프린트 종료일", 15);
+		if(selectedSprint != null) {
+			endDayPicker.setDate(selectedSprint.getSprintEndDay());
+		}
 		endDayPicker.setLocation(360, 115);
 		endDayPicker.setSize(120, 40);
 		//endDayPicker.setFont(new Font("", Font.PLAIN, 15));
 		newSprintPopUp.add(endDayPicker);
 		
-		/*endDayPicker.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if(endDayCtn == 0) {
-					//endDayPicker.setText("");
-				}
-			}
-		});*/
 		
-		
-		/*endDayPicker.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				endDayCtn++;
-			}
-		});*/
 
 		
 		
 		//설명
 		JTextArea description = new JTextArea("설명", 3, 30);
+		if(selectedSprint != null) {
+			description.setText(selectedSprint.getSprintDetail());
+		}
+		
 		description.setLocation(30, 175);
 		description.setSize(453,135);
-		//description.setFont(new Font("", Font.PLAIN, 15));
 		description.setLineWrap(true);
 		description.setWrapStyleWord(true);
 		//int numOfLines = description.getLineCount();
@@ -246,6 +227,10 @@ public class B_NewSprintPopUp extends JPanel {
 		//입력한 할일 보여주는 textArea
 		//readOnly (수정불가)
 		JTextArea toDoList = new JTextArea(30, 10);
+		if(selectedSprint != null) {
+			toDoList.setText(selectedSprint.getSprintToDo());
+		}
+		
 		toDoList.setLocation(30, 390);
 		toDoList.setSize(455, 200);
 		toDoList.setFont(new Font("", Font.PLAIN, 15));
@@ -281,6 +266,29 @@ public class B_NewSprintPopUp extends JPanel {
 			}
 
 		});
+		//스프린트 삭제 버튼
+		JButton deleteBtn = new JButton("삭제");
+		deleteBtn.setLocation(170, 610);
+		deleteBtn.setSize(90, 40);
+		newSprintPopUp.add(deleteBtn);
+		
+		deleteBtn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				if (selectedSprint != null) {
+					int answer = JOptionPane.showConfirmDialog(null, "스프린트를 삭제하시겠습니까?");
+					if(answer == 0) {
+						sprintPanel.deleteSprint(selectedSprint);
+					}
+				}
+				newSprintPopUp.dispose();
+				
+			}
+		});
+		
 
 		//스프린트 생성 취소버튼
 		JButton cancelBtn = new JButton("취소");
@@ -316,11 +324,15 @@ public class B_NewSprintPopUp extends JPanel {
 				sprintEndDay = endDayPicker.getDate();
 				sprintDetail = description.getText();
 				sprintToDo = toDoList.getText();
-				
-				
-				sprintPanel.addSprintOnList(sprintTitle, sprintStartDay, sprintEndDay, sprintDetail, sprintToDo);
-				
 				newSprintPopUp.dispose();
+
+				if(selectedSprint == null) {
+					sprintPanel.addSprintOnList(sprintTitle, sprintStartDay, sprintEndDay, sprintDetail, sprintToDo);
+				}else {
+					sprintPanel.modifySprint(selectedSprint, sprintTitle, sprintStartDay, sprintEndDay, sprintDetail, sprintToDo);
+				}
+				
+				
 			}
 		});
 		

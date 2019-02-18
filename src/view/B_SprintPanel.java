@@ -92,10 +92,6 @@ public class B_SprintPanel extends JPanel implements ActionListener, MouseListen
 		
 		//생성된 스프린트 리스트
 		sprintModel = new DefaultListModel();
-		/*ArrayList<Sprint> sprintList = this.selectedProject.getSprints();
-		for(int i = 0; i < sprintList.size(); i++) {
-			sprintModel.addElement(sprintList.get(i));
-		}*/
 		sprintListUpdate();
 		//스프린트 리스트 올릴 리스트
 		sprintJList = new JList(sprintModel);
@@ -103,29 +99,7 @@ public class B_SprintPanel extends JPanel implements ActionListener, MouseListen
 		sprintJList.setToolTipText("더블클릭시 해당 스프린트로 이동");
 		sprintJList.addMouseListener(this);
 		
-		//스프린트리스트에 이벤트 연결
-		/*sprintJList.addMouseListener(new MouseAdapter() {
-			
-				
-			@Override
-			public void mouseClicked(MouseEvent e) {
-
-				if(e.getClickCount() == 2) {
-					Sprint selectedSprint = (Sprint)sprintJList.getSelectedValue();
-					projectPage.goToSprintPage(this.selectedProject, selectedSprint);
-					
-				}
-			}
-		});*/
 		
-		
-		/*sprintJList.addListSelectionListener(new ListSelectionListener() {
-			
-			@Override
-			public void valueChanged(ListSelectionEvent e) {
-				//선택된 스프린트 저장 -> 불러올때 써야함
-			}
-		});*/
 		
 		
 		sprintJList.setBorder(BorderFactory.createLineBorder(Color.black, 1));
@@ -151,24 +125,7 @@ public class B_SprintPanel extends JPanel implements ActionListener, MouseListen
 	
 	
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-
-		if(e.getSource() == newSprintButton) {
-			new B_NewSprintPopUp(mainFrame, sprintPanel).getNewSprintPopUp().setVisible(true);;
-		}
-	}
 	
-	//전체 폰트적용 메소드
-	public static void setUIFont (javax.swing.plaf.FontUIResource f){
-		java.util.Enumeration keys = UIManager.getDefaults().keys();
-		while (keys.hasMoreElements()) {
-			Object key = keys.nextElement();
-			Object value = UIManager.get (key);
-			if (value instanceof javax.swing.plaf.FontUIResource)
-				UIManager.put (key, f);
-		}
-	} 
 
 	public void addSprintOnList(String sprintTitle, Date sprintStartDay, Date sprintEndDay, String sprintDetail, String sprintToDo) {
 		//받아온 스프린트명, 시작일, 종료일로 Sprint객체 생성해서 arrayList에 올리기
@@ -180,6 +137,25 @@ public class B_SprintPanel extends JPanel implements ActionListener, MouseListen
 		sprintPanel.revalidate();
 		
 	}
+	
+	public void deleteSprint(Sprint sprint) {
+		
+		selectedProject = new ProjectManager().deleteSprint(selectedProject, sprint);
+		sprintListUpdate();
+		
+		sprintPanel.revalidate();
+		
+	}
+	
+	public void modifySprint(Sprint sprint, String sprintTitle, Date sprintStartDay, Date sprintEndDay, String sprintDetail, String sprintToDo) {
+		
+		
+		selectedProject = new ProjectManager().modifySprint(selectedProject, sprint, sprintTitle, sprintStartDay, sprintEndDay, sprintDetail, sprintToDo);
+		sprintListUpdate();
+		
+		
+		sprintPanel.revalidate();
+	}
 
 
 	public void sprintListUpdate() {
@@ -189,21 +165,62 @@ public class B_SprintPanel extends JPanel implements ActionListener, MouseListen
 		for(int i = 0; i < sprintList.size(); i++) {
 			sprintModel.addElement(sprintList.get(i));
 		}
-		//this.revalidate();
+		this.revalidate();
 	}
 
+	
+	
+	
+	
+	
+	
+//이벤트
+	//스프린트 추가버튼 클릭시
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+		if(e.getSource() == newSprintButton) {
+			new B_NewSprintPopUp(mainFrame, sprintPanel, null).getNewSprintPopUp().setVisible(true);;
+		}
+	}
+	
+	//spirntJList에서 마우스클릭시
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		
 		if(e.getSource() == sprintJList) {
-			if(e.getClickCount() == 2) {
-				Sprint selectedSprint = (Sprint)sprintJList.getSelectedValue();
-				projectPage.goToSprintPage(selectedProject, selectedSprint);
+			
+			if(e.getButton() == 1) {
+				if(e.getClickCount() == 2) {
+					Sprint selectedSprint = (Sprint)sprintJList.getSelectedValue();
+					projectPage.goToSprintPage(selectedProject, selectedSprint);
+				}
+				
 			}
+			
+			if(e.getButton() == 3) {
+				
+				Sprint selectedSprint = (Sprint)sprintJList.getSelectedValue();
+				System.out.println(selectedSprint);
+				new B_NewSprintPopUp(mainFrame, sprintPanel, selectedSprint).getNewSprintPopUp().setVisible(true);
+				
+			}
+			
+			
 		}
 	}
 	
 	
+	//전체 폰트적용 메소드
+	public static void setUIFont (javax.swing.plaf.FontUIResource f){
+		java.util.Enumeration keys = UIManager.getDefaults().keys();
+		while (keys.hasMoreElements()) {
+			Object key = keys.nextElement();
+			Object value = UIManager.get (key);
+			if (value instanceof javax.swing.plaf.FontUIResource)
+				UIManager.put (key, f);
+		}
+	} 
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub

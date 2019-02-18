@@ -34,49 +34,51 @@ public class Sprint implements Serializable{
 	}
 	
 	
-	/*public Project getSelectedProject() {
-		return selectedProject;
-	}*/
 	
 	public String getSprintTitle() {
 		return sprintTitle;
 	}
 
-
-
-
 	public Date getSprintStartDay() {
 		return sprintStartDay;
 	}
-
-
-
 
 	public Date getSprintEndDay() {
 		return sprintEndDay;
 	}
 
+	public String getSprintDetail() {
+		return sprintDetail;
+	}
 
+	public String getSprintToDo() {
+		return sprintToDo;
+	}
 
+	
+	
+	
+	
 
 	public void setSprintTitle(String sprintTitle) {
 		this.sprintTitle = sprintTitle;
 	}
 
-
-
-
 	public void setSprintStartDay(Date sprintStartDay) {
 		this.sprintStartDay = sprintStartDay;
 	}
-
-
-
 
 	public void setSprintEndDay(Date sprintEndDay) {
 		this.sprintEndDay = sprintEndDay;
 	}
 
+	public void setSprintDetail(String sprintDetail) {
+		this.sprintDetail = sprintDetail;
+	}
+	
+	public void setSprintToDo(String sprintToDo) {
+		this.sprintToDo = sprintToDo;
+	}
 
 
 

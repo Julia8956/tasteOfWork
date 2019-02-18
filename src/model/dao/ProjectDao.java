@@ -218,6 +218,21 @@ public class ProjectDao {
 			return null;
 		}
 	}
+	
+	public Sprint findSprint(Sprint sprint) {
+		
+		for(int i = 0;  i < sprintList.size(); i++) {
+			Sprint s = (Sprint)sprintList.get(i);
+			if(s.toString().equals(sprint.toString())) {
+				System.out.println("일치하는 스프린트 찾음");
+				index = i;
+				return s;
+			}
+		}
+		
+		System.out.println("스프린트가 존재하지 않습니다.");
+		return null;
+	}
 
 	public ArrayList<Project> getProjectList() {
 		return projectList;
@@ -225,6 +240,12 @@ public class ProjectDao {
 
 	public ArrayList<Sprint> getSprintList() {
 		return sprintList;
+	}
+	
+	public void deleteProject() {
+		findProject();
+		projectList.remove(index);
+		saveProjects();
 	}
 	
 	
@@ -260,6 +281,18 @@ public class ProjectDao {
 		saveSprints();
 		saveProjects();
 		
+	}
+	
+	public ArrayList<Sprint> modifySprint(Project project, Sprint sprint, Sprint updatedSprint) {
+		
+		Sprint sprintToBeChanged = findSprint(sprint);
+		if(sprintToBeChanged != null) {
+			sprintToBeChanged = updatedSprint;
+			sprintList.set(index, sprintToBeChanged);
+		}
+		
+		saveSprints();
+		return sprintList;
 	}
 	
 	

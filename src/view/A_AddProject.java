@@ -315,6 +315,30 @@ public class A_AddProject extends JPanel implements ActionListener{
 				}
 			}
 		});
+		
+//(민) 추가 : 2/19
+		//삭제버튼
+		JButton deleteBtn = new JButton("삭제");
+		deleteBtn.setLocation(192,570);
+		deleteBtn.setSize(100,40);
+		projectPanel.add(deleteBtn);
+		
+		deleteBtn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				if (project != null) {
+					int answer = JOptionPane.showConfirmDialog(null, "프로젝트를 삭제하시겠습니까?");
+					if(answer == 0) {
+						mainPage.deleteProject(project);
+					}
+				}
+				addProject.dispose();
+			}
+		});
+//		
+		
 
 		//취소버튼
 		JButton cancelBtn  = new JButton(new ImageIcon("images/cancelbtn1.png"));
