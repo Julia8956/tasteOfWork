@@ -146,7 +146,7 @@ public class A_FindIdPwd extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				a_mm.findId(idt.getText(), phonet1.getText(), emailt1.getText());				
+				a_mm.findPwd(idt.getText(), phonet2.getText(), emailt2.getText());				
 			}
 		});
 		
