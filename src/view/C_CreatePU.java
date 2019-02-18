@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Color;
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -8,7 +9,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Date;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -16,6 +19,7 @@ import javax.swing.JTextField;
 
 import org.jdesktop.swingx.JXDatePicker;
 
+import controller.WorkManager;
 import model.vo.Work;
 
 //import org.jdesktop.swingx.JXDatePicker;
@@ -23,12 +27,24 @@ import model.vo.Work;
 public class C_CreatePU extends JPanel{
 	private MainFrame mf;
 	private Dialog cp;
-	private String work_name;
-	private String work_subject;
 
 	private JButton saveB;
 	private JTextField work_subjectText;
 	private JTextField wT;
+	private JTextField dT;
+	private JXDatePicker term1DayPicker;
+	private JXDatePicker term2DayPicker;
+	
+	private String work_name;
+	private String work_subject;
+	private String inf;
+	private String label_name;
+	private Color label_color;
+	private String work_content;
+	private Date work_start;
+	private Date work_end ;
+	
+	private WorkManager wm = new WorkManager();
 
 	public C_CreatePU(MainFrame mf) {
 		cp = new Dialog(mf,"할일 생성");
@@ -46,15 +62,18 @@ public class C_CreatePU extends JPanel{
 		int yPos = (dim.height / 2) - (cp.getHeight() / 2);
 
 		cp.setLocation(xPos, yPos);
+		cp.setBackground(new Color(66,66,66,220));
 
 		JLabel wL = new JLabel("할일 이름");	
+		wL.setFont(new Font("맑은고딕", Font.BOLD, 15));
+		wL.setForeground(Color.white);
 		wL.setLocation(30, 4);
 		wL.setSize(100, 100);
 
 
 		//사용자가 할일의 이름을 입력하여 이름을 정해준다
 
-		/*JTextField*/ wT = new JTextField(15);	//할일 TextField
+		wT = new JTextField(15);	//할일 TextField
 		wT.setLocation(100, 40);			
 		wT.setSize(230, 25);
 
@@ -62,34 +81,49 @@ public class C_CreatePU extends JPanel{
 
 		//기간 Label
 		JLabel L_tearm = new JLabel("기간");
-		L_tearm.setFont(new Font("Serif",Font.BOLD,15));
+		L_tearm.setFont(new Font("맑은 고딕",Font.BOLD,15));
+		L_tearm.setForeground(Color.WHITE);
 		L_tearm.setSize(100, 25);					
 		L_tearm.setLocation(30, 80);    	//30,180
 
 
-		JXDatePicker term1DayPicker = new DatePicker().getDatePicker();
+		term1DayPicker = new DatePicker().getDatePicker();
+		JButton term1DayPicker_pick = (JButton) term1DayPicker.getComponent(1);
+		ImageIcon term1Icon = new ImageIcon("images/Calendar.png");
+		term1DayPicker_pick.setIcon(term1Icon);
+		term1DayPicker_pick.setBorderPainted(false);
+		term1DayPicker_pick.setFocusPainted(false);
+		term1DayPicker_pick.setContentAreaFilled(false);
 		term1DayPicker.setLocation(30, 110);	//30,210
 		term1DayPicker.setSize(120, 40);
 		cp.add(term1DayPicker);
 
 		JLabel wave = new JLabel(" ~ ");
 		wave.setSize(60, 50);
-		wave.setFont(new Font("",Font.BOLD,10));
+		wave.setFont(new Font("맑은 고딕",Font.BOLD,15));
+		wave.setForeground(Color.white);
 		wave.setLocation(170, 100);
 
 
-		JXDatePicker term2DayPicker = new DatePicker().getDatePicker();
+		term2DayPicker = new DatePicker().getDatePicker();
+		JButton term2DayPicker_pick = (JButton) term2DayPicker.getComponent(1);
+		ImageIcon term2Icon = new ImageIcon("images/Calendar.png");
+		term2DayPicker_pick.setIcon(term2Icon);
+		term2DayPicker_pick.setBorderPainted(false);
+		term2DayPicker_pick.setFocusPainted(false);
+		term2DayPicker_pick.setContentAreaFilled(false);
 		term2DayPicker.setLocation(220, 110);
 		term2DayPicker.setSize(120, 40);
 		cp.add(term2DayPicker);
 
 		JLabel dL = new JLabel("세부 내용");
-		//dL.setFont(new Font("Serif",Font.BOLD,15));
+		dL.setFont(new Font("맑은 고딕",Font.BOLD,15));
+		dL.setForeground(Color.WHITE);
 		dL.setLocation(30, 130);			//30,40
 		dL.setSize(100, 100);
 
 		//사용자가 세부내용을 입력하는 부분, 입력을 끝내면 CheckPU dT 텍스트 필드에서 보여진다
-		JTextField dT = new JTextField("세부 사항을 입력 하시오",100);  //세부사항 TextField 
+		/*JTextField*/ dT = new JTextField("세부 사항을 입력 하시오",100);  //세부사항 TextField 
 		dT.setLocation(30, 190);			
 		dT.setSize(300, 70);
 
@@ -107,6 +141,8 @@ public class C_CreatePU extends JPanel{
 
 		//worksubject !!!!!!!
 		JLabel work_subjectLable = new JLabel("Label");
+		work_subjectLable.setFont(new Font("맑은 고딕",Font.BOLD,15));
+		work_subjectLable.setForeground(Color.white);
 		work_subjectLable.setSize(110, 110);
 		work_subjectLable.setLocation(30, 235);
 
@@ -161,13 +197,28 @@ public class C_CreatePU extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				work_name = wT.getText();
 				work_subject = work_subjectText.getText();
-				
+				work_content = dT.getText();
+				work_start = term1DayPicker.getDate();
+				work_end = term2DayPicker.getDate();
+
+
 				Work work = new Work();
 				work.setWork_name(work_name);
 				work.setLabel_name(work_subject);
-				
-				openPanel.addWorkOnList(work);
-				
+				work.setWork_content(dT.getText());
+				work.setWork_start(term1DayPicker.getDate());
+				work.setWork_end(term2DayPicker.getDate());
+
+				work.setWork_inf("open");
+				inf = work.getWork_inf();
+				//label_name = work.getLabel_name();
+				label_color = work.getLabel_color();
+
+
+
+				openPanel.makeNewWork(work_name, work_start, work_end,work_content, work_subject, label_color,null, null);
+
+
 				cp.dispose();
 			}
 		});
@@ -183,12 +234,26 @@ public class C_CreatePU extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				work_name = wT.getText();
 				work_subject = work_subjectText.getText();
+				work_content = dT.getText();
+				work_start = term1DayPicker.getDate();
+				work_end = term2DayPicker.getDate();
+
 
 				Work work = new Work();
 				work.setWork_name(work_name);
 				work.setLabel_name(work_subject);
+				work.setWork_content(dT.getText());
+				work.setWork_start(term1DayPicker.getDate());
+				work.setWork_end(term2DayPicker.getDate());
 
-				progressPanel.addWorkOnList(work);
+				work.setWork_inf("open");
+				inf = work.getWork_inf();
+				//label_name = work.getLabel_name();
+				label_color = work.getLabel_color();
+
+
+
+				progressPanel.makeNewWork(work_name, work_start, work_end,work_content, work_subject, label_color,null, null);
 
 				cp.dispose();
 			}
@@ -204,12 +269,28 @@ public class C_CreatePU extends JPanel{
 			public void actionPerformed(ActionEvent e) {
 				work_name = wT.getText();
 				work_subject = work_subjectText.getText();
+				work_content = dT.getText();
+				work_start = term1DayPicker.getDate();
+				work_end = term2DayPicker.getDate();
+
 
 				Work work = new Work();
 				work.setWork_name(work_name);
 				work.setLabel_name(work_subject);
+				work.setWork_content(dT.getText());
+				work.setWork_start(term1DayPicker.getDate());
+				work.setWork_end(term2DayPicker.getDate());
 
-				DoenPanel.addWorkOnList(work);
+				work.setWork_inf("open");
+				inf = work.getWork_inf();
+				//label_name = work.getLabel_name();
+				label_color = work.getLabel_color();
+
+
+
+				DoenPanel.makeNewWork(work_name, work_start, work_end,work_content, work_subject, label_color,null, null);
+
+
 
 				cp.dispose();
 			}
