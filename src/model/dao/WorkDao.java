@@ -202,11 +202,12 @@ public class WorkDao {
 	}
 
 
-	public void deleteWork(Work work) {
+	public void deleteWork(Sprint sprint,Work work) {
 		Work changeWork = findWork();
 		changeWork = work;
 		work_name = changeWork.getWork_name();
 		worklist.remove(index);
+		saveWork(sprint);
 	}
 
 
