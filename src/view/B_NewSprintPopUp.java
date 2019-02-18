@@ -62,7 +62,7 @@ public class B_NewSprintPopUp extends JPanel {
 		newSprintPopUp.setUndecorated(true);
 		newSprintPopUp.setBackground(B_ProjectPage.POPUP_COLOR);
 		
-		setUIFont (new javax.swing.plaf.FontUIResource("∏º¿∫ ∞ÌµÒ", Font.ITALIC, 15));
+		//setUIFont (new javax.swing.plaf.FontUIResource("∏º¿∫ ∞ÌµÒ", Font.ITALIC, 15));
 		
 		
 		//¿Ã∏ß

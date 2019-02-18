@@ -288,6 +288,33 @@ public class A_AddProject extends JPanel implements ActionListener{
 		pane2.setSize(480,90);
 		projectPanel.add(pane2);
 
+		memberJList.addMouseListener(new MouseAdapter() {
+			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				if(e.getButton() == 3) {
+					String member = (String)memberJList.getSelectedValue();
+					int answer = JOptionPane.showConfirmDialog(null, "선택하신 멤버를 삭제하시겠습니까?");
+					
+					if(answer == 0) {
+//						
+						if(project == null) {
+							subtractMemberFromList(member);
+						}else {
+							Project projectUpdated = new ProjectManager().deleteMember(project, member);
+							updateMemberList(projectUpdated);
+						}
+						
+					}
+					
+					
+					//System.out.println(i);
+					//JOptionPane.showMessageDialog(null, "선택하신 멤버를 삭제하시겠습니까?");
+					
+				}
+			}
+		});
 
 		//취소버튼
 		JButton cancelBtn  = new JButton(new ImageIcon("images/cancelbtn1.png"));
@@ -394,6 +421,8 @@ public class A_AddProject extends JPanel implements ActionListener{
 				System.out.println("불러올 멤버정보가 존재하지 않음");
 			}
 		}
+		
+		
 	}
 	
 	public void putSprintOnList(Sprint newSprint) {
@@ -406,7 +435,15 @@ public class A_AddProject extends JPanel implements ActionListener{
 		
 		memberList.add(member.getId());
 		memberModel.addElement(member.getId());
-		System.out.println(member.getId());
+		//System.out.println(member.getId());
+		addProject.revalidate();
+		
+	}
+	
+	public void subtractMemberFromList(String member) {
+		
+		memberList.remove(member);
+		memberModel.removeElement(member);
 		addProject.revalidate();
 		
 	}

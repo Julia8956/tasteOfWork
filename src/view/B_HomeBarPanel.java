@@ -107,15 +107,15 @@ public class B_HomeBarPanel extends JPanel implements MouseListener, ActionListe
 		
 		//int totalDay = B_DdayPanel.totalDay;
 		//int dayPast = B_DdayPanel.dayPast;
-		int progress;
+		/*int progress;
 		if(totalDay != 0) {
-			progress = (int)(dayPast/totalDay);
+			progress = dayPast);
 		}else {
 			progress = 0;
 		}
-		
+		*/
 		progressBar.setMaximum(totalDay);
-		progressBar.setValue(progress);
+		progressBar.setValue(dayPast);
 		progressBar.setForeground(Color.decode("#72f07e"));
 
 		// progressBar.setLocation(320,50);

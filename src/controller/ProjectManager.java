@@ -11,12 +11,41 @@ import model.vo.Sprint;
 public class ProjectManager {
 
 	private ProjectDao pdao;
+	private ArrayList<Project> projectList = new ArrayList<Project>();
 	private ArrayList<Sprint> sprints = new ArrayList<Sprint>(); 
 	//private SprintDao sdao;
 	private ArrayList<String> memberList = new ArrayList<String>();
 
 	public ProjectManager() {}
 
+	
+	
+	
+	public ArrayList<Project> getProjectList() {
+		
+		pdao = new ProjectDao();
+		
+		ArrayList<Project> projectList = pdao.getProjectList();
+		if(projectList != null) {
+			this.projectList = projectList;
+		}
+		
+		
+		return this.projectList;
+	}
+	
+	
+	
+	/*public ArrayList<Project> getMyProjects() {
+		
+		return null;
+	}*/
+	
+	
+	
+	
+	
+	
 
 	public Sprint makeNewSprint(String sprintTitle, Date sprintStartDay, 
 			Date sprintEndDay, String sprintDetail, String sprintToDo) {
@@ -65,6 +94,18 @@ public class ProjectManager {
 		return project;
 	}
 	
+	public Project deleteMember(Project project, String member) {
+		
+		memberList = project.getMemberList();
+		memberList.remove(member);
+		project.setMemberList(memberList);
+		if(project != null) {
+			pdao = new ProjectDao(project.getProjectTitle());
+			pdao.addMember(memberList);
+		}
+		return project;
+	}
+	
 	public Project changeAdmin(Project project, String projectAdmin) {
 	
 		project.setProjectAdmin(projectAdmin);
@@ -88,15 +129,6 @@ public class ProjectManager {
 	}
 	
 	
-	public ArrayList<Project> getMyAdminProjects() {
-		
-		return null;
-	}
-	
-	public ArrayList<Project> getMyProjects() {
-		
-		return null;
-	}
 	
 	
 	public Project getProject(String titleSelected) {
