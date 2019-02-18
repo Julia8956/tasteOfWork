@@ -284,8 +284,8 @@ sprintName.setFont(new Font("맑은 고딕", Font.BOLD, 20));
 		});
 		//스프린트 삭제 버튼
 //		Delete1
-		JButton deleteBtn = new JButton(new ImageIcon("images/Delete1.png"));
-		ImageIcon deleteBtn2 = new ImageIcon("images/Delete2.png");
+		JButton deleteBtn = new JButton(new ImageIcon("images/delete1.png"));
+		ImageIcon deleteBtn2 = new ImageIcon("images/delete2.png");
 		deleteBtn.setBorderPainted(false);
 		deleteBtn.setFocusPainted(false);
 		deleteBtn.setContentAreaFilled(false);

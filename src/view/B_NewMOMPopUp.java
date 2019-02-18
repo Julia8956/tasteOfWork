@@ -250,8 +250,8 @@ public class B_NewMOMPopUp extends JPanel {
 		
 		
 		// 삭제 버튼
-		JButton deleteBtn = new JButton(new ImageIcon("images/Delete1.png"));
-		ImageIcon deleteBtn2 = new ImageIcon("images/Delete2.png");
+		JButton deleteBtn = new JButton(new ImageIcon("images/delete1.png"));
+		ImageIcon deleteBtn2 = new ImageIcon("images/delete2.png");
 		deleteBtn.setBorderPainted(false);
 		deleteBtn.setFocusPainted(false);
 		deleteBtn.setContentAreaFilled(false);
