@@ -19,27 +19,30 @@ import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import model.vo.A_Member;
 import model.vo.Project;
 
 public class B_HomeBarPanel extends JPanel implements MouseListener, ActionListener {
 
-	//private MainFrame mf;
+	private MainFrame mainFrame;
 	private B_ProjectPage projectPage;
 	private B_HomeBarPanel homeBarPanel;
 	private JButton User_btn;
+	private JButton Member_btn;
 	private JButton homeButton;
 	private JButton backButton;
 	
 	private Project selectedProject;
+	private A_Member user;
 
-	public B_HomeBarPanel(B_ProjectPage projectPage, Project selectedProject) {
+	public B_HomeBarPanel(MainFrame mainFrame, B_ProjectPage projectPage, Project selectedProject, A_Member user) {
 
 		this.projectPage = projectPage;
 		this.homeBarPanel = this;
-		//this.mf = mf;
+		this.mainFrame = mainFrame;
 		
 		this.selectedProject = selectedProject;
-
+		this.user = user;
 		// this.setSize(1024, 80);
 		this.setPreferredSize(new Dimension(1024, 65));
 		// this.setLocation(0, 0);
@@ -159,7 +162,7 @@ public class B_HomeBarPanel extends JPanel implements MouseListener, ActionListe
 		User_btn.addMouseListener(this);
 
 		// 멤버버튼
-		JButton Member_btn = new JButton(new ImageIcon("images/circle.png"));
+		Member_btn = new JButton(new ImageIcon("images/circle.png"));
 		ImageIcon Member_addIcon = new ImageIcon("images/circle2.PNG");
 		Member_btn.setBorderPainted(false);
 		Member_btn.setFocusPainted(false);
@@ -168,8 +171,10 @@ public class B_HomeBarPanel extends JPanel implements MouseListener, ActionListe
 		Member_btn.setBackground(Color.GRAY);
 		Member_btn.setLocation(920, 12);
 		Member_btn.setSize(40, 40);
+		
+		Member_btn.addMouseListener(this);
 
-		// 초대 panel
+		/*// 초대 panel
 		JPanel Member_panel = new JPanel();
 		Member_panel.setLayout(null);
 		Member_panel.setLocation(625, 40);
@@ -241,7 +246,7 @@ public class B_HomeBarPanel extends JPanel implements MouseListener, ActionListe
 		Member_panel.add(M_Scroll);
 		Member_panel.add(Man_Div_panel);
 
-		East_Panel.add(Member_panel, "East");
+		East_Panel.add(Member_panel, "East");*/
 
 		East_Panel.add(User_btn, "Center");
 		East_Panel.add(Member_btn, "West");
@@ -249,6 +254,9 @@ public class B_HomeBarPanel extends JPanel implements MouseListener, ActionListe
 		this.add(West_Panel, "West");
 		this.add(Center_Panel, "Center");
 		this.add(East_Panel, "East");
+		
+		
+		
 		projectPage.add(this);
 
 	}
@@ -256,6 +264,10 @@ public class B_HomeBarPanel extends JPanel implements MouseListener, ActionListe
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if (e.getSource() == User_btn) {
+			new A_AddUserPU(mainFrame, user).getUserPU().setVisible(true);
+		}
+		if (e.getSource() == Member_btn) {
+			new B_AddInvitePU(mainFrame, selectedProject, user).getinvitePU().setVisible(true);
 		}
 	}
 

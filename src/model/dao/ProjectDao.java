@@ -11,6 +11,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import model.vo.A_Member;
 import model.vo.MOM;
 import model.vo.Project;
 import model.vo.Sprint;
@@ -21,7 +22,7 @@ public class ProjectDao {
 	private ArrayList<Project> projectList;
 	private HashMap<String, ArrayList<Sprint>> allSprintList;
 	private ArrayList<Sprint> sprintList;
-	
+	//private ArrayList<String> memberList;
 	private ArrayList<MOM> MOMList;
 	
 	private int index;
@@ -40,6 +41,7 @@ public class ProjectDao {
 			while(true) {
 				Project p = (Project)prjIn.readObject();
 				projectList.add(p);
+				//memberList.addAll(p.getMemberList());
 				/*Sprint s = (Sprint)sprIn.readObject();
 				sprintList.add(s);*/
 			}
@@ -173,6 +175,21 @@ public class ProjectDao {
 		this.sprintList.clear();
 		this.sprintList.addAll(sprintList);
 		saveSprints();
+	}
+	
+	public void addMember(ArrayList<String> memberList) {
+		Project projectToBeChanged = findProject();
+		projectToBeChanged.setMemberList(memberList);
+		projectList.set(index, projectToBeChanged);
+		saveProjects();
+		
+	}
+	
+	public void changeAdmin(String projectAdmin) {
+		Project projectToBeChanged = findProject();
+		projectToBeChanged.setProjectAdmin(projectAdmin);
+		projectList.set(index, projectToBeChanged);
+		saveProjects();
 	}
 	
 	

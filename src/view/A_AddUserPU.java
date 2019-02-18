@@ -7,15 +7,14 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+
+import model.vo.A_Member;
 
 public class A_AddUserPU extends JPanel{
 	private MainFrame mf; 
@@ -26,11 +25,17 @@ public class A_AddUserPU extends JPanel{
 	private A_LoginPage lp;
 	private Dialog userEdit;
 	private JButton Editbtn;
+	//(πŒ)
+	private A_Member user;
 	
 	public A_AddUserPU() {}
-	
-	public A_AddUserPU(MainFrame mf, A_LoginPage lp) {
+	//(πŒ)
+	public A_AddUserPU(MainFrame mf, A_Member user) {
 		this.mf = mf;
+		
+		//(πŒ)
+		this.user = user;
+		
 		this.lp = lp;
 		//ªÁøÎ¿⁄ @@@@@@@@@@@@@@@@@@@@@@@@@@@
 		//ªÁøÎ¿⁄ Menu
@@ -58,7 +63,11 @@ public class A_AddUserPU extends JPanel{
 		userPU.add(U_label);
 				
 		//∞≥¿Œ¡§∫∏
-		JTextArea T_Inf = new JTextArea("√÷¿Œ»ø \n inhyo825@gmail.com \n 010-5154-0825");
+		
+		//(πŒ)
+		String userInfo = user.getName() + "\n" + user.getEmail() + "\n" + user.getPhone();
+		JTextArea T_Inf = new JTextArea(userInfo);
+		//
 		T_Inf.setLocation(20, 40);
 		T_Inf.setSize(290,100);
 		T_Inf.setEditable(false);

@@ -19,7 +19,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import controller.A_MemberManager;
 import controller.ProjectManager;
+import model.vo.A_Member;
 import model.vo.Project;
 import model.vo.Sprint;
 
@@ -31,8 +33,9 @@ public class A_MainPage extends JPanel{
 	private Dialog mainDial;
 	private A_LoginPage lp;
 	private A_AddProject ap;
-	private JPanel projectbtnPanel = new JPanel();
-	private JPanel newprojectbtnPanel = new JPanel();
+	
+	private JPanel adminProjectsPanel = new JPanel();
+	private JPanel newProjectBtnPanel = new JPanel();
 
 	private Dialog addProject;
 
@@ -40,33 +43,38 @@ public class A_MainPage extends JPanel{
 	private ArrayList btnList = new ArrayList();
 	
 	private ProjectManager pm = new ProjectManager();
-	private Project selectedProject;
+	private A_MemberManager mm = new A_MemberManager();
+ 	private Project selectedProject;
+	//(민)
+	private A_Member user;
 
 	//private ArrayList<Project> projectArrList = new ArrayList<Project>();
 
-	public A_MainPage(MainFrame mf) {
+	//(민) 매개변수수정 로그인한 user정보를 가지고 메인페이지 생성
+	public A_MainPage(MainFrame mf, A_Member user) {
 
 
 		this.mf=mf;
 		this.mainPage=this;
-		this.lp = lp;
+		//this.lp = lp;
+		//(민)
+		this.user = user;
 
 
 		this.setSize(1024, 768);
 		this.setLayout(new BorderLayout());
 
-
-		JPanel upup  = new JPanel();
-
-		upup.setPreferredSize(new Dimension(1024,65));
-		upup.setLayout(new BorderLayout());
-		upup.setBackground(Color.GRAY);
-
+		
+		
+//상단바
+		JPanel topMenuPanel  = new JPanel();
+		topMenuPanel.setLayout(new BorderLayout());
+		topMenuPanel.setPreferredSize(new Dimension(1024,65));
+		topMenuPanel.setBackground(Color.GRAY);
+		
+		
 		//상단 홈 버튼
-
-
 		JButton home = new JButton(new ImageIcon("images/home.png"));
-
 		ImageIcon home2 = new ImageIcon("images/home2.png");
 		home.setBorderPainted(false); 
 		home.setFocusPainted(false); 
@@ -75,63 +83,15 @@ public class A_MainPage extends JPanel{
 		home.setLocation(10,12);
 		home.setSize(40, 40);
 
+		topMenuPanel.add(home, BorderLayout.WEST);
 
-		upup.add(home, BorderLayout.WEST);
-
-		//상단 검색 버튼
-
+		
+		/*//상단 검색 버튼
 		JPanel findpanel = new JPanel();
 		findpanel.setPreferredSize(new Dimension(100,65));
 		findpanel.setLayout(null);
 		//findpanel.setLayout(new FlowLayout());
 		findpanel.setBackground(Color.GRAY);
-
-		/*JButton find = new JButton(new ImageIcon("images/serch.PNG"));
-		ImageIcon find2 = new ImageIcon("images/serch2.PNG");
-		find.setBorderPainted(false); 
-		find.setFocusPainted(false); 
-		find.setContentAreaFilled(false);
-		find.setRolloverIcon(find2);
-		find.setSize(30, 30);
-		find.setLocation(10,20);
-
-		JTextField findt = new JTextField(20);
-		findt.setLocation(40,20);
-		findt.setSize(170,30);
-
-		findpanel.add(find);
-		findpanel.add(findt);*/
-
-		upup.add(findpanel, BorderLayout.CENTER);
-
-		//상단 계정 버튼
-
-
-		JButton person = new JButton(new ImageIcon("images/user.PNG"));
-		ImageIcon person2 = new ImageIcon("images/user2.PNG");
-		person.setBorderPainted(false); 
-		person.setFocusPainted(false); 
-		person.setContentAreaFilled(false);
-		person.setRolloverIcon(person2);
-		person.setLocation(968,12);
-		person.setSize(40, 40);
-		person.addActionListener(new UserEvent());
-
-		upup.add(person, BorderLayout.EAST);
-
-
-		this.add(upup, BorderLayout.NORTH);
-
-
-
-
-
-
-		JPanel side = new JPanel();
-		side.setPreferredSize(new Dimension(300,768));
-		//side.setBackground(Color.CYAN);
-		side.setBackground(Color.decode("#99cccc"));
-		side.setLayout(null);
 
 		JButton find = new JButton(new ImageIcon("images/serch.PNG"));
 		ImageIcon find2 = new ImageIcon("images/serch2.PNG");
@@ -146,51 +106,147 @@ public class A_MainPage extends JPanel{
 		findt.setLocation(40,20);
 		findt.setSize(170,30);
 
-		side.add(find);
-		side.add(findt);
+		findpanel.add(find);
+		findpanel.add(findt);
+
+		topMenuPanel.add(findpanel, BorderLayout.CENTER);*/
+
+		
+		
+		//상단 계정 버튼
+		JButton person = new JButton(new ImageIcon("images/user.PNG"));
+		ImageIcon person2 = new ImageIcon("images/user2.PNG");
+		person.setBorderPainted(false); 
+		person.setFocusPainted(false); 
+		person.setContentAreaFilled(false);
+		person.setRolloverIcon(person2);
+		person.setLocation(968,12);
+		person.setSize(40, 40);
+		person.addActionListener(new UserEvent());
+
+		topMenuPanel.add(person, BorderLayout.EAST);
+
+
+		
+		this.add(topMenuPanel, "North");
+//
 
 
 
-		//JButton pro = new JButton("새 프로젝트 추가");
+//왼쪽사이드패널
+		JPanel sidePanel = new JPanel();
+		sidePanel.setPreferredSize(new Dimension(300,768));
+		sidePanel.setBackground(Color.decode("#99cccc"));
+		sidePanel.setLayout(null);
+
+		//검색버튼
+		JButton find = new JButton(new ImageIcon("images/serch.PNG"));
+		ImageIcon find2 = new ImageIcon("images/serch2.PNG");
+		find.setBorderPainted(false); 
+		find.setFocusPainted(false); 
+		find.setContentAreaFilled(false);
+		find.setRolloverIcon(find2);
+		find.setSize(30, 30);
+		find.setLocation(10,20);
+
+		//검색필드
+		JTextField findt = new JTextField(20);
+		findt.setLocation(40,20);
+		findt.setSize(170,30);
+
+		//새프로젝트 추가버튼
 		JButton pro = new JButton(new ImageIcon("images/newProjectbtn.png"));
 		pro.setBorderPainted(false); 
 		pro.setFocusPainted(false); 
 		pro.setContentAreaFilled(false);
 		pro.setSize(200,50);
 		pro.setLocation(10,80);
-		//pro.addMouseListener(new MyMouseAdapter1());;
 		pro.addActionListener(new ProEvent());
 
-		side.add(pro);
+		sidePanel.add(find);
+		sidePanel.add(findt);
+		sidePanel.add(pro);
 
-		this.add(side, BorderLayout.WEST);
+		this.add(sidePanel, "West");
+//
+		
+		
+		
+//가운데 패널		
+		JPanel centerPanel = new JPanel();
+		centerPanel.setLayout(new BorderLayout());
 
-		//projectbtnPanel.setSize(800, 768);
-		//projectbtnPanel.setBackground(Color.YELLOW);
-		projectbtnPanel.setLayout(new BorderLayout());
+		
 
-		//newprojectbtnPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-		newprojectbtnPanel.setLayout(new FlowLayout(FlowLayout.LEADING));
-		newprojectbtnPanel.setBackground(Color.decode("#99cccc"));
-		newprojectbtnPanel.setPreferredSize(new Dimension(700,600));
-		//newprojectbtnPanel.setBackground(Color.YELLOW);
+		
+		
+		//관리중인 프로젝트 모아놓은 패널
+		JPanel adminPanel = new JPanel();
+		adminPanel.setLayout(new BorderLayout());
+		adminPanel.setBackground(Color.decode("#99cccc"));
 
-		JPanel ingPanel = new JPanel();
-		ingPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-		ingPanel.setPreferredSize(new Dimension(700,200));
-		ingPanel.setBackground(Color.decode("#99cccc"));
+		
+		//관리중인 프로젝트 라벨
+		JPanel adminlbPanel = new JPanel();
+		adminlbPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+		adminlbPanel.setBackground(Color.decode("#99cccc"));
+		JLabel adminLabel = new JLabel("◎ 내가 관리하고 있는 프로젝트 ◎");
+		adminLabel.setBackground(Color.decode("#99cccc"));
+		adminLabel.setFont(new Font("HY바다M", Font.BOLD, 21));
+		adminlbPanel.add(adminLabel);
+		
+		adminPanel.add(adminlbPanel, "North");
+		
+		
+		
+		//관리중인 프로젝트들 들어가는 패널
+		adminProjectsPanel.setLayout(new FlowLayout(FlowLayout.LEADING));
+		
+		adminProjectsPanel.setPreferredSize(new Dimension(700, 300));
+		adminProjectsPanel.setBackground(Color.decode("#99cccc"));
+		
+		
+		adminPanel.add(adminProjectsPanel, "Center");
+		
+		centerPanel.add(adminPanel, "North");
 
-		//JLabel ingLabel = new JLabel("진행중인 프로젝트");
-		JLabel ingLabel = new JLabel("◎ 진행중인 프로젝트 ◎");
-		ingLabel.setFont(new Font("HY바다M", Font.BOLD, 21));
-		ingPanel.add(ingLabel);
 
-		projectbtnPanel.add(ingPanel, "North");
-		projectbtnPanel.add(newprojectbtnPanel,"Center");
 
-		this.add(projectbtnPanel, "Center");
+		//참여중인 프로젝트 모아놓은 패널
+		JPanel myProjectPanel = new JPanel();
+		myProjectPanel.setLayout(new BorderLayout());
+		myProjectPanel.setBackground(Color.decode("#99cccc"));
 
-		JPanel addButton = new JPanel();
+
+		//참여중인 프로젝트 라벨
+		JPanel projectlbPanel = new JPanel();
+		projectlbPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+		projectlbPanel.setBackground(Color.decode("#99cccc"));
+		JLabel projectLabel = new JLabel("◎ 내가 참여하고 있는 프로젝트 ◎");
+		projectLabel.setBackground(Color.decode("#99cccc"));
+		projectLabel.setFont(new Font("HY바다M", Font.BOLD, 21));
+		projectlbPanel.add(projectLabel);
+
+		myProjectPanel.add(projectlbPanel, "North");
+
+
+
+		//참여중인 프로젝트들 들어가는 패널
+		newProjectBtnPanel.setLayout(new FlowLayout(FlowLayout.LEADING));
+		newProjectBtnPanel.setBackground(Color.decode("#99cccc"));
+
+
+		myProjectPanel.add(newProjectBtnPanel,"South");
+		
+		centerPanel.add(myProjectPanel, "Center");
+		//newProjectBtnPanel.setPreferredSize(new Dimension(700,600));
+		//newProjectBtnPanel.setBackground(Color.YELLOW);
+
+
+
+
+
+		/*JPanel addButton = new JPanel();
 		addButton.setLayout(null);
 		addButton.setBackground(Color.decode("#99cccc"));
 		addButton.setSize(600,300);
@@ -214,27 +270,23 @@ public class A_MainPage extends JPanel{
 		addButton.add(btn2);
 
 
-		
-		this.add(addButton);
-		//this.add(projectbtnPanel,BorderLayout.CENTER);
 
-		/*JButton btn1 = new JButton("버튼1");
-		newprojectbtnPanel.add(btn1);*/
-		this.add(projectbtnPanel,BorderLayout.CENTER);
-		//this.add(projectbtnPanel);
+		this.add(addButton);*/
+		//this.add(centerPanel,BorderLayout.CENTER);
 
 
-		//projectBtn.addMouseListener(this);
 
 
+
+		this.add(centerPanel, "Center");
 	}
 	
 	
 	
-	public void makeNewProject(String projectTitle, Date projectStartDay, Date projectEndDay, ArrayList<Sprint> sprintList) {
+	public void makeNewProject(String projectTitle, Date projectStartDay, Date projectEndDay, ArrayList<Sprint> sprintList, String projectAdmin, ArrayList<String> memberList) {
 
 
-		/*Project project = */pm.makeNewProject(projectTitle, projectStartDay, projectEndDay, sprintList);
+		/*Project project = */pm.makeNewProject(projectTitle, projectStartDay, projectEndDay, sprintList, projectAdmin, memberList);
 		
 		//JButton projectTitle = new JButton();
 		
@@ -249,10 +301,10 @@ public class A_MainPage extends JPanel{
 		projectBtn.setBackground(Color.white); 
 		projectBtn.setBorderPainted(false);
 		projectBtn.setToolTipText("마우스 오른쪽 버튼을 눌러 프로젝트 정보를 수정하세요");
-		newprojectbtnPanel.add(projectBtn);
-		//newprojectbtnPanel.addMouseListener(new projectEvent());
-		projectbtnPanel.revalidate();
-		newprojectbtnPanel.revalidate();
+		newProjectBtnPanel.add(projectBtn);
+		//newProjectBtnPanel.addMouseListener(new projectEvent());
+		this.revalidate();
+		newProjectBtnPanel.revalidate();
 		eventLink();
 
 		
@@ -277,7 +329,7 @@ public class A_MainPage extends JPanel{
 					if (e.getButton() == 3) {
 						String titleSelected = projectBtn.getText();
 						selectedProject = pm.getProject(titleSelected);
-						new A_AddProject(mf, mainPage, selectedProject).getAddProject().setVisible(true);
+						new A_AddProject(mf, mainPage, selectedProject, user).getAddProject().setVisible(true);
 						
 					}
 				}
@@ -286,9 +338,9 @@ public class A_MainPage extends JPanel{
 	}
 	
 	
-	public void modifyProject(Project project, String projectTitle, Date projectStartDay, Date projectEndDay, ArrayList<Sprint> sprintList) {
+	public void modifyProject(Project project, String projectTitle, Date projectStartDay, Date projectEndDay, ArrayList<Sprint> sprintList, ArrayList<String> memberList) {
 		
-		pm.modifyProject(project, projectTitle, projectStartDay, projectEndDay, sprintList);
+		pm.modifyProject(project, projectTitle, projectStartDay, projectEndDay, sprintList, memberList);
 		
 		projectBtn.setText(projectTitle);
 
@@ -297,6 +349,18 @@ public class A_MainPage extends JPanel{
 
 	
 
+	//(민)입력한 id를 넘겨줌
+	public A_Member findMember(String id) {
+		
+		//입력받은 id로 멤버찾아서 있는지 확인
+		A_Member member = mm.findMember(id);
+		//member가 존재하면(null이 아니면)
+		/*if (member != null) {
+			pm.addMember(selectedProject, id);
+		}*/
+		
+		return member;
+	}
 
 	
 	
@@ -305,7 +369,7 @@ public class A_MainPage extends JPanel{
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			new A_AddProject(mf, mainPage, null).getAddProject().setVisible(true);
+			new A_AddProject(mf, mainPage, null, user).getAddProject().setVisible(true);
 		}
 	}
 	
@@ -316,7 +380,7 @@ public class A_MainPage extends JPanel{
 		
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			new A_AddUserPU(mf,lp).getUserPU().setVisible(true);
+			new A_AddUserPU(mf, user).getUserPU().setVisible(true);
 		}
 	}
 	
@@ -324,7 +388,7 @@ public class A_MainPage extends JPanel{
 	
 	
 	public void goToProjectPage(Project selectedProject) {
-		ChangePanel.changePanel(mf, this, new B_ProjectPage(mf, this, selectedProject));
+		ChangePanel.changePanel(mf, this, new B_ProjectPage(mf, this, selectedProject, user));
 	}
 	
 	public void goToLoginPage() {

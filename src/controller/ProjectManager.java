@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import model.dao.ProjectDao;
+import model.vo.A_Member;
 import model.vo.Project;
 import model.vo.Sprint;
 
@@ -12,7 +13,7 @@ public class ProjectManager {
 	private ProjectDao pdao;
 	private ArrayList<Sprint> sprints = new ArrayList<Sprint>(); 
 	//private SprintDao sdao;
-	private ArrayList<String> ids = new ArrayList<String>();
+	private ArrayList<String> memberList = new ArrayList<String>();
 
 	public ProjectManager() {}
 
@@ -50,19 +51,33 @@ public class ProjectManager {
 	}
 
 
-	public ArrayList<String> addPeople(String id) {
+	//(¹Î)
+	public Project addMember(Project project, A_Member member) {
 
-		ids.add(id);
+		memberList = project.getMemberList();
+		memberList.add(member.getId());
+		project.setMemberList(memberList);
+		if(project != null) {
+			pdao = new ProjectDao(project.getProjectTitle());
+			pdao.addMember(memberList);
+		}
 		
-		
-		return ids;
+		return project;
+	}
+	
+	public Project changeAdmin(Project project, String projectAdmin) {
+	
+		project.setProjectAdmin(projectAdmin);
+		pdao = new ProjectDao(project.getProjectTitle());
+		pdao.changeAdmin(projectAdmin);
+		return project;
 	}
 	
 	
-	public void makeNewProject(String projectTitle, Date projectStartDay, Date projectEndDay, ArrayList<Sprint> sprintList) {
+	public void makeNewProject(String projectTitle, Date projectStartDay, Date projectEndDay, ArrayList<Sprint> sprintList, String projectAdmin, ArrayList<String> memberList) {
 		
 		//ArrayList<Project> projects = new ArrayList<Project>();
-		Project newProject = new Project(projectTitle, projectStartDay, projectEndDay, sprintList, ids);
+		Project newProject = new Project(projectTitle, projectStartDay, projectEndDay, sprintList, projectAdmin, memberList);
 		pdao = new ProjectDao(projectTitle);
 		pdao.makeProject(newProject);
 		//projects.add(newProject);
@@ -71,6 +86,18 @@ public class ProjectManager {
 		
 		//return newProject;
 	}
+	
+	
+	public ArrayList<Project> getMyAdminProjects() {
+		
+		return null;
+	}
+	
+	public ArrayList<Project> getMyProjects() {
+		
+		return null;
+	}
+	
 	
 	public Project getProject(String titleSelected) {
 		
@@ -86,14 +113,14 @@ public class ProjectManager {
 		return sprints;
 	}
 	
-	public void modifyProject(Project project, String projectTitle, Date projectStartDay, Date projectEndDay, ArrayList<Sprint> sprintList) {
+	public void modifyProject(Project project, String projectTitle, Date projectStartDay, Date projectEndDay, ArrayList<Sprint> sprintList, ArrayList<String> memberList) {
 		
 		pdao = new ProjectDao(project.getProjectTitle());
 		project.setProjectTitle(projectTitle);
 		project.setProjectStartDay(projectStartDay);
 		project.setProjectEndDay(projectEndDay);
 		project.setSprints(sprintList);
-		project.setIds(ids);
+		project.setMemberList(memberList);
 		pdao.modifyProject(project);
 		
 		//return project;
