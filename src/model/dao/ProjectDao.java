@@ -27,6 +27,58 @@ public class ProjectDao {
 	
 	private int index;
 	
+	public ProjectDao() {
+		
+		
+		projectList = new ArrayList();
+		//allSprintList = new HashMap<String, ArrayList<Sprint>>();
+		sprintList = new ArrayList();
+		
+		try (ObjectInputStream prjIn = new ObjectInputStream(new FileInputStream("project_list.dat"));
+				/*ObjectInputStream sprIn = new ObjectInputStream(new FileInputStream(projectTitle + "_sprint_list.dat"))*/) {
+			
+			while(true) {
+				Project p = (Project)prjIn.readObject();
+				projectList.add(p);
+				//memberList.addAll(p.getMemberList());
+				/*Sprint s = (Sprint)sprIn.readObject();
+				sprintList.add(s);*/
+			}
+			
+
+		} catch (FileNotFoundException e) {
+			System.out.println("파일을 찾을 수 없습니다.");
+
+		} catch (EOFException e) {
+			System.out.println("프로젝트 파일 불러오기 완료");
+			try(ObjectInputStream sprIn = new ObjectInputStream(new FileInputStream(projectTitle + "_sprint_list.dat"))) {
+				
+				while(true) {
+					Sprint s = (Sprint)sprIn.readObject();
+					sprintList.add(s);
+				}
+				
+			} catch (FileNotFoundException e1) {
+				System.out.println("스프린트 파일을 찾을 수 없습니다!");
+			} catch (EOFException e1) {
+				System.out.println("스프린트 파일 불러오기 완료");
+			} catch (IOException e1) {
+				e.printStackTrace();
+			} catch (ClassNotFoundException e1) {
+				e.printStackTrace();
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} 
+
+
+		
+		
+	}
+	
 	public ProjectDao(String projectTitle) {
 		
 		this.projectTitle = projectTitle;
@@ -80,6 +132,7 @@ public class ProjectDao {
 
 
 	}
+	
 	
 	
 	public void saveProjects() {
@@ -165,7 +218,11 @@ public class ProjectDao {
 			return null;
 		}
 	}
-	
+
+	public ArrayList<Project> getProjectList() {
+		return projectList;
+	}
+
 	public ArrayList<Sprint> getSprintList() {
 		return sprintList;
 	}
