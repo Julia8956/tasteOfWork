@@ -331,26 +331,6 @@ public class A_MainPage extends JPanel{
 			showMyProject(projectTitle);
 		}
 		
-		
-		/*projectBtn = new JButton(projectTitle);
-		
-		ButtonGroup bg = new ButtonGroup();
-		bg.add(projectBtn);
-
-		projectBtnList.add(projectBtn);
-		projectBtn.setPreferredSize(new Dimension(150,100));
-		projectBtn.setVisible(true);
-		projectBtn.setBackground(Color.white); 
-		projectBtn.setBorderPainted(false);
-		projectBtn.setToolTipText("마우스 오른쪽 버튼을 눌러 프로젝트 정보를 수정하세요");
-		projectsPanel.add(projectBtn);
-		//projectsPanel.addMouseListener(new projectEvent());
-		projectsPanel.revalidate();
-		this.revalidate();
-		eventLink();*/
-
-		
-		
 	}
 	
 	public void adminEventLink() {
@@ -419,6 +399,14 @@ public class A_MainPage extends JPanel{
 		//projectBtn.addMouseListener(this);
 	}
 
+	
+//(민) 추가 : 2/19
+	public void deleteProject(Project project) {
+		pm.deleteProject(project);
+		
+		projectBtn.setVisible(false);
+	}
+//	
 	
 
 	//(민)입력한 id를 넘겨줌

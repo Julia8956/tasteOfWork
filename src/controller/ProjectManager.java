@@ -94,6 +94,7 @@ public class ProjectManager {
 		return project;
 	}
 	
+	
 	public Project deleteMember(Project project, String member) {
 		
 		memberList = project.getMemberList();
@@ -156,6 +157,38 @@ public class ProjectManager {
 		pdao.modifyProject(project);
 		
 		//return project;
+	}
+	
+	public Project modifySprint(Project project, Sprint sprint, String sprintTitle, Date sprintStartDay, 
+			Date sprintEndDay, String sprintDetail, String sprintToDo) {
+		
+		System.out.println("old : " + sprint);
+		pdao = new ProjectDao(project.getProjectTitle());
+		Sprint updatedSprint = new Sprint(sprintTitle, sprintStartDay, sprintEndDay, sprintDetail, sprintToDo);
+		System.out.println("new : " + updatedSprint);
+		sprints = pdao.modifySprint(project, sprint, updatedSprint);
+		project.setSprints(sprints);
+		return project;
+	}
+	
+	public void deleteProject(Project project) {
+		
+		pdao = new ProjectDao(project.getProjectTitle());
+		pdao.deleteProject();
+	}
+	
+	
+	public Project deleteSprint(Project project, Sprint sprint) {
+		
+		sprints = project.getSprints();
+		sprints.remove(sprint);
+		project.setSprints(sprints);
+		if(project != null) {
+			pdao = new ProjectDao(project.getProjectTitle());
+			pdao.addSprint(sprints);
+		}
+		
+		return project;
 	}
 	
 	public void makeNewMOM(Project project) {
