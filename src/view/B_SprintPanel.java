@@ -14,6 +14,7 @@ import java.util.Date;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -76,10 +77,13 @@ public class B_SprintPanel extends JPanel implements ActionListener, MouseListen
 		newSprintPanel.setLayout(new FlowLayout(FlowLayout.TRAILING));
 		
 		//스프린트 생성 버튼 (클릭시 팝업 떠야함)
-		newSprintButton = new JButton();
-		newSprintButton.setText("새 스프린트 추가  +");
+		newSprintButton = new JButton(new ImageIcon("images/newSprint1.png"));
+		ImageIcon newSprintButton2 = new ImageIcon("images/newSprint2.png");
 		newSprintButton.setSize(150, 50);
-		//addSprint.setLocation(200, 80);
+		newSprintButton.setBorderPainted(false);
+		newSprintButton.setFocusPainted(false);
+		newSprintButton.setContentAreaFilled(false);
+		newSprintButton.setRolloverIcon(newSprintButton2);
 		
 		
 		//스프린트 생성 버튼에 이벤트 연결

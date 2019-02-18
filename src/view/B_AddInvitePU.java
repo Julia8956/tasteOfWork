@@ -49,13 +49,13 @@ public class B_AddInvitePU extends JPanel implements ActionListener{
 		invitePU = new Dialog(mf,"초대하기");
 		invitePU.setUndecorated(true);	//태두리 없에는거
 		
-		invitePU.setSize(310, 310);	//310	310
+		invitePU.setSize(310, 290);	//310	310
 		
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		
 		Dimension dim = tk.getScreenSize();
-		int xPos = (dim.width - 200)  - (invitePU.getWidth() * 2);
-		int yPos = (dim.height / 3 + 30) - (invitePU.getHeight() / 2);
+		int xPos = (dim.width - 120)  - (invitePU.getWidth() * 2);
+		int yPos = (dim.height / 3 + 45) - (invitePU.getHeight() / 2);
 		invitePU.setLocation(xPos, yPos);
 		
 		//invitePU.setLocation(625, 100);
@@ -96,6 +96,7 @@ public class B_AddInvitePU extends JPanel implements ActionListener{
 		}
 		
 		JTextArea T_Member = new JTextArea();
+		T_Member.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 		if (str != null) {
 			T_Member.setText(str);
 		}
@@ -105,16 +106,17 @@ public class B_AddInvitePU extends JPanel implements ActionListener{
 		//멤버 스크롤
 		JScrollPane M_Scroll = new JScrollPane(T_Member); 
 		M_Scroll.setLocation(20, 40);
-		M_Scroll.setSize(250,200);
+		M_Scroll.setSize(265,200);
 		invitePU.add(M_Scroll);
 		
 		//관리자 보류
-		JPanel Man_Div_panel = new JPanel();
-		Man_Div_panel.setLayout(null);
-		Man_Div_panel.setSize(310,100);
-		Man_Div_panel.setLocation(0,242);
-		Man_Div_panel.setBackground(Color.decode("#5A5959"));
-		//invitePU.add(Man_Div_panel);
+//		JPanel Man_Div_panel = new JPanel();
+//		Man_Div_panel.setLayout(null);
+//		Man_Div_panel.setSize(310,100);
+//		Man_Div_panel.setLocation(0,242);
+////		Man_Div_panel.setBackground(Color.decode("#5A5959"));
+//		Man_Div_panel.setBackground(new Color(0, 0, 0,0));
+//		//invitePU.add(Man_Div_panel);
 		
 		//멤버 초대 버튼
 		//JButton Add_Button = new JButton("초대");
@@ -166,11 +168,17 @@ public class B_AddInvitePU extends JPanel implements ActionListener{
 		Man_Div_panel.add(Fire_Button);*/
 		
 		
-		invitePU.add(Man_Div_panel);
+//		invitePU.add(Man_Div_panel);
 		
-		JButton closebtn = new JButton("닫기");
-		closebtn.setSize(60, 20);
-		closebtn.setLocation(250,10);
+		//닫기버튼
+		JButton closebtn = new JButton(new ImageIcon("images/close1.png"));
+		ImageIcon closebtn2 = new ImageIcon("images/close2.png");
+		closebtn.setBorderPainted(false); 
+		closebtn.setFocusPainted(false); 
+		closebtn.setContentAreaFilled(false);
+		closebtn.setRolloverIcon(closebtn2);
+		closebtn.setSize(48,30);
+		closebtn.setLocation(240,250);
 		closebtn.addActionListener(new CloseEvent());
 		
 		

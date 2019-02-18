@@ -15,6 +15,7 @@ import java.util.Locale;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultCellEditor;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -95,7 +96,13 @@ public class B_CalendarPanel extends JPanel {
 		//캘린더 객체
 		cal = new GregorianCalendar();
 		//이전달로 넘어갈 버튼
-		JButton prevMonthBtn = new JButton("< 이전 달");
+		JButton prevMonthBtn = new JButton(new ImageIcon("images/backM1.png"));
+		ImageIcon prevMonthBtn2 = new ImageIcon("images/backM2.png");
+		prevMonthBtn.setBorderPainted(false);
+		prevMonthBtn.setFocusPainted(false);
+		prevMonthBtn.setContentAreaFilled(false);
+		prevMonthBtn.setRolloverIcon(prevMonthBtn2);
+		
 		calendarHeadPanel.add(prevMonthBtn, "West");
 		prevMonthBtn.addActionListener(new ActionListener() {
 
@@ -108,7 +115,12 @@ public class B_CalendarPanel extends JPanel {
 			
 		});
 		//다음달로 넘어갈 버튼
-		JButton nextMonthBtn = new JButton("다음 달 >");
+		JButton nextMonthBtn = new JButton(new ImageIcon("images/nextM1.png"));
+		ImageIcon nextMonthBtn2 = new ImageIcon("images/nextM2.png");
+		nextMonthBtn.setBorderPainted(false);
+		nextMonthBtn.setFocusPainted(false);
+		nextMonthBtn.setContentAreaFilled(false);
+		nextMonthBtn.setRolloverIcon(nextMonthBtn2);
 		calendarHeadPanel.add(nextMonthBtn, "East");
 		nextMonthBtn.addActionListener(new ActionListener() {
 			

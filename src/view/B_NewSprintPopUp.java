@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Color;
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -12,6 +13,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Date;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -22,7 +24,6 @@ import javax.swing.UIManager;
 
 import org.jdesktop.swingx.JXDatePicker;
 
-import controller.ProjectManager;
 import model.vo.Sprint;
 
 public class B_NewSprintPopUp extends JPanel {
@@ -70,7 +71,7 @@ public class B_NewSprintPopUp extends JPanel {
 		
 		//이름
 		JTextField sprintName = new JTextField("새 스프린트 이름", 30);
-
+sprintName.setFont(new Font("맑은 고딕", Font.BOLD, 20));
 		if(selectedSprint != null) {
 			sprintName.setText(selectedSprint.getSprintTitle());
 		}
@@ -104,18 +105,23 @@ public class B_NewSprintPopUp extends JPanel {
 		start.setLocation(30, 115);
 		start.setSize(50, 40);
 		start.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		start.setForeground(Color.WHITE);
 		newSprintPopUp.add(start);
-
 		
 		//시작일
 		JXDatePicker startDayPicker = new DatePicker().getDatePicker();
+		startDayPicker.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
+		JButton startbtn_pick = (JButton) startDayPicker.getComponent(1);
+		ImageIcon startIcon = new ImageIcon("images/Calendar.png");
+		startbtn_pick.setIcon(startIcon);
+		startbtn_pick.setBorderPainted(false);
+		startbtn_pick.setFocusPainted(false);
+		startbtn_pick.setContentAreaFilled(false);
+		startDayPicker.setLocation(90, 115);
+		startDayPicker.setSize(130, 40);
 		if(selectedSprint != null) {
 			startDayPicker.setDate(selectedSprint.getSprintStartDay());
 		}
-		
-		startDayPicker.setLocation(80, 115);
-		startDayPicker.setSize(120, 40);
-		///startDayPicker.setFont(new Font("맑은 고딕", Font., 15));
 		newSprintPopUp.add(startDayPicker);	
 		
 		
@@ -126,13 +132,15 @@ public class B_NewSprintPopUp extends JPanel {
 		fromTo.setLocation(240, 115);
 		fromTo.setSize(50, 40);
 		fromTo.setFont(new Font("",Font.BOLD, 30));
+		fromTo.setForeground(Color.WHITE);
 		newSprintPopUp.add(fromTo);
 		
 		//종료일
 		JLabel end = new JLabel("종료일");
-		end.setLocation(310, 115);
+		end.setLocation(290, 115);
 		end.setSize(50, 40);
 		end.setFont(new Font("맑은 고딕", Font.BOLD, 15));
+		end.setForeground(Color.WHITE);
 		
 		newSprintPopUp.add(end);
 
@@ -140,13 +148,18 @@ public class B_NewSprintPopUp extends JPanel {
 		
 		//종료일
 		JXDatePicker endDayPicker = new DatePicker().getDatePicker();
-		
+		endDayPicker.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
+		JButton endBtn_pick = (JButton) endDayPicker.getComponent(1);
+		ImageIcon endIcon = new ImageIcon("images/Calendar.png");
+		endBtn_pick.setIcon(endIcon);
+		endBtn_pick.setBorderPainted(false);
+		endBtn_pick.setFocusPainted(false);
+		endBtn_pick.setContentAreaFilled(false);
+		endDayPicker.setLocation(350, 115);
+		endDayPicker.setSize(130, 40);
 		if(selectedSprint != null) {
 			endDayPicker.setDate(selectedSprint.getSprintEndDay());
 		}
-		endDayPicker.setLocation(360, 115);
-		endDayPicker.setSize(120, 40);
-		//endDayPicker.setFont(new Font("", Font.PLAIN, 15));
 		newSprintPopUp.add(endDayPicker);
 		
 		
@@ -155,6 +168,7 @@ public class B_NewSprintPopUp extends JPanel {
 		
 		//설명
 		JTextArea description = new JTextArea("설명", 3, 30);
+		description.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 		if(selectedSprint != null) {
 			description.setText(selectedSprint.getSprintDetail());
 		}
@@ -194,6 +208,7 @@ public class B_NewSprintPopUp extends JPanel {
 
 		//할일입력
 		JTextField toDo = new JTextField("주요 할 일", 50);
+		toDo.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 		toDo.setLocation(30, 330);
 		toDo.setSize(410, 45);
 		//toDo.setFont(new Font("", Font.PLAIN, 15));
@@ -208,8 +223,9 @@ public class B_NewSprintPopUp extends JPanel {
 		
 		//할일 입력후 +버튼 클릭시 아래 textArea로 넘어가야 함
 		plusButton = new JButton("+");
-			
+		
 		plusButton.setFont(new Font("맑은 고딕", Font.BOLD, 20));
+		plusButton.setForeground(Color.WHITE);
 		plusButton.setLocation(450, 330);
 		plusButton.setOpaque(false);
 		//plusButton.setBackground(Color.lightGray);
@@ -267,9 +283,15 @@ public class B_NewSprintPopUp extends JPanel {
 
 		});
 		//스프린트 삭제 버튼
-		JButton deleteBtn = new JButton("삭제");
-		deleteBtn.setLocation(170, 610);
-		deleteBtn.setSize(90, 40);
+//		Delete1
+		JButton deleteBtn = new JButton(new ImageIcon("images/Delete1.png"));
+		ImageIcon deleteBtn2 = new ImageIcon("images/Delete2.png");
+		deleteBtn.setBorderPainted(false);
+		deleteBtn.setFocusPainted(false);
+		deleteBtn.setContentAreaFilled(false);
+		deleteBtn.setRolloverIcon(deleteBtn2);
+		deleteBtn.setLocation(165, 619);
+		deleteBtn.setSize(100, 33);
 		newSprintPopUp.add(deleteBtn);
 		
 		deleteBtn.addActionListener(new ActionListener() {
@@ -291,9 +313,14 @@ public class B_NewSprintPopUp extends JPanel {
 		
 
 		//스프린트 생성 취소버튼
-		JButton cancelBtn = new JButton("취소");
+		JButton cancelBtn = new JButton(new ImageIcon("images/cancelbtn11.png"));
+		ImageIcon cancelBtn2 = new ImageIcon("images/cancelbtn22.png");
+		cancelBtn.setBorderPainted(false);
+		cancelBtn.setFocusPainted(false);
+		cancelBtn.setContentAreaFilled(false);
+		cancelBtn.setRolloverIcon(cancelBtn2);
+		cancelBtn.setSize(100,50);
 		cancelBtn.setLocation(275,610);
-		cancelBtn.setSize(90,40);
 		newSprintPopUp.add(cancelBtn);
 		
 		//취소버튼 클릭시 스프린트 생성 팝업창 닫힘
@@ -307,9 +334,14 @@ public class B_NewSprintPopUp extends JPanel {
 		});
 		
 		//스프린트생성 확인버튼
-		JButton okBtn = new JButton("확인");
+		JButton okBtn = new JButton(new ImageIcon("images/okbtn1.png"));
+		ImageIcon okBtn2 = new ImageIcon("images/okbtn2.png");
+		okBtn.setBorderPainted(false);
+		okBtn.setFocusPainted(false);
+		okBtn.setContentAreaFilled(false);
+		okBtn.setRolloverIcon(okBtn2);
+		okBtn.setSize(100,50);
 		okBtn.setLocation(385,610);
-		okBtn.setSize(90,40);
 		newSprintPopUp.add(okBtn);
 		
 		

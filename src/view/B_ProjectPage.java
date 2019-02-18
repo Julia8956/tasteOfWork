@@ -16,7 +16,7 @@ public class B_ProjectPage extends JPanel{
 
 	private MainFrame mainFrame;
 	public static final Color BG_COLOR = new Color(204, 245,255); 
-	public static final Color POPUP_COLOR = new Color(1f, 0.7f, 0.7f, 0.8f);
+	public static final Color POPUP_COLOR =new Color(66, 66, 66, 220);
 	
 	private A_MainPage mainPage;
 	private B_ProjectPage projectPage;

@@ -70,7 +70,7 @@ public class B_NewMOMPopUp extends JPanel {
 
 		// ÀÌ¸§
 		JTextField MOMName = new JTextField("È¸ÀÇ¸í", 30);
-		MOMName.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 15));
+		MOMName.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 20));
 		MOMName.setLocation(20, 50);
 		MOMName.setSize(450, 45);
 		newMompopup.add(MOMName);
@@ -105,6 +105,7 @@ public class B_NewMOMPopUp extends JPanel {
 		newMompopup.add(writerLabel);
 
 		JTextField writer = new JTextField(50);
+		writer.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
 		writer.setLocation(130, 120);
 		writer.setSize(120, 40);
 		newMompopup.add(writer);
@@ -114,6 +115,8 @@ public class B_NewMOMPopUp extends JPanel {
 		DayLabel.setLocation(280, 115);
 		DayLabel.setSize(140, 40);
 		DayLabel.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 20));
+		DayLabel.setForeground(Color.WHITE);
+
 		// ±Û¾¾»ö±ò Èò»öÀ¸·Î º¯°æ
 		// DayLabel.setForeground(Color.WHITE);
 		newMompopup.add(DayLabel);
@@ -134,12 +137,15 @@ public class B_NewMOMPopUp extends JPanel {
 		attend.setLocation(40, 175);
 		attend.setSize(100, 45);
 		attend.setFont(new Font("¸¼Àº °íµñ", Font.BOLD, 20));
+		attend.setForeground(Color.WHITE);
+
 		// ±Û¾¾»ö±ò Èò»öÀ¸·Î º¯°æ
 		// attend.setForeground(Color.WHITE);
 		newMompopup.add(attend);
 
 		// Âü¼®ÀÚ TextÇÊµå
 		JTextField name = new JTextField("Âü¼®ÀÚÀÌ¸§ Ãß°¡", 50);
+		name.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
 		name.setLocation(130, 185);
 		name.setSize(300, 30);
 		newMompopup.add(name);
@@ -170,6 +176,7 @@ public class B_NewMOMPopUp extends JPanel {
 		// ÀÔ·ÂÇÑ Âü¼®ÀÚ º¸¿©ÁÖ´Â textArea
 		// readOnly (¼öÁ¤ºÒ°¡)
 		JTextArea person = new JTextArea(30, 10);
+		person.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
 		person.setLocation(130, 230);
 		person.setSize(350, 50);
 		person.setEditable(false);
@@ -218,6 +225,7 @@ public class B_NewMOMPopUp extends JPanel {
 
 		// ³»¿ë ÀÛ¼º Ä­
 		JTextArea description = new JTextArea("³»¿ë ÀÛ¼º", 3, 30);
+		description.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 15));
 		description.setLocation(130, 300);
 		description.setSize(350, 220);
 		newMompopup.add(description);
@@ -242,9 +250,16 @@ public class B_NewMOMPopUp extends JPanel {
 		
 		
 		// »èÁ¦ ¹öÆ°
-		JButton deleteBtn = new JButton("»èÁ¦");
-		deleteBtn.setLocation(170, 550);
-		deleteBtn.setSize(90, 40);
+		JButton deleteBtn = new JButton(new ImageIcon("images/Delete1.png"));
+		ImageIcon deleteBtn2 = new ImageIcon("images/Delete2.png");
+		deleteBtn.setBorderPainted(false);
+		deleteBtn.setFocusPainted(false);
+		deleteBtn.setContentAreaFilled(false);
+		deleteBtn.setRolloverIcon(deleteBtn2);
+		deleteBtn.setLocation(165, 559);
+		deleteBtn.setSize(100, 33);
+//		deleteBtn.setLocation(170, 550);
+//		deleteBtn.setSize(90, 40);
 		newMompopup.add(deleteBtn);
 
 		deleteBtn.addActionListener(new ActionListener() {
