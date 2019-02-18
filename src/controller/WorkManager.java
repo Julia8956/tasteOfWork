@@ -69,7 +69,7 @@ public class WorkManager {
 		
 		wdao = new WorkDao(project.getProjectTitle(),sprint.getSprintTitle(),work.getWork_name());
 		
-		wdao.deleteWork(work);
+		wdao.deleteWork(sprint,work);
 	}
 	
 	public void AddWork(Project project,Sprint sprint,Work work) {
