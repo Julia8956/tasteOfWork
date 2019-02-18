@@ -15,7 +15,8 @@ public class Project implements Serializable{
 	protected Date projectStartDay;
 	protected Date projectEndDay;
 	protected transient ArrayList<Sprint> sprints;
-	protected ArrayList<String> ids;
+	protected String projectAdmin;
+	protected ArrayList<String> memberList;
 	
 
 	public Project() {}
@@ -23,13 +24,14 @@ public class Project implements Serializable{
 	
 
 	public Project(String projectTitle, Date projectStartDay, Date projectEndDay, 
-			ArrayList<Sprint> sprints, ArrayList<String> ids) {
+			ArrayList<Sprint> sprints, String projectAdmin, ArrayList<String> memberList) {
 		super();
 		this.projectTitle = projectTitle;
 		this.projectStartDay = projectStartDay;
 		this.projectEndDay = projectEndDay;
 		this.sprints = sprints;
-		this.ids = ids;
+		this.projectAdmin = projectAdmin;
+		this.memberList = memberList;
 	}
 
 
@@ -56,10 +58,13 @@ public class Project implements Serializable{
 		return sprints;
 	}
 
+	public String getProjectAdmin() {
+		return projectAdmin;
+	}
 
 
-	public ArrayList<String> getIds() {
-		return ids;
+	public ArrayList<String> getMemberList() {
+		return memberList;
 	}
 
 
@@ -93,9 +98,12 @@ public class Project implements Serializable{
 	}
 
 
+	public void setProjectAdmin(String projectAdmin) {
+		this.projectAdmin = projectAdmin;
+	}
 
-	public void setIds(ArrayList<String> ids) {
-		this.ids = ids;
+	public void setMemberList(ArrayList<String> memberList) {
+		this.memberList = memberList;
 	}
 
 

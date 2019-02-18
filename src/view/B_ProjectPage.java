@@ -6,6 +6,8 @@ import java.awt.GridBagLayout;
 
 import javax.swing.JPanel;
 
+import model.vo.A_Member;
+import model.vo.A_Member;
 import model.vo.Project;
 import model.vo.Sprint;
 
@@ -20,8 +22,9 @@ public class B_ProjectPage extends JPanel{
 	private B_ProjectPage projectPage;
 	
 	private Project selectedProject;
+	private A_Member user;
 	
-	public B_ProjectPage(MainFrame mainFrame, A_MainPage mainPage, Project selectedProject) {
+	public B_ProjectPage(MainFrame mainFrame, A_MainPage mainPage, Project selectedProject, A_Member user) {
 		
 		this.mainFrame = mainFrame;
 		this.projectPage = this;
@@ -29,6 +32,7 @@ public class B_ProjectPage extends JPanel{
 		this.mainPage = mainPage;
 		//현재페이지와 연결된 객체
 		this.selectedProject = selectedProject;
+		this.user = user;
 		
 		this.setSize(1024, 768);
 		//this.setBackground(Color.BLUE);
@@ -45,7 +49,7 @@ public class B_ProjectPage extends JPanel{
 		gc.weighty = 0.0;
 		gc.gridwidth = GridBagConstraints.REMAINDER;
 		//gc.gridheight = 1;
-		gridbag.setConstraints(new B_HomeBarPanel(this, selectedProject), gc);
+		gridbag.setConstraints(new B_HomeBarPanel(mainFrame, this, selectedProject, user), gc);
 		
 		//디데이패널
 		gc.weightx = 1;

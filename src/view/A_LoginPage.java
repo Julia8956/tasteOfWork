@@ -1,16 +1,12 @@
 package view;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -21,6 +17,7 @@ import javax.swing.JTextField;
 
 import controller.A_MemberManager;
 import model.dao.A_MemberDao;
+import model.vo.A_Member;
 
 
 
@@ -247,10 +244,12 @@ import model.dao.A_MemberDao;
 		
 	}
 	  
-	  public void goToMainPage(A_LoginPage lp) {
-			this.lp = lp;
-				ChangePanel.changePanel(mf, lp ,new A_MainPage(mf));
-			}
+		//(πŒ)
+		  public void goToMainPage(A_LoginPage lp, A_Member user) {
+				this.lp = lp;
+					//(πŒ)mainpage∑Œ ∏‚πˆ¡§∫∏ ≥—∞‹¡‹
+					ChangePanel.changePanel(mf, lp ,new A_MainPage(mf, user));
+				}
 		   
 	  
 	   
