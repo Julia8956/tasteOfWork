@@ -5,13 +5,14 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Date;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -19,10 +20,12 @@ import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.UIManager;
 
+import controller.ProjectManager;
 import model.vo.MOM;
 import model.vo.Project;
+import model.vo.Sprint;
 
-public class B_MOMPanel extends JPanel implements ActionListener {
+public class B_MOMPanel extends JPanel implements ActionListener, MouseListener {
 
 	private MainFrame mainFrame;
 	private B_ProjectPage projectPage;
@@ -59,9 +62,13 @@ public class B_MOMPanel extends JPanel implements ActionListener {
 		newMOMPanel.setLayout(new FlowLayout(FlowLayout.TRAILING));
 
 		// 회의록 생성 버튼 (클릭시 팝업 떠야함)
-		newMOMButton = new JButton();
-		newMOMButton.setText("새 회의록 추가 +");
+		newMOMButton = new JButton(new ImageIcon("images/MOM1.png"));
+		ImageIcon newMOMButton2 = new ImageIcon("images/MOM2.png");
 		newMOMButton.setSize(150, 50);
+		newMOMButton.setBorderPainted(false);
+		newMOMButton.setFocusPainted(false);
+		newMOMButton.setContentAreaFilled(false);
+		newMOMButton.setRolloverIcon(newMOMButton2);
 
 		// 회의록 생성 버튼에 이벤트 연결
 		newMOMButton.addActionListener(this);
@@ -71,13 +78,17 @@ public class B_MOMPanel extends JPanel implements ActionListener {
 		MOMPanel.add(newMOMPanel, "North");
 
 		MOMModel = new DefaultListModel();
+		MOMListUpdate();
 		
 		// 회의록 리스트 올릴 리스트
 		MOMJList = new JList(MOMModel);
 		MOMJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		MOMJList.setToolTipText("더블클릭시 해당 회의록 내용 띄움");
 
-		MOMJList.addMouseListener(new MouseAdapter() {
+		MOMJList.addMouseListener(this);
+		
+		
+		/*MOMJList.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 
@@ -86,7 +97,10 @@ public class B_MOMPanel extends JPanel implements ActionListener {
 					new testPopup();
 				}
 			}
-		});
+		});*/
+		
+		
+		
 		MOMJList.setBorder(BorderFactory.createLineBorder(Color.black, 1));
 		// 스크롤러에 리스트 올리기
 		JScrollPane scroller = new JScrollPane(MOMJList);
@@ -95,11 +109,65 @@ public class B_MOMPanel extends JPanel implements ActionListener {
 
 		projectPage.add(this);
 	}
+	
+	
+	
+	
+	
+	// 팝업에서 확인버튼 누르면 실행할 메소드
+	public void addMOMOnList(String MOMTitle, String MOMWriter, Date MOMDay, String MOMPerson, String MOMDescription) {
+		// 받아온 회의록명, 시작일, 종료일로 MOM객체 생성해서 arrayList에 올리기
+		selectedProject = new ProjectManager().addNewMOM(selectedProject, MOMTitle, MOMWriter, MOMDay, MOMPerson,MOMDescription);
+		MOMListUpdate();
+		MOMPanel.revalidate();
+		
+		/*MOM newMOM = new MOM(MOMTitle, MOMDay);
+		MOMArrList.add(newMOM);
+		MOMModel.addElement(newMOM);
+		MOMPanel.revalidate();*/
+	}
+
+	public void deleteMOM(MOM mom) {
+
+		selectedProject = new ProjectManager().deleteMOM(selectedProject, mom);
+		MOMListUpdate();
+
+		MOMPanel.revalidate();
+	}
+
+	public void modifyMOM(MOM mom, String MOMTitle, String MOMWriter, Date MOMDay, String MOMPerson, String MOMDescription) {
+
+
+		selectedProject = new ProjectManager().modifyMOM(selectedProject, mom, MOMTitle, MOMWriter, MOMDay, MOMPerson,MOMDescription);
+		MOMListUpdate();
+
+
+		MOMPanel.revalidate();
+	}
+
+
+	public void MOMListUpdate() {
+		MOMModel.clear();
+		ArrayList<MOM> MOMList = selectedProject.getMOMList();
+		if (MOMList != null) {
+			for (int i = 0; i < MOMList.size(); i++) {
+				MOMModel.addElement(MOMList.get(i));
+			}
+		}
+
+	}
+	
+	
+	
+	
+	
+	
+	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == newMOMButton) {
-			new B_newMOMPopUp(mainFrame, MOMPanel).getMomPopup().setVisible(true);
+			new B_NewMOMPopUp(mainFrame, MOMPanel, null).getMomPopup().setVisible(true);
 
 		}
 
@@ -116,19 +184,65 @@ public class B_MOMPanel extends JPanel implements ActionListener {
 		}
 	}
 
-	// 팝업에서 확인버튼 누르면 실행할 메소드
-	public void addMOMOnList(String MOMTitle, Date MOMDay) {
-		// 받아온 회의록명, 시작일, 종료일로 MOM객체 생성해서 arrayList에 올리기
 
-		MOM newMOM = new MOM(MOMTitle, MOMDay);
-		MOMArrList.add(newMOM);
-		MOMModel.addElement(newMOM);
-		MOMPanel.revalidate();
-		
-		
-		
-		
 
+
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+
+		if (e.getSource() == MOMJList) {
+			if (e.getButton() == 1) {
+				if (e.getClickCount() == 2) {
+					
+					MOM momSelected = (MOM) MOMJList.getSelectedValue();
+					
+					new B_NewMOMPopUp(mainFrame, MOMPanel, momSelected).getMomPopup().setVisible(true);
+				}
+			}
+			
+		}
 	}
+
+
+
+
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }

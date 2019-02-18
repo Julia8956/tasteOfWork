@@ -234,18 +234,10 @@ public class B_CalendarPanel extends JPanel {
 		model.setRowCount(weeks);
 		//model.setRowCount(6);
 		
-		/*JPanel cellAreaPanel = new JPanel();
-		JTextArea cellArea = new JTextArea("", 3, 10);
-		cellAreaPanel.add(cellArea);*/
-		//ArrayList cell = new ArrayList();
-		//String[] cell = new String[10];
 		
 		//1일에 해당하는 요일-1
 		int i = startDay - 1;
 		for (int day = 1; day <= numberOfDays; day++) {
-			//cellArea.setText(day+ "");
-			/*cell[0] = day + "";
-			cell[1] = "일정 추가";*/
 			
 			model.setValueAt(day, i/7, i%7);
 			i = i + 1;
@@ -253,30 +245,6 @@ public class B_CalendarPanel extends JPanel {
 		
 		
 	}
-	
-	/*class MultiLineTableCellRenderer extends JList<String> implements TableCellRenderer {
-
-		@Override
-		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
-				int row, int column) {
-
-			//셀(Object value)안의 값이 String[]일때 여러줄을 만들기
-			if(value instanceof String[]) {
-				setListData((String[]) value);
-			}
-			
-			//cell background color when selected
-			if(isSelected) {
-				setBackground(UIManager.getColor("Table.selectionBackground"));
-			}else {
-				setBackground(UIManager.getColor("Table.background"));
-			}
-			
-			return this;
-		}
-		
-	}*/
-	
 	
 	
 }

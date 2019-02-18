@@ -9,7 +9,10 @@ import view.testPopup;
 public class MOM implements Serializable {
 
 	private String MOMTitle;
+	private String MOMWriter;
 	private Date MOMDay;
+	private String MOMPerson;
+	private String MOMDescription;
 
 	public MOM() {
 	}
@@ -21,12 +24,45 @@ public class MOM implements Serializable {
 
 	}
 
+	public MOM(String MOMTitle, String MOMWriter, Date MOMDay, String MOMPerson, String MOMDescription) {
+		this.MOMTitle = MOMTitle;
+		this.MOMWriter = MOMWriter;
+		this.MOMDay = MOMDay;
+		this.MOMPerson = MOMPerson;
+		this.MOMDescription = MOMDescription;
+
+	}
+
+	public String getMOMWriter() {
+		return MOMWriter;
+	}
+
+	public String getMOMPerson() {
+		return MOMPerson;
+	}
+
+	public String getMOMDescription() {
+		return MOMDescription;
+	}
+
 	public String getMOMTitle() {
 		return MOMTitle;
 	}
 
 	public Date getMOMDay() {
 		return MOMDay;
+	}
+
+	public void setMOMWriter(String mOMWriter) {
+		MOMWriter = mOMWriter;
+	}
+
+	public void setMOMPerson(String mOMPerson) {
+		MOMPerson = mOMPerson;
+	}
+
+	public void setMOMDescription(String mOMDescription) {
+		MOMDescription = mOMDescription;
 	}
 
 	public void setMOMTitle(String MOMTitle) {

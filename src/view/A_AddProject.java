@@ -206,7 +206,7 @@ public class A_AddProject extends JPanel implements ActionListener{
 		sprintModel = new DefaultListModel();
 		if(project != null) {
 			
-			sprintList = project.getSprints();
+			sprintList = project.getSprintList();
 			for(int i = 0; i< sprintList.size(); i++) {
 				sprintModel.addElement(sprintList.get(i));
 			}
@@ -477,7 +477,7 @@ public class A_AddProject extends JPanel implements ActionListener{
 		
 		sprintModel.clear();
 		project = projectUpdated;
-		sprintList = project.getSprints();
+		sprintList = project.getSprintList();
 		for(int i = 0; i < sprintList.size(); i++) {
 			sprintModel.addElement(sprintList.get(i));
 		}

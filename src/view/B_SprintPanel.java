@@ -161,7 +161,7 @@ public class B_SprintPanel extends JPanel implements ActionListener, MouseListen
 	public void sprintListUpdate() {
 		sprintModel.clear();
 		//ArrayList<Sprint> sprintList = new ProjectManager().getSprintList();
-		ArrayList<Sprint> sprintList = selectedProject.getSprints();
+		ArrayList<Sprint> sprintList = selectedProject.getSprintList();
 		for(int i = 0; i < sprintList.size(); i++) {
 			sprintModel.addElement(sprintList.get(i));
 		}
