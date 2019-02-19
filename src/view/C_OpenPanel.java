@@ -147,6 +147,7 @@ public class C_OpenPanel extends JPanel implements ActionListener,MouseListener{
 			
 		}
 	}
+	
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
