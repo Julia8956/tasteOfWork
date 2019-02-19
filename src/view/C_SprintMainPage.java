@@ -17,6 +17,11 @@ public class C_SprintMainPage extends JPanel{
 	private Project selectedProject;
 	private Sprint selectedSprint;
 	private A_Member user;
+	
+	/*private C_ProgressPanel p;
+	
+	private C_DonePanel d;
+	private C_OpenPanel o;*/
 	//매개변수수정(민)
 	
 	
@@ -45,27 +50,28 @@ public class C_SprintMainPage extends JPanel{
 		//매개변수수정(민)
 		gridBag.setConstraints(new C_MenuBarPanel(this, this.mf, this.selectedProject, this.selectedSprint,user ), gc); 
 	
+		//updateWorkStatus();
 		
 		//OPEN패널
 		gc.weightx = 1;
 		gc.weighty = 1;
 		gc.gridwidth = 1;
 		//gc.gridheight = 1;
-		gridBag.setConstraints(new C_OpenPanel(this, this.mf,this.selectedProject,this.selectedSprint), gc);
+		gridBag.setConstraints(new C_OpenPanel(this, this.mf, this.projectPage, this.selectedProject,this.selectedSprint, this.user), gc);
 		
 		//IN Progress 패널
 		gc.weightx = 1;
 		//gc.weighty = 0.9;
 		gc.gridwidth = 1;
 		//gc.gridheight = 1;
-		gridBag.setConstraints(new C_ProgressPanel(this, this.mf,this.selectedProject,this.selectedSprint), gc);
+		gridBag.setConstraints(new C_ProgressPanel(this, this.mf, this.projectPage, this.selectedProject,this.selectedSprint, this.user), gc);
 		
 		//Done 패널
 		gc.weightx = 1;
 		//gc.weighty = 0.9;
 		gc.gridwidth = GridBagConstraints.REMAINDER;
 		//gc.gridwidth = 1;
-		gridBag.setConstraints(new C_DonePanel(this, this.mf,this.selectedProject,this.selectedSprint), gc);
+		gridBag.setConstraints(new C_DonePanel(this, this.mf,this.projectPage, this.selectedProject,this.selectedSprint, this.user), gc);
 		
 		this.setVisible(true);
 				
@@ -73,6 +79,12 @@ public class C_SprintMainPage extends JPanel{
 		
 	}
 	
+	/*public void updateWorkStatus() {
+		o = new C_OpenPanel(this, this.mf,this.selectedProject,this.selectedSprint);
+		p = new C_ProgressPanel(this, this.mf,this.selectedProject,this.selectedSprint);
+		d = new C_DonePanel(this, this.mf,this.selectedProject,this.selectedSprint);
+		this.revalidate();
+	}*/
 	
 	public void goToMainPage() {
 		A_Member user = new A_Member();

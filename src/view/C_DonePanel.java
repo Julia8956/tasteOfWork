@@ -22,6 +22,7 @@ import javax.swing.JScrollPane;
 
 import controller.WorkManager;
 import model.dao.WorkDao;
+import model.vo.A_Member;
 import model.vo.Project;
 import model.vo.Sprint;
 import model.vo.Work;
@@ -48,13 +49,20 @@ public class C_DonePanel extends JPanel implements ActionListener,MouseListener{
 	private Project selectproject;
 	private Sprint selectsprint;
 	
-	public C_DonePanel(C_SprintMainPage sprintMain,MainFrame mainFrame,Project selectproject,Sprint selectsprint) {
+	private B_ProjectPage projectPage;
+	private A_Member user;
+	
+	public C_DonePanel(C_SprintMainPage sprintMain,MainFrame mainFrame,B_ProjectPage projectPage, Project selectproject,Sprint selectsprint, A_Member user) {
 		this.mainFrame = mainFrame;
 		this.sprintMain = sprintMain;
 		this.DoenPanel = this;
 		
+		
 		this.selectproject = selectproject;
 		this.selectsprint = selectsprint;
+		
+		this.projectPage = projectPage;
+		this.user = user;
 		
 		wdao = new WorkDao(selectproject.getProjectTitle(),selectsprint.getSprintTitle());
 		
