@@ -88,7 +88,7 @@ public class C_CheckPU extends JPanel implements ActionListener{
 		checkpu.setUndecorated(true);		//상태바 없애기
 		checkpu.setLayout(null);
 
-		checkpu.setBackground(new Color(66, 66, 66, 220));
+		checkpu.setBackground(new Color(66, 66, 66));
 		
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		Dimension dim = tk.getScreenSize();
@@ -243,7 +243,13 @@ public class C_CheckPU extends JPanel implements ActionListener{
 
 
 		//입력버튼을 누르면 이제 피드백 내용으로 입력값이 전달된다
-		insertB = new JButton("입력");
+		insertB = new JButton(new ImageIcon("images/insert1.png"));
+		ImageIcon insertb = new ImageIcon("images/insert2.png");
+		insertB.setBorderPainted(false);
+		insertB.setFocusPainted(false);
+		insertB.setContentAreaFilled(false);
+		insertB.setRolloverIcon(insertb);
+		
 		insertB.setSize(65, 65);
 		insertB.setLocation(360, 320);
 		
@@ -268,12 +274,24 @@ public class C_CheckPU extends JPanel implements ActionListener{
 
 		fT.addActionListener(this);
 
-		/*JButton*/ deleteB = new JButton("삭제"); //삭제할 내용을 삭제 한다
+		/*JButton*/ deleteB = new JButton(new ImageIcon("images/delete1.png")); //삭제할 내용을 삭제 한다
+		ImageIcon deleteb = new ImageIcon("images/delete2.png");
+		deleteB.setBorderPainted(false);
+		deleteB.setFocusPainted(false);
+		deleteB.setContentAreaFilled(false);
+		deleteB.setRolloverIcon(deleteb);
+		
 		deleteB.setSize(60, 30);
 		deleteB.setLocation(50, 600);
 
 
-		/*JButton*/ reviseB = new JButton("닫기");
+		/*JButton*/ reviseB = new JButton(new ImageIcon("images/okbtn1.png"));
+		ImageIcon reviseb = new ImageIcon("images/okbtn2.png");
+		reviseB.setBorderPainted(false);
+		reviseB.setFocusPainted(false);
+		reviseB.setContentAreaFilled(false);
+		reviseB.setRolloverIcon(reviseb);
+		
 		reviseB.setSize(60, 30);
 		reviseB.setLocation(350, 600);
 

@@ -62,7 +62,7 @@ public class C_CreatePU extends JPanel{
 		int yPos = (dim.height / 2) - (cp.getHeight() / 2);
 
 		cp.setLocation(xPos, yPos);
-		cp.setBackground(new Color(66,66,66,220));
+		cp.setBackground(new Color(66,66,66));
 
 		JLabel wL = new JLabel("할일 이름");	
 		wL.setFont(new Font("맑은고딕", Font.BOLD, 15));
@@ -163,16 +163,28 @@ public class C_CreatePU extends JPanel{
 		});
 
 		//닫기 버튼을 누르면 창이 닫아진다
-		JButton closeB = new JButton("닫기");		
+		JButton closeB = new JButton(new ImageIcon("images/close1.png"));	
+		ImageIcon closeb = new ImageIcon("images/close2.png");
+		closeB.setBorderPainted(false);
+		closeB.setFocusPainted(false);
+		closeB.setContentAreaFilled(false);
+		closeB.setRolloverIcon(closeb);
+		
 		closeB.setSize(70, 30);
-		closeB.setLocation(30, 320);
+		closeB.setLocation(30, 335);
 
 		closeB.addActionListener(new CloseEvent());
 
 		//저장 버튼을 누르면 변경 사항이 저장이 되어, openpanel에 올라간다
-		/*JButton*/ saveB = new JButton("저장");		
+		/*JButton*/ saveB = new JButton(new ImageIcon("images/save1.png"));
+		ImageIcon saveb = new ImageIcon("images/save2.png");
+		saveB.setBorderPainted(false);
+		saveB.setFocusPainted(false);
+		saveB.setContentAreaFilled(false);
+		saveB.setRolloverIcon(saveb);
+		
 		saveB.setSize(70, 30);					
-		saveB.setLocation(250, 320);
+		saveB.setLocation(260, 335);
 
 		cp.add(wL);
 		cp.add(dL);
