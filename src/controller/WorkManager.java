@@ -62,6 +62,12 @@ public class WorkManager {
 			wdao = new WorkDao(project.getProjectTitle(),sprint.getSprintTitle(),work.getWork_name());
 			wdao.makeWork(sprint,work);
 		}
+		
+		if (work.getWork_inf().equals("progress")) {
+			work.setWork_inf("done");
+			wdao = new WorkDao(project.getProjectTitle(),sprint.getSprintTitle(),work.getWork_name());
+			wdao.makeWork(sprint, work);
+		}
 	}
 	
 
@@ -80,6 +86,7 @@ public class WorkManager {
 		wdao.makeWork(sprint,addwork);
 		
 	}
+	
 	
 
 }
