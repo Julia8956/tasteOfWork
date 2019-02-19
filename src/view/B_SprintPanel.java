@@ -38,8 +38,6 @@ public class B_SprintPanel extends JPanel implements ActionListener, MouseListen
 	private DefaultListModel sprintModel;
 	private JList sprintJList;
 	
-	//private ArrayList<Sprint> sprintArrList = new ArrayList<Sprint>();
-	
 	private Project selectedProject;
 	
 	public B_SprintPanel(B_ProjectPage projectPage, MainFrame mainFrame, Project selectedProject) {
@@ -50,10 +48,6 @@ public class B_SprintPanel extends JPanel implements ActionListener, MouseListen
 		
 		this.selectedProject = selectedProject;
 		
-		//this.setSize(350, 688);
-		//this.setPreferredSize(new Dimension(350, 688));
-		//this.setLocation(0, 80);
-		//this.setBackground(Color.WHITE);
 		this.setLayout(new BorderLayout());
 		this.setBorder(BorderFactory.createEmptyBorder(20, 50, 50, 20));
 		this.setBackground(B_ProjectPage.BG_COLOR);
@@ -66,13 +60,11 @@ public class B_SprintPanel extends JPanel implements ActionListener, MouseListen
 		
 		//스프린트생성버튼, 스프린트 리스트 패널
 		JPanel sprintPanel = new JPanel();
-		//sprintPanel.setBackground(Color.WHITE);
 		sprintPanel.setBackground(B_ProjectPage.BG_COLOR);
 		
 		sprintPanel.setLayout(new BorderLayout());
 		
 		JPanel newSprintPanel = new JPanel();
-		//newSprintPanel.setBackground(Color.WHITE);
 		newSprintPanel.setBackground(B_ProjectPage.BG_COLOR);
 		newSprintPanel.setLayout(new FlowLayout(FlowLayout.TRAILING));
 		
@@ -109,14 +101,7 @@ public class B_SprintPanel extends JPanel implements ActionListener, MouseListen
 		sprintJList.setBorder(BorderFactory.createLineBorder(Color.black, 1));
 		//스크롤러에 리스트 올리기
 		JScrollPane scroller = new JScrollPane(sprintJList);
-		//scroller.setPreferredSize(new Dimension(350, 1000));
-		//scroller.setLocation(0, 0);
 		sprintPanel.add(scroller, "Center");
-		
-		
-		
-		
-		
 		
 		
 		this.add(sprintPanel, "Center");
@@ -125,43 +110,36 @@ public class B_SprintPanel extends JPanel implements ActionListener, MouseListen
 		
 		projectPage.add(this);
 	}
-	
+//
 	
 	
 
-	
-
+//메소드	
+	//리스트에 스프린트 추가
 	public void addSprintOnList(String sprintTitle, Date sprintStartDay, Date sprintEndDay, String sprintDetail, String sprintToDo) {
-		//받아온 스프린트명, 시작일, 종료일로 Sprint객체 생성해서 arrayList에 올리기
-		
 		
 		selectedProject = new ProjectManager().addNewSprint(selectedProject, sprintTitle, sprintStartDay, sprintEndDay, sprintDetail, sprintToDo);
 		sprintListUpdate();
-		//sprintModel.addElement(newSprint);
 		sprintPanel.revalidate();
-		
 	}
 	
+	//스프린트 삭제
 	public void deleteSprint(Sprint sprint) {
 		
 		selectedProject = new ProjectManager().deleteSprint(selectedProject, sprint);
 		sprintListUpdate();
-		
 		sprintPanel.revalidate();
-		
 	}
 	
+	//스프린트 수정
 	public void modifySprint(Sprint sprint, String sprintTitle, Date sprintStartDay, Date sprintEndDay, String sprintDetail, String sprintToDo) {
-		
 		
 		selectedProject = new ProjectManager().modifySprint(selectedProject, sprint, sprintTitle, sprintStartDay, sprintEndDay, sprintDetail, sprintToDo);
 		sprintListUpdate();
-		
-		
 		sprintPanel.revalidate();
 	}
 
-
+	//스프린트 리스트 업데이트
 	public void sprintListUpdate() {
 		sprintModel.clear();
 		//ArrayList<Sprint> sprintList = new ProjectManager().getSprintList();
@@ -172,8 +150,6 @@ public class B_SprintPanel extends JPanel implements ActionListener, MouseListen
 		this.revalidate();
 	}
 
-	
-	
 	
 	
 	
@@ -213,6 +189,10 @@ public class B_SprintPanel extends JPanel implements ActionListener, MouseListen
 			
 		}
 	}
+//	
+	
+	
+	
 	
 	
 	//전체 폰트적용 메소드

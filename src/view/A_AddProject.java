@@ -48,11 +48,8 @@ public class A_AddProject extends JPanel implements ActionListener{
 	private JList sprintJList;
 	private DefaultListModel memberModel;
 	private JList memberJList;
+	private int nameCtn = 0;
 	
-	//private int okBtnClickedCtn;
-	
-	//private ProjectManager pm = new ProjectManager();
-
 	private Project project;
 	private String projectTitle;
 	private Date projectStartDay;
@@ -61,22 +58,18 @@ public class A_AddProject extends JPanel implements ActionListener{
 	private ArrayList<Sprint> sprintList = new ArrayList<Sprint>();
 	private String projectAdmin;
 	private ArrayList<String> memberList = new ArrayList<String>();
-
-	private int nameCtn = 0;
 	
 	private A_Member user;
 	
-	public A_AddProject(MainFrame mf, A_MainPage mainPage, Project project, A_Member user) {   //메인프레임클래스에서 MainFrame을 보냈기 때문에 가능가능
+	public A_AddProject(MainFrame mf, A_MainPage mainPage, Project project, A_Member user) { 
 
-		this.mf = mf;               //전달받은 MainFrame도 필드에다가 만듦
+		this.mf = mf;               
 		this.mainPage = mainPage;
 		this.project = project;
 		this.user = user;
 		
-		addProject = new Dialog(mf, "새 프로젝트 만들기");       //여기서 this는 AddProject의 객체이다. 
+		addProject = new Dialog(mf, "새 프로젝트 만들기");       
 
-
-		//addProject.setSize(515, 600);
 
 		// 팝업위치 조정(화면 가운데)
 		addProject.setSize(515, 700);
@@ -87,9 +80,7 @@ public class A_AddProject extends JPanel implements ActionListener{
 		addProject.setLocation(xPos, yPos);
 
 		addProject.setUndecorated(true);
-		//addProject.setBackground(MainFrame.POPUP_COLOR);
-		//addProject.setBackground(Color.pink);
-		addProject.setBackground(new Color(0, 0, 0, 0));  //***********************
+		addProject.setBackground(new Color(0, 0, 0, 0)); 
 		addProject.setLayout(null);               
 
 
@@ -110,8 +101,6 @@ public class A_AddProject extends JPanel implements ActionListener{
 		}
 		addProject.add(proName);
 
-
-
 		//textField에 마우스 클릭시 내용지워지고 빈화면으로 바뀜
 		proName.addMouseListener(new MouseAdapter() {
 			@Override
@@ -123,8 +112,6 @@ public class A_AddProject extends JPanel implements ActionListener{
 				}
 			}
 		});
-		
-		
 		
 		
 		
@@ -185,7 +172,6 @@ public class A_AddProject extends JPanel implements ActionListener{
 		addProject.add(endDay);
 
 
-		
 		
 		
 
@@ -267,11 +253,9 @@ public class A_AddProject extends JPanel implements ActionListener{
 		changeAdmin.setContentAreaFilled(false);
 		changeAdmin.setRolloverIcon(changeAdmin2);
 		changeAdmin.setLocation(205,376);
-		//changeAdmin.setBackground(Color.PINK);
 		changeAdmin.setBorder(null);
 		changeAdmin.setSize(40,35);
 		changeAdmin.setOpaque(true);
-		//changeAdmin.setBackground(Color.lightGray);
 		projectPanel.add(changeAdmin);
 		changeAdmin.addActionListener(this); 
 		
@@ -300,7 +284,6 @@ public class A_AddProject extends JPanel implements ActionListener{
 		personAdd.setBorder(null);
 		personAdd.setSize(20,19);
 		personAdd .setOpaque(false);
-		//personAdd .setBackground(Color.lightGray);
 		projectPanel.add(personAdd);
 		personAdd.addActionListener(new Add_person()); 
 
@@ -319,6 +302,7 @@ public class A_AddProject extends JPanel implements ActionListener{
 		pane2.setSize(480,90);
 		projectPanel.add(pane2);
 
+		//멤버삭제기능
 		memberJList.addMouseListener(new MouseAdapter() {
 			
 			@Override
@@ -329,7 +313,7 @@ public class A_AddProject extends JPanel implements ActionListener{
 					int answer = JOptionPane.showConfirmDialog(null, "선택하신 멤버를 삭제하시겠습니까?");
 					
 					if(answer == 0) {
-//						
+					
 						if(project == null) {
 							subtractMemberFromList(member);
 						}else {
@@ -339,15 +323,11 @@ public class A_AddProject extends JPanel implements ActionListener{
 						
 					}
 					
-					
-					//System.out.println(i);
-					//JOptionPane.showMessageDialog(null, "선택하신 멤버를 삭제하시겠습니까?");
-					
 				}
 			}
 		});
 		
-//(민) 추가 : 2/19
+		
 		//삭제버튼
 		JButton deleteBtn = new JButton(new ImageIcon("images/delete1.png"));
 		ImageIcon deleteBtn2 = new ImageIcon("images/delete2.png");
@@ -359,6 +339,7 @@ public class A_AddProject extends JPanel implements ActionListener{
 		deleteBtn.setSize(100,33);
 		projectPanel.add(deleteBtn);
 		
+		//삭제버튼클릭시 이벤트
 		deleteBtn.addActionListener(new ActionListener() {
 			
 			@Override
@@ -373,7 +354,6 @@ public class A_AddProject extends JPanel implements ActionListener{
 				addProject.dispose();
 			}
 		});
-//		
 		
 
 		//취소버튼
@@ -389,7 +369,7 @@ public class A_AddProject extends JPanel implements ActionListener{
 		projectPanel.add(cancelBtn);
 
 
-		//취소 버튼 클릭시 프로젝트 생성 팝업창 닫힘
+		//취소 버튼 클릭시 이벤트
 		cancelBtn.addActionListener(new ActionListener() {
 
 			@Override
@@ -398,9 +378,6 @@ public class A_AddProject extends JPanel implements ActionListener{
 
 			}
 		});
-
-
-
 
 
 		//확인버튼
@@ -413,12 +390,9 @@ public class A_AddProject extends JPanel implements ActionListener{
 		okBtn.setLocation(392,575);
 		okBtn.setSize(100,33);
 		projectPanel.add(okBtn);
-		///okBtn.addActionListener(this);
 		
 		
-		
-		//프로젝트 생성 확인버튼 클릭시 동작하는 이벤트
-		//프로젝트 생성함.
+		//확인버튼 클릭시 이벤트
 		okBtn.addActionListener(new ActionListener() {
 
 			@Override
@@ -435,11 +409,8 @@ public class A_AddProject extends JPanel implements ActionListener{
 					mainPage.makeNewProject(projectTitle, projectStartDay, projectEndDay, sprintList, projectAdmin, memberList);
 				
 				}else {
-					//pm.modifyProject(project, projectTitle, projectStartDay, projectEndDay);
 					modifyProject(projectTitle, projectStartDay, projectEndDay);
 				}
-				
-				
 			}
 		});
 
@@ -450,65 +421,37 @@ public class A_AddProject extends JPanel implements ActionListener{
 		addProject.setVisible(true);
 
 	}
-
-
+//	
+	
 	
 
-	//스프린트 추가 버튼 클릭시 동작하는 이벤트
-	//스프린트 생성 다이얼로그를 불러온다.
-	@Override
-	public void actionPerformed(ActionEvent e) {
-
-		if(e.getSource() == sprintAdd) {
-			new A_AddSprint(mf, mainPage, this, project).getAddSprint().setVisible(true);
-		}
-		
-		if(e.getSource() == changeAdmin) {
-			String adminId = JOptionPane.showInputDialog("관리자로 설정할 회원의 아이디를 입력하세요.");
-			A_Member member = mainPage.findMember(adminId);
-			if(member != null) {
-				projectAdmin = member.getId();
-				System.out.println("member불러옴");
-				adminField.setText(projectAdmin);
-				if(project != null) {
-					Project projectUpdated = new ProjectManager().changeAdmin(project, projectAdmin);
-					project = projectUpdated;
-					
-					addProject.revalidate();
-				}
-				
-			}else {
-				System.out.println("불러올 멤버정보가 존재하지 않음");
-			}
-		}
-		
-		
-	}
 	
+//메소드
+	//스프린트 추가
 	public void putSprintOnList(Sprint newSprint) {
 		sprintList.add(newSprint);
 		sprintModel.addElement(newSprint);
 		addProject.revalidate();
 	}
 	
+	//멤버추가
 	public void putMemberOnList(A_Member member) {
 		
 		memberList.add(member.getId());
 		memberModel.addElement(member.getId());
 		//System.out.println(member.getId());
 		addProject.revalidate();
-		
 	}
 	
+	//멤버삭제
 	public void subtractMemberFromList(String member) {
 		
 		memberList.remove(member);
 		memberModel.removeElement(member);
 		addProject.revalidate();
-		
 	}
 	
-	
+	//스프린트 리스트 업데이트
 	public void updateSprintList(Project projectUpdated) {
 		
 		sprintModel.clear();
@@ -520,6 +463,7 @@ public class A_AddProject extends JPanel implements ActionListener{
 		addProject.revalidate();
 	}
 	
+	//멤버리스트 업데이트
 	public void updateMemberList(Project projectUpdated) {
 		
 		memberModel.clear();
@@ -531,10 +475,50 @@ public class A_AddProject extends JPanel implements ActionListener{
 		addProject.revalidate();
 	}
 	
+	//프로젝트 수정
 	public void modifyProject(String projectTitle, Date projectStartDay, Date projectEndDay) {
 		mainPage.modifyProject(project, projectTitle, projectStartDay, projectEndDay, sprintList, memberList);
 	}
 	
+
+	public Dialog getAddProject() {
+		return addProject;
+	}
+//
+	
+	
+	
+	
+	
+//이벤트
+	//스프린트 추가 버튼 클릭시 동작하는 이벤트
+	//스프린트 생성 다이얼로그를 불러온다.
+	@Override
+	public void actionPerformed(ActionEvent e) {
+
+		if(e.getSource() == sprintAdd) {
+			new A_AddSprint(mf, mainPage, this, project).getAddSprint().setVisible(true);
+		}
+
+		if(e.getSource() == changeAdmin) {
+			String adminId = JOptionPane.showInputDialog("관리자로 설정할 회원의 아이디를 입력하세요.");
+			A_Member member = mainPage.findMember(adminId);
+			if(member != null) {
+				projectAdmin = member.getId();
+				System.out.println("member불러옴");
+				adminField.setText(projectAdmin);
+				if(project != null) {
+					Project projectUpdated = new ProjectManager().changeAdmin(project, projectAdmin);
+					project = projectUpdated;
+
+					addProject.revalidate();
+				}
+
+			}else {
+				System.out.println("불러올 멤버정보가 존재하지 않음");
+			}
+		}
+	}
 
 	//초대 +버튼 클릭시 동작하는 이벤트
 	private class Add_person implements ActionListener{
@@ -542,7 +526,6 @@ public class A_AddProject extends JPanel implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			String id = JOptionPane.showInputDialog("초대할 회원의 아이디를 입력하세요.");
 			
-			//(민)존재하는 멤버이면
 			A_Member member = mainPage.findMember(id);
 			
 			if(member != null) {
@@ -559,21 +542,8 @@ public class A_AddProject extends JPanel implements ActionListener{
 			
 		}
 	}
+//	
 	
 	
 	
-	
-	
-	
-	
-	
-	public Dialog getAddProject() {
-		return addProject;
-	}
-
-
 }
-
-
-
-

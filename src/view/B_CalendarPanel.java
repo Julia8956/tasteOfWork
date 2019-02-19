@@ -61,14 +61,10 @@ public class B_CalendarPanel extends JPanel implements MouseListener{
 			calendarMap = selectedProject.getCalendarMap();
 		}
 		
-		//this.setSize(400, 688);
-		//this.setPreferredSize(new Dimension(400, 688));
-		//this.setLocation(350, 80);
 		
 		this.setBackground(B_ProjectPage.BG_COLOR);
 		this.setLayout(new BorderLayout());
 		this.setBorder(BorderFactory.createEmptyBorder(20, 30, 20, 30));
-		//this -> 캘린더 넣을 영역패널
 		
 		
 		JPanel addMemoPanel = new JPanel();
@@ -81,10 +77,7 @@ public class B_CalendarPanel extends JPanel implements MouseListener{
 		JPanel calendar = new JPanel();
 		calendar.setBackground(B_ProjectPage.BG_COLOR);
 		calendar.setLayout(new BorderLayout());
-		//calendar.setSize(300, 300);
 		
-		/*JTextField temp = new JTextField("달력칸");
-		this.add(temp);*/
 		
 		//월이름, 이전달, 다음달 버튼 포함 패널
 		JPanel calendarHeadPanel = new JPanel();
@@ -157,13 +150,9 @@ public class B_CalendarPanel extends JPanel implements MouseListener{
 		
 		
 		String[] columns = {"SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"};
-		//요일을 열로 하고, 행은 null로 하는 테이블모델만들기
 		model = new DefaultTableModel(null, columns);
 		
-		//model.isCellEditable();
 		calendarTable = new JTable(model);
-		//Dimension d = new Dimension(300, 300);
-		//calendarTable.setSize(d);
 		calendarTable.setCellSelectionEnabled(true);
 		calendarTable.setRowSelectionAllowed(false);
 		calendarTable.setColumnSelectionAllowed(false);
@@ -171,14 +160,8 @@ public class B_CalendarPanel extends JPanel implements MouseListener{
 		
 		calendarTable.setFont(new Font("", Font.PLAIN, 15));
 		
-		//Column head 움직이지 못하게 하기
 		calendarTable.getTableHeader().setReorderingAllowed(false);
 		
-		//calendarTable.setFillsViewportHeight(true);
-		
-		//calendarTable.setRowHeight(calendarTable.getColumn(0).getWidth());
-		//calendarTable.setRowHeight(70);
-		//DefaultTableCellRenderer cellAlingCenter = new DefaultTableCellRenderer();
 		
 		
 		calendarTable.getColumn("SUN").setCellRenderer(new DefaultTableCellRenderer() {
@@ -191,8 +174,6 @@ public class B_CalendarPanel extends JPanel implements MouseListener{
 			}
 		});
 		
-		/*MultiLineTableCellRenderer renderer = new MultiLineTableCellRenderer();
-		calendarTable.setDefaultRenderer(String[].class, renderer);*/
 		
 		
 		calendarTable.getColumn("SUN").setCellRenderer(new TextAreaRenderer());
@@ -215,16 +196,11 @@ public class B_CalendarPanel extends JPanel implements MouseListener{
 		
 		
 		JScrollPane scroll = new JScrollPane(calendarTable);
-		//scroll.setSize(d);
-		//scroll.setOpaque(true);
 		scroll.setSize(calendarTable.getSize());
 		scroll.setViewportBorder(BorderFactory.createEmptyBorder());
 		scroll.setViewportBorder(null);
 		scroll.getViewport().setBackground(B_ProjectPage.BG_COLOR);
-		//scroll.setBackground(Color.WHITE);
-		//scroll.setForeground(Color.WHITE);
 		scroll.setBorder(BorderFactory.createEmptyBorder());
-		//scroll.setViewportBorder(null);
 		
 		calendar.add(calendarHeadPanel, "North");
 		calendar.add(scroll, "Center");
@@ -241,11 +217,6 @@ public class B_CalendarPanel extends JPanel implements MouseListener{
 		
 		
 		this.updateMonth();
-		/*for(int i = 0; i < weeks*2; i++) {
-			calendarTable.setRowHeight((2*i), 25);
-			calendarTable.setRowHeight((2*i + 1), 70);
-		}*/
-		//this.saveMonth();
 		
 		projectPage.add(this);
 	}
@@ -412,7 +383,6 @@ class TextAreaEditor extends DefaultCellEditor {
 		textArea = new JTextArea();
 		textArea.setLineWrap(true);
 		textArea.setWrapStyleWord(true);
-		//textArea.setBorder(new TitledBorder("일정"));
 		scrollpane.getViewport().add(textArea);
 	}
 

@@ -28,37 +28,27 @@ import model.vo.Sprint;
 public class A_MainPage extends JPanel{
 
 	private MainFrame mf;
-	private JButton sprintAdd;
 	private A_MainPage mainPage;
-	private Dialog mainDial;
-	private A_LoginPage lp;
-	private A_AddProject ap;
 	
 	private JPanel adminProjectsPanel = new JPanel();
 	private JPanel projectsPanel = new JPanel();
-
-	private Dialog addProject;
-
+	private JButton sprintAdd;
 	private JButton projectBtn;
 	private ArrayList adminBtnList = new ArrayList();
 	private ArrayList projectBtnList = new ArrayList();
 	
 	private ProjectManager pm = new ProjectManager();
 	private A_MemberManager mm = new A_MemberManager();
- 	private Project selectedProject;
-	//(민)
+ 	
+	private Project selectedProject;
 	private A_Member user;
 
-	//private ArrayList<Project> projectArrList = new ArrayList<Project>();
 
-	//(민) 매개변수수정 로그인한 user정보를 가지고 메인페이지 생성
 	public A_MainPage(MainFrame mf, A_Member user) {
 
 
 		this.mf=mf;
 		this.mainPage=this;
-		//this.lp = lp;
-		//(민)
 		this.user = user;
 
 
@@ -73,7 +63,6 @@ public class A_MainPage extends JPanel{
 		topMenuPanel.setPreferredSize(new Dimension(1024,65));
 		topMenuPanel.setBackground(Color.GRAY);
 		
-		
 		//상단 홈 버튼
 		JButton home = new JButton(new ImageIcon("images/home.png"));
 		ImageIcon home2 = new ImageIcon("images/home2.png");
@@ -84,36 +73,6 @@ public class A_MainPage extends JPanel{
 		home.setLocation(10,12);
 		home.setSize(40, 40);
 
-		topMenuPanel.add(home, BorderLayout.WEST);
-
-		
-		/*//상단 검색 버튼
-		JPanel findpanel = new JPanel();
-		findpanel.setPreferredSize(new Dimension(100,65));
-		findpanel.setLayout(null);
-		//findpanel.setLayout(new FlowLayout());
-		findpanel.setBackground(Color.GRAY);
-
-		JButton find = new JButton(new ImageIcon("images/serch.PNG"));
-		ImageIcon find2 = new ImageIcon("images/serch2.PNG");
-		find.setBorderPainted(false); 
-		find.setFocusPainted(false); 
-		find.setContentAreaFilled(false);
-		find.setRolloverIcon(find2);
-		find.setSize(30, 30);
-		find.setLocation(10,20);
-
-		JTextField findt = new JTextField(20);
-		findt.setLocation(40,20);
-		findt.setSize(170,30);
-
-		findpanel.add(find);
-		findpanel.add(findt);
-
-		topMenuPanel.add(findpanel, BorderLayout.CENTER);*/
-
-		
-		
 		//상단 계정 버튼
 		JButton person = new JButton(new ImageIcon("images/user.PNG"));
 		ImageIcon person2 = new ImageIcon("images/user2.PNG");
@@ -125,9 +84,8 @@ public class A_MainPage extends JPanel{
 		person.setSize(40, 40);
 		person.addActionListener(new UserEvent());
 
+		topMenuPanel.add(home, BorderLayout.WEST);
 		topMenuPanel.add(person, BorderLayout.EAST);
-
-
 		
 		this.add(topMenuPanel, "North");
 //
@@ -180,15 +138,10 @@ public class A_MainPage extends JPanel{
 		centerPanel.setLayout(new BorderLayout());
 		centerPanel.setBackground(Color.decode("#99cccc"));
 
-		
-
-		
-		
 		//관리중인 프로젝트 모아놓은 패널
 		JPanel adminPanel = new JPanel();
 		adminPanel.setLayout(new BorderLayout());
 		adminPanel.setBackground(Color.decode("#99cccc"));
-
 		
 		//관리중인 프로젝트 라벨
 		JPanel adminlbPanel = new JPanel();
@@ -200,9 +153,6 @@ public class A_MainPage extends JPanel{
 		adminLabel.setFont(new Font("HY바다M", Font.BOLD, 21));
 		adminlbPanel.add(adminLabel);
 		
-		adminPanel.add(adminlbPanel, "North");
-		
-		
 		
 		//관리중인 프로젝트들 들어가는 패널
 		adminProjectsPanel.setLayout(new FlowLayout(FlowLayout.LEADING));
@@ -212,9 +162,9 @@ public class A_MainPage extends JPanel{
 		adminProjectsPanel.setAutoscrolls(true);
 		
 		
+		adminPanel.add(adminlbPanel, "North");
 		adminPanel.add(adminProjectsPanel, "Center");
 		
-		centerPanel.add(adminPanel, "North");
 
 
 
@@ -234,9 +184,6 @@ public class A_MainPage extends JPanel{
 		projectLabel.setFont(new Font("HY바다M", Font.BOLD, 21));
 		projectlbPanel.add(projectLabel);
 
-		myProjectPanel.add(projectlbPanel, "North");
-
-
 
 		//참여중인 프로젝트들 들어가는 패널
 		projectsPanel.setLayout(new FlowLayout(FlowLayout.LEADING));
@@ -244,42 +191,43 @@ public class A_MainPage extends JPanel{
 		projectsPanel.setAutoscrolls(true);
 
 
+		myProjectPanel.add(projectlbPanel, "North");
 		myProjectPanel.add(projectsPanel,"Center");
 		
+		
+		centerPanel.add(adminPanel, "North");
 		centerPanel.add(myProjectPanel, "Center");
 
 
 		myProjectsSetUp();
-
-
 		this.add(centerPanel, "Center");
 	}
+
 	
 	
+	
+//메소드
+	//로그인시 user가 참여중인 프로젝트 보여지기
 	public void myProjectsSetUp() {
 		
 		ArrayList<Project> projectList = pm.getProjectList();
 		
 		if(projectList != null) {
-			
 			for(int i = 0; i < projectList.size(); i++) {
+				
 				Project project = projectList.get(i);
 				if(project.getProjectAdmin().equals(user.getId())) {
-					
 					showMyAdminProject(project.getProjectTitle());
-					
 				}
 				if(project.getMemberList().contains(user.getId())) {
 					showMyProject(project.getProjectTitle());
 				}
-				
 			}
-			
-			
 		}
 		
 	}
 	
+	//관리중인 프로젝트 
 	public void showMyAdminProject(String projectTitle) {
 		
 		
@@ -295,12 +243,9 @@ public class A_MainPage extends JPanel{
 		adminProjectsPanel.revalidate();
 		this.revalidate();
 		adminEventLink();
-		
-		
-		
 	}
 	
-	
+	//참여중인프로젝트
 	public void showMyProject(String projectTitle) {
 		
 		projectBtn = new JButton(projectTitle);
@@ -317,14 +262,10 @@ public class A_MainPage extends JPanel{
 
 	}
 	
-	
-	
+	//새 프로젝트 생성시
 	public void makeNewProject(String projectTitle, Date projectStartDay, Date projectEndDay, ArrayList<Sprint> sprintList, String projectAdmin, ArrayList<String> memberList) {
 
-
-		/*Project project = */pm.makeNewProject(projectTitle, projectStartDay, projectEndDay, sprintList, projectAdmin, memberList);
-		
-		//JButton projectTitle = new JButton();
+		pm.makeNewProject(projectTitle, projectStartDay, projectEndDay, sprintList, projectAdmin, memberList);
 		
 		if(projectAdmin.equals(user.getId())) {
 			showMyAdminProject(projectTitle);
@@ -332,62 +273,9 @@ public class A_MainPage extends JPanel{
 		if(memberList.contains(user.getId())) {
 			showMyProject(projectTitle);
 		}
-		
 	}
 	
-	public void adminEventLink() {
-		for(int i = 0; i < adminBtnList.size(); i++) {
-			JButton projectBtn = (JButton)adminBtnList.get(i);
-			projectBtn.addMouseListener(new MouseAdapter() {
-				
-				@Override
-				public void mouseClicked(MouseEvent e) {
-
-					if (e.getButton() == 1) {
-						
-						String titleSelected = projectBtn.getText();
-						selectedProject = pm.getProject(titleSelected);
-						goToProjectPage(selectedProject);
-					}
-					
-					if (e.getButton() == 3) {
-						String titleSelected = projectBtn.getText();
-						selectedProject = pm.getProject(titleSelected);
-						new A_AddProject(mf, mainPage, selectedProject, user).getAddProject().setVisible(true);
-						
-					}
-				}
-			});
-		}
-	}
-
-	public void eventLink() {
-		for(int i = 0; i < projectBtnList.size(); i++) {
-			JButton projectBtn = (JButton)projectBtnList.get(i);
-			projectBtn.addMouseListener(new MouseAdapter() {
-				
-				@Override
-				public void mouseClicked(MouseEvent e) {
-
-					if (e.getButton() == 1) {
-						
-						String titleSelected = projectBtn.getText();
-						selectedProject = pm.getProject(titleSelected);
-						goToProjectPage(selectedProject);
-					}
-					
-					/*if (e.getButton() == 3) {
-						String titleSelected = projectBtn.getText();
-						selectedProject = pm.getProject(titleSelected);
-						new A_AddProject(mf, mainPage, selectedProject, user).getAddProject().setVisible(true);
-						
-					}*/
-				}
-			});
-		}
-	}
-	
-	
+	//프로젝트 수정시
 	public void modifyProject(Project project, String projectTitle, Date projectStartDay, Date projectEndDay, ArrayList<Sprint> sprintList, ArrayList<String> memberList) {
 		
 		pm.modifyProject(project, projectTitle, projectStartDay, projectEndDay, sprintList, memberList);
@@ -398,76 +286,109 @@ public class A_MainPage extends JPanel{
 		adminProjectsPanel.removeAll();
 		myProjectsSetUp();
 
-		//projectBtn.addMouseListener(this);
 	}
 
-	
-//(민) 추가 : 2/19
+	//프로젝트 삭제시
 	public void deleteProject(Project project) {
 		pm.deleteProject(project);
 		
 		projectBtn.setVisible(false);
 	}
-//	
 	
-
-	//(민)입력한 id를 넘겨줌
+	//프로젝트 팝업에서 멤버 추가시
 	public A_Member findMember(String id) {
 		
-		//입력받은 id로 멤버찾아서 있는지 확인
 		A_Member member = mm.findMember(id);
-		//member가 존재하면(null이 아니면)
-		/*if (member != null) {
-			pm.addMember(selectedProject, id);
-		}*/
-		
+
 		return member;
 	}
+//
 
 	
 	
+	
+	
+//이벤트	
+	//관리중인 프로젝트 버튼에 이벤트링크
+	public void adminEventLink() {
+		for(int i = 0; i < adminBtnList.size(); i++) {
+			JButton projectBtn = (JButton)adminBtnList.get(i);
+			projectBtn.addMouseListener(new MouseAdapter() {
+
+				@Override
+				public void mouseClicked(MouseEvent e) {
+
+					if (e.getButton() == 1) {
+
+						String titleSelected = projectBtn.getText();
+						selectedProject = pm.getProject(titleSelected);
+						goToProjectPage(selectedProject);
+					}
+
+					if (e.getButton() == 3) {
+						String titleSelected = projectBtn.getText();
+						selectedProject = pm.getProject(titleSelected);
+						new A_AddProject(mf, mainPage, selectedProject, user).getAddProject().setVisible(true);
+
+					}
+				}
+			});
+		}
+	}
+
+	//일반 참여중인 프로젝트 버튼에 이벤트 링크
+	public void eventLink() {
+		for(int i = 0; i < projectBtnList.size(); i++) {
+			JButton projectBtn = (JButton)projectBtnList.get(i);
+			projectBtn.addMouseListener(new MouseAdapter() {
+
+				@Override
+				public void mouseClicked(MouseEvent e) {
+
+					if (e.getButton() == 1) {
+
+						String titleSelected = projectBtn.getText();
+						selectedProject = pm.getProject(titleSelected);
+						goToProjectPage(selectedProject);
+					}
+				}
+			});
+		}
+	}
+
 	//프로젝트생성버튼 클릭시 동작하는 이벤트
 	class ProEvent implements ActionListener{
-		
+
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			new A_AddProject(mf, mainPage, null, user).getAddProject().setVisible(true);
 		}
 	}
-	
-	
-	
-	
+
+	//계정버튼 클릭시 동작하는 이벤트
 	class UserEvent implements ActionListener{
-		
+
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			new A_AddUserPU(mf, user).getUserPU().setVisible(true);
 		}
 	}
+//
+
 	
 	
 	
-	
+//체인지패널	
 	public void goToProjectPage(Project selectedProject) {
 		ChangePanel.changePanel(mf, this, new B_ProjectPage(mf, this, selectedProject, user));
 	}
-	
+
 	public void goToLoginPage() {
 		ChangePanel.changePanel(mf, this, new A_LoginPage(mf));
 	}
-	
-	public Dialog getMainDial() {
-		return mainDial;
-	}
-	
-	
-	
-	
-	
+//	
+
+
+
 
 }
-
-
-
-

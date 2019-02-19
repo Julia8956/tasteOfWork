@@ -31,6 +31,8 @@ public class B_NewSprintPopUp extends JPanel {
 	private MainFrame mainFrame;
 	private JButton plusButton;
 	private Dialog newSprintPopUp;
+	private int nameCtn = 0;
+	private int descriptionCtn = 0;
 	
 	//Sprint« µÂø° ¿˙¿Â«“ º”º∫
 	private String sprintTitle;
@@ -39,18 +41,12 @@ public class B_NewSprintPopUp extends JPanel {
 	private String sprintDetail;
 	private String sprintToDo;
 	
-	private int nameCtn = 0;
-	//private int startDayCtn = 0;
-	//private int endDayCtn = 0;
-	private int descriptionCtn = 0;
 	private Sprint selectedSprint;
 	
 	public B_NewSprintPopUp(MainFrame mainFrame, B_SprintPanel sprintPanel, Sprint selectedSprint) {
 		this.selectedSprint = selectedSprint;
 		
 		newSprintPopUp = new Dialog(mainFrame, "ªı Ω∫«¡∏∞∆Æ ∏∏µÈ±‚");
-		//newSprintPopUp.setBackground(Color.darkGray);
-		//newSprintPopUp.setBounds(100, 80, 515, 680);
 		
 		//∆Àæ˜¿ßƒ°¡∂¡§(»≠∏È∞°øÓµ•)
 		newSprintPopUp.setSize(515, 680);
@@ -62,7 +58,6 @@ public class B_NewSprintPopUp extends JPanel {
 		
 		
 		newSprintPopUp.setLayout(null);
-		//newSprintPopUp.setOpacity(0.5f);
 		newSprintPopUp.setUndecorated(true);
 		newSprintPopUp.setBackground(B_ProjectPage.POPUP_COLOR);
 		
@@ -71,11 +66,11 @@ public class B_NewSprintPopUp extends JPanel {
 		
 		//¿Ã∏ß
 		JTextField sprintName = new JTextField("ªı Ω∫«¡∏∞∆Æ ¿Ã∏ß", 30);
-sprintName.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.BOLD, 20));
+		sprintName.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.BOLD, 20));
 		if(selectedSprint != null) {
 			sprintName.setText(selectedSprint.getSprintTitle());
 		}
-		
+
 		sprintName.setLocation(30, 50);				
 		sprintName.setSize(450,45);
 		newSprintPopUp.add(sprintName);
@@ -108,7 +103,7 @@ sprintName.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.BOLD, 20));
 		start.setForeground(Color.WHITE);
 		newSprintPopUp.add(start);
 		
-		//Ω√¿€¿œ
+		//Ω√¿€¿œ º±≈√
 		JXDatePicker startDayPicker = new DatePicker().getDatePicker();
 		startDayPicker.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.PLAIN, 15));
 		JButton startbtn_pick = (JButton) startDayPicker.getComponent(1);
@@ -146,7 +141,7 @@ sprintName.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.BOLD, 20));
 
 
 		
-		//¡æ∑·¿œ
+		//¡æ∑·¿œ º±≈√
 		JXDatePicker endDayPicker = new DatePicker().getDatePicker();
 		endDayPicker.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.PLAIN, 15));
 		JButton endBtn_pick = (JButton) endDayPicker.getComponent(1);
@@ -177,14 +172,8 @@ sprintName.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.BOLD, 20));
 		description.setSize(453,135);
 		description.setLineWrap(true);
 		description.setWrapStyleWord(true);
-		//int numOfLines = description.getLineCount();
-		
-		/*JScrollPane scrollBar = new JScrollPane(description, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		scrollBar.setPreferredSize(new Dimension(453, 135));
-		scrollBar.setLocation(20, 175);*/
 		
 		newSprintPopUp.add(description);
-		
 		
 		
 		description.addMouseListener(new MouseAdapter() {
@@ -211,7 +200,6 @@ sprintName.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.BOLD, 20));
 		toDo.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.PLAIN, 15));
 		toDo.setLocation(30, 330);
 		toDo.setSize(410, 45);
-		//toDo.setFont(new Font("", Font.PLAIN, 15));
 		newSprintPopUp.add(toDo);
 		
 		toDo.addMouseListener(new MouseAdapter() {
@@ -228,10 +216,8 @@ sprintName.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.BOLD, 20));
 		plusButton.setForeground(Color.WHITE);
 		plusButton.setLocation(450, 330);
 		plusButton.setOpaque(false);
-		//plusButton.setBackground(Color.lightGray);
 		plusButton.setContentAreaFilled(false);
 		plusButton.setBorder(null);
-		//plusButton.setBorderPainted(false);
 		plusButton.setSize(30, 40);
 		
 		plusButton.setToolTipText("«“ ¿œ √ﬂ∞°");
@@ -282,8 +268,8 @@ sprintName.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.BOLD, 20));
 			}
 
 		});
+		
 		//Ω∫«¡∏∞∆Æ ªË¡¶ πˆ∆∞
-//		Delete1
 		JButton deleteBtn = new JButton(new ImageIcon("images/delete1.png"));
 		ImageIcon deleteBtn2 = new ImageIcon("images/delete2.png");
 		deleteBtn.setBorderPainted(false);
@@ -363,8 +349,6 @@ sprintName.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.BOLD, 20));
 				}else {
 					sprintPanel.modifySprint(selectedSprint, sprintTitle, sprintStartDay, sprintEndDay, sprintDetail, sprintToDo);
 				}
-				
-				
 			}
 		});
 		
@@ -373,7 +357,7 @@ sprintName.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.BOLD, 20));
 		
 		
 	}
-	
+//
 	
 	
 	public Dialog getNewSprintPopUp() {
