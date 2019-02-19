@@ -236,7 +236,7 @@ public class A_MainPage extends JPanel{
 		adminBtnList.add(projectBtn);
 		projectBtn.setPreferredSize(new Dimension(100, 80));
 		projectBtn.setVisible(true);
-		projectBtn.setBackground(Color.decode("#EED4CC"));
+		//projectBtn.setBackground(Color.decode("#EED4CC"));
 		projectBtn.setBorderPainted(false);
 		projectBtn.setToolTipText("마우스 오른쪽 버튼을 눌러 프로젝트 정보를 수정하세요");
 		adminProjectsPanel.add(projectBtn);
@@ -282,9 +282,10 @@ public class A_MainPage extends JPanel{
 		
 		projectBtn.setText(projectTitle);
 		
-		projectsPanel.removeAll();
 		adminProjectsPanel.removeAll();
+		projectsPanel.removeAll();
 		myProjectsSetUp();
+		this.revalidate();
 
 	}
 
