@@ -70,7 +70,7 @@ public class C_AddInvitePU extends JPanel implements ActionListener{
 		//멤버 보여지는 곳
 		
 		
-		JTextArea T_Member = new JTextArea("● 김규형 \n ● 문지원\n ● 송낙규\n ● 우리나\n ● 정민지\n ● 최인효 ");
+		JTextArea T_Member = new JTextArea("인효 코드 복붙");
 		T_Member.setEditable(false);
 		invitePU.add(T_Member);
 		
@@ -131,9 +131,9 @@ public class C_AddInvitePU extends JPanel implements ActionListener{
 				
 		//Delete_Button.addActionListener(new DeleteEvent());   //이벤트
 				
-		Man_Div_panel.add(Add_Button);
-		Man_Div_panel.add(Delete_Button);
-		Man_Div_panel.add(Fire_Button);
+		//Man_Div_panel.add(Add_Button);
+		//Man_Div_panel.add(Delete_Button);
+		//Man_Div_panel.add(Fire_Button);
 		
 		
 		invitePU.add(Man_Div_panel);
