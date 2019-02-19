@@ -7,6 +7,8 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -14,7 +16,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class A_UserEdit extends JPanel {
+import controller.A_MemberManager;
+import model.vo.A_Member;
+
+public class A_UserEdit extends JPanel implements MouseListener {
 	//이베일 비번 연락처 수정
 	private A_AddUserPU adduserPU;
 	private Dialog userEdit;
@@ -23,14 +28,23 @@ public class A_UserEdit extends JPanel {
 	private String userPwd;
 	private String userPhoneNum;
 	private JButton savebtn;
-	 
+	private A_LoginPage lp;
+	private A_MemberManager mm = new A_MemberManager();
+	private A_Member user;
+	
+	private JTextField userEmailTF;
+	private JTextField userPwdTF;
+	private JTextField userPhoneNumTF;
+	
+	
 	public A_UserEdit() {}
 	
 	//public A_UserEdit(MainFrame mf, Dialog userEdit) {}
 
-	public A_UserEdit(MainFrame mf) {
+	public A_UserEdit(MainFrame mf, A_Member user) {
 		this.mf = mf;
 		this.adduserPU = adduserPU;
+		this.user=user;
 		
 		userEdit = new Dialog(mf,"사용자 정보 수정");
 		userEdit.setLayout(null);
@@ -55,9 +69,10 @@ public class A_UserEdit extends JPanel {
 		userEmailLB.setSize(120,40);
 		userEdit.add(userEmailLB);
 		
-		JTextField userEmailTF = new JTextField("변경할 이메일을 입력 하시오");
+		userEmailTF = new JTextField(user.getEmail());
 		userEmailTF.setSize(260,30);
 		userEmailTF.setLocation(10, 40);
+		userEmailTF.addMouseListener(this);
 		userEdit.add(userEmailTF);
 		
 		//비밀번호 수정
@@ -68,9 +83,10 @@ public class A_UserEdit extends JPanel {
 		userPwdLB.setSize(120,40);
 		userEdit.add(userPwdLB);
 		
-		JTextField userPwdTF = new JTextField("변경할 비밀번호를 입력하시오");
+		userPwdTF = new JTextField("변경할 비밀번호를 입력하세요");
 		userPwdTF.setSize(260,30);
 		userPwdTF.setLocation(10,120);
+		userPwdTF.addMouseListener(this);
 		userEdit.add(userPwdTF);
 		
 		//휴대폰 번호 변경
@@ -81,9 +97,10 @@ public class A_UserEdit extends JPanel {
 		userPhoneNumLB.setSize(120,40);
 		userEdit.add(userPhoneNumLB);
 		
-		JTextField userPhoneNumTF = new JTextField("변경할 휴대폰번호를 입력하시오");
+		userPhoneNumTF = new JTextField(user.getPhone());
 		userPhoneNumTF.setSize(260,30);
 		userPhoneNumTF.setLocation(10,200);
+		userPhoneNumTF.addMouseListener(this);
 		userEdit.add(userPhoneNumTF);
 		
 		//저장버튼
@@ -102,7 +119,15 @@ public class A_UserEdit extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				userPwd=userPwdTF.getText();
+				userPhoneNum=userPhoneNumTF.getText();
+				EditEmail=userEmailTF.getText();
+				
+				//chageUserDate(userPwd, EditEmail, userPhoneNum);
+				
+				mm.changeDate(user, userPwd, EditEmail, userPhoneNum);
+				ChangePanel.changePanel(mf, lp, new A_LoginPage(mf));
+				userEdit.dispose();
 				
 			}
 		});
@@ -135,6 +160,47 @@ public class A_UserEdit extends JPanel {
 		
 		
 		
+		
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		if (e.getSource() == userEmailTF) {
+			userEmailTF.setText("");
+		}
+		
+		if (e.getSource() == userPhoneNumTF) {
+			userPhoneNumTF.setText("");
+		}
+		
+		
+		if (e.getSource() == userPwdTF) {
+			userPwdTF.setText("");
+		}
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
 		
 	}
 	

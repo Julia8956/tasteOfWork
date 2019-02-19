@@ -5,6 +5,7 @@ import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.TextField;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -37,8 +38,8 @@ public class A_JoinPage extends JPanel {
 	private A_MemberManager a_mm = new A_MemberManager();
 	private A_JoinPage ajp;
 	private JTextField idt;
-	private JTextField pwdt;
-	private JTextField pwdt1;
+	private TextField pwdt;
+	private TextField pwdt1;
 	private JTextField namet;
 	private JTextField gendert;
 	private JTextField phonet;
@@ -71,7 +72,7 @@ public class A_JoinPage extends JPanel {
 		
 		
 		JLabel id = new JLabel("æ∆¿Ãµ");
-		id.setLocation(50, 100);
+		id.setLocation(50, 90);
 		id.setSize(150, 50);
 		id.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.BOLD, 15));
 		id.setForeground(Color.WHITE);
@@ -85,7 +86,7 @@ public class A_JoinPage extends JPanel {
 		check.setRolloverIcon(check2);
 		
 		
-		check.setLocation(390, 100);
+		check.setLocation(390, 95);
 		check.setSize(100, 40);
 		check.addActionListener(new ActionListener() {
 			
@@ -98,35 +99,37 @@ public class A_JoinPage extends JPanel {
 		
 		idt = new JTextField(20);
 		idt.setLocation(180, 100);
-		idt.setSize(200, 40);
+		idt.setSize(200, 30);
 		a_joinPage.add(idt);
 		
 		JLabel pwd = new JLabel("∫Òπ–π¯»£");
-		pwd.setLocation(50, 150);
-		pwd.setSize(150, 50);
+		pwd.setLocation(50, 140);
+		pwd.setSize(130, 50);
 		pwd.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.BOLD, 15));
 		pwd.setForeground(Color.WHITE);
 		a_joinPage.add(pwd);
 		
-		pwdt = new JTextField(20);
+		pwdt = new TextField(20);
 		pwdt.setLocation(180, 150);
-		pwdt.setSize(200, 40);
+		pwdt.setSize(200, 30);
+		pwdt.setEchoChar('°‹');
 		a_joinPage.add(pwdt);
 		
 		JLabel pwd1 = new JLabel("∫Òπ–π¯»£ »Æ¿Œ");
-		pwd1.setLocation(50, 200);
-		pwd1.setSize(150, 50);
+		pwd1.setLocation(50, 190);
+		pwd1.setSize(130, 50);
 		pwd1.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.BOLD, 15));
 		pwd1.setForeground(Color.WHITE);
 		a_joinPage.add(pwd1);
 		
-		pwdt1 = new JTextField(20);
+		pwdt1 = new TextField(20);
 		pwdt1.setLocation(180, 200);
-		pwdt1.setSize(200, 40);
+		pwdt1.setSize(200, 30);
+		pwdt1.setEchoChar('°‹');
 		a_joinPage.add(pwdt1);
 		
 		JLabel name = new JLabel("¿Ã∏ß");
-		name.setLocation(50, 250);
+		name.setLocation(50, 240);
 		name.setSize(150, 50);
 		name.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.BOLD, 15));
 		name.setForeground(Color.WHITE);
@@ -134,11 +137,11 @@ public class A_JoinPage extends JPanel {
 		
 		 namet = new JTextField(20);
 		namet.setLocation(180, 250);
-		namet.setSize(200, 40);
+		namet.setSize(200, 30);
 		a_joinPage.add(namet);
 		
 		JLabel gender = new JLabel("º∫∫∞(≥≤¿⁄/ø©¿⁄)");
-		gender.setLocation(50, 300);
+		gender.setLocation(50, 290);
 		gender.setSize(150, 50);
 		gender.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.BOLD, 15));
 		gender.setForeground(Color.WHITE);
@@ -146,11 +149,11 @@ public class A_JoinPage extends JPanel {
 		
 		 gendert = new JTextField(20);
 		gendert.setLocation(180, 300);
-		gendert.setSize(200, 40);
+		gendert.setSize(200, 30);
 		a_joinPage.add(gendert);
 		
-		JLabel phone = new JLabel("ø¨∂Ù√≥(-¡¶ø‹");
-		phone.setLocation(50, 350);
+		JLabel phone = new JLabel("ø¨∂Ù√≥(-¡¶ø‹)");
+		phone.setLocation(50, 340);
 		phone.setSize(150, 50);
 		phone.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.BOLD, 15));
 		phone.setForeground(Color.WHITE);
@@ -158,11 +161,11 @@ public class A_JoinPage extends JPanel {
 		
 		 phonet = new JTextField(20);
 		phonet.setLocation(180, 350);
-		phonet.setSize(200, 40);
+		phonet.setSize(200, 30);
 		a_joinPage.add(phonet);
 		
 		JLabel email = new JLabel("¿Ã∏ﬁ¿œ");
-		email.setLocation(50, 400);
+		email.setLocation(50, 390);
 		email.setSize(150, 50);
 		email.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.BOLD, 15));
 		email.setForeground(Color.WHITE);
@@ -170,7 +173,7 @@ public class A_JoinPage extends JPanel {
 		
 		emailt = new JTextField(20);
 		emailt.setLocation(180, 400);
-		emailt.setSize(200, 40);
+		emailt.setSize(200, 30);
 		a_joinPage.add(emailt);
 		
 		JButton join = new JButton(new ImageIcon("images/join11.PNG"));
