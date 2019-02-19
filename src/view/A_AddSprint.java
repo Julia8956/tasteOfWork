@@ -30,13 +30,12 @@ public class A_AddSprint {
 
 	private MainFrame mf;
 	private A_MainPage mainPage;
-	
-	//private ProjectManager pm;
 
-	public JPanel addSprint;
 	private JButton plusButton;
 	private Dialog AddSprint;
 
+	private int nameCtn = 0;
+	private int descriptionCtn = 0;
 	
 	private Project project;
 	private String sprintTitle;
@@ -45,21 +44,14 @@ public class A_AddSprint {
 	private String sprintDetail;
 	private String sprintToDo;
 
-	private int nameCtn = 0;
-	private int descriptionCtn = 0;
 
 	public A_AddSprint(MainFrame mf, A_MainPage mainPage, A_AddProject addProject, Project project) {
-		//super(mf, mainPage);
 		this.mf = mf;
 		this.mainPage = mainPage;
 		this.project = project;
 		
-		//this.pm = pm;
-		
 		
 		AddSprint = new Dialog(mf, "새 스프린트 만들기"); 
-
-		//AddSprint.setSize(515, 680);
 		AddSprint.setLayout(null);                 
 
 
@@ -72,9 +64,7 @@ public class A_AddSprint {
 		AddSprint.setLocation(xPos, yPos);
 
 
-
 		AddSprint.setUndecorated(true);
-		//AddSprint.setBackground(MainFrame.POPUP_COLOR);
 		AddSprint.setBackground(new Color(66, 66, 66, 220));
 
 
@@ -96,7 +86,6 @@ public class A_AddSprint {
 			}
 		});
 
-
 		sprintName.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -104,10 +93,6 @@ public class A_AddSprint {
 				nameCtn++;
 			}
 		});
-
-		/*if(sprintName.getText().equals("")) {
-         sprintName.setText("새 스프린트 이름");
-      }*/
 
 
 
@@ -120,7 +105,7 @@ public class A_AddSprint {
 		AddSprint.add(start);
 
 
-		//시작일
+		//시작일 선택
 		JXDatePicker startDayPicker = new DatePicker().getDatePicker();
 		JButton startDayButton = (JButton) startDayPicker.getComponent(1);
 		ImageIcon startIcon = new ImageIcon("images/Calendar.png");
@@ -129,27 +114,10 @@ public class A_AddSprint {
 		startDayButton.setFocusPainted(false);
 		startDayButton.setContentAreaFilled(false);
 		
-		//JTextField startDay = new JTextField("스프린트 시작일", 15);
 		startDayPicker.setLocation(100, 115);
 		startDayPicker.setSize(130, 40);
 		startDayPicker.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 		AddSprint.add(startDayPicker);   
-
-		/*startDay.addMouseListener(new MouseAdapter() {
-         @Override
-         public void mouseClicked(MouseEvent e) {
-            if(startDayCtn == 0) {
-               startDay.setText("");
-            }
-         }
-      });*/
-
-		/*startDay.addKeyListener(new KeyAdapter() {
-         @Override
-         public void keyPressed(KeyEvent e) {
-            startDayCtn++;
-         }
-      });*/
 
 
 		//~
@@ -160,6 +128,7 @@ public class A_AddSprint {
 		fromTo.setForeground(Color.WHITE);
 		AddSprint.add(fromTo);
 
+		//종료일
 		JLabel end = new JLabel("종료일");
 		end.setLocation(280, 115);
 		end.setSize(100, 40);
@@ -168,7 +137,7 @@ public class A_AddSprint {
 		AddSprint.add(end);
 		
 
-		//종료일
+		//종료일 선택
 		JXDatePicker endDayPicker = new DatePicker().getDatePicker();
 		JButton endDayButton = (JButton) endDayPicker.getComponent(1);
 		ImageIcon endtIcon = new ImageIcon("images/Calendar.png");
@@ -177,20 +146,11 @@ public class A_AddSprint {
 		endDayButton.setFocusPainted(false);
 		endDayButton.setContentAreaFilled(false);
 		
-		//JTextField endDay = new JTextField("스프린트 종료일", 15);
 		endDayPicker.setLocation(340, 115);
 		endDayPicker.setSize(130, 40);
 		endDayPicker.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 		AddSprint.add(endDayPicker);
 
-
-		/* endDay.addKeyListener(new KeyAdapter() {
-         @Override
-         public void keyPressed(KeyEvent e) {
-            endDayCtn++;
-         }
-      });
-		 */
 
 
 		//설명
@@ -209,14 +169,12 @@ public class A_AddSprint {
 			}
 		});
 
-
 		description.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				descriptionCtn++;
 			}
 		});
-
 
 
 		//할일입력
@@ -258,8 +216,7 @@ public class A_AddSprint {
 
 		AddSprint.add(toDoList);
 
-
-
+		//할일 추가버튼 클릭시 이벤트 연결
 		plusButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -288,7 +245,6 @@ public class A_AddSprint {
 		});
 
 		//스프린트 생성 취소버튼
-		//JButton cancelBtn = new JButton("취소");
 		JButton cancelBtn  = new JButton(new ImageIcon("images/cancelbtn11.png"));
 		ImageIcon cancelbtn2 = new ImageIcon("images/cancelbtn22.png");
 		cancelBtn.setBorderPainted(false); 
@@ -322,8 +278,6 @@ public class A_AddSprint {
 		okBtn.setSize(100,40);
 		AddSprint.add(okBtn);
 		
-		
-		
 		//확인버튼 클릭시 이벤트 연결
 		okBtn.addActionListener(new ActionListener() {
 
@@ -350,10 +304,8 @@ public class A_AddSprint {
 		AddSprint.add(okBtn);
 		AddSprint.setResizable(false); 
 
-
-
 	}
-	
+//
 	
 	
 	

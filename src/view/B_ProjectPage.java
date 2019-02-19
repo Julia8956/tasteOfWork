@@ -35,12 +35,9 @@ public class B_ProjectPage extends JPanel{
 		this.user = user;
 		
 		this.setSize(1024, 768);
-		//this.setBackground(Color.BLUE);
 		GridBagLayout gridbag = new GridBagLayout();
 		this.setLayout(gridbag);
 		GridBagConstraints gc = new GridBagConstraints();
-		//this.getPreferredSize();
-		//this.setLayout(null);
 		
 		
 		//상단바
@@ -48,21 +45,16 @@ public class B_ProjectPage extends JPanel{
 		gc.weightx = 0.0;
 		gc.weighty = 0.0;
 		gc.gridwidth = GridBagConstraints.REMAINDER;
-		//gc.gridheight = 1;
 		gridbag.setConstraints(new B_HomeBarPanel(mainFrame, this, selectedProject, user), gc);
 		
 		//디데이패널
 		gc.weightx = 1;
-		//gc.weighty = 0.05;
 		gc.gridwidth = 1;
-		//gc.gridheight = 1;
 		gridbag.setConstraints(new B_DdayPanel(this, selectedProject), gc);
 		
 		//프로젝트명 패널
 		gc.weightx = 0.5;
-		//gc.weighty = 0.05;
 		gc.gridwidth = GridBagConstraints.REMAINDER;
-		//gc.gridheight = 1;
 		
 		gridbag.setConstraints(new B_ProjectNamePanel(this), gc);
 		
@@ -72,24 +64,18 @@ public class B_ProjectPage extends JPanel{
 		gc.weightx = 1;
 		gc.weighty = 1;
 		gc.gridwidth = 1;
-		//gc.gridheight = 1;
 		gridbag.setConstraints(new B_SprintPanel(this, mainFrame, selectedProject), gc);
 		
 		
 		//달력패널
 		gc.weightx = 1;
-		//gc.weighty = 0.9;
 		gc.gridwidth = 1;
-		//gc.gridheight = 1;
 		gridbag.setConstraints(new B_CalendarPanel(this, selectedProject), gc);
 		
 		//회의록 패널
 		gc.weightx = 1;
-		//gc.weighty = 0.1;
 		gc.gridwidth = GridBagConstraints.REMAINDER;
-		//gc.gridheight = 1;
 		gridbag.setConstraints(new B_MOMPanel(this, mainFrame, selectedProject), gc);
-		//new MOMPanel(this);
 		
 		this.setVisible(true);
 		
