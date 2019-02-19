@@ -60,7 +60,7 @@ public class A_JoinPage extends JPanel {
 		a_joinPage.setLocation(xPos, yPos);
 		a_joinPage.setLayout(null);
 		a_joinPage.setUndecorated(true);
-		a_joinPage.setBackground(B_ProjectPage.POPUP_COLOR);
+		a_joinPage.setBackground(Color.decode("#324d6b"));
 		
 		JLabel ilogo = new JLabel("회원가입");
 		ilogo.setLocation(180,0);
@@ -77,7 +77,14 @@ public class A_JoinPage extends JPanel {
 		id.setForeground(Color.WHITE);
 		a_joinPage.add(id);
 		
-		JButton check = new JButton(" 중복확인");
+		JButton check = new JButton(new ImageIcon("images/check1.PNG"));
+		ImageIcon check2 = new ImageIcon("images/check2.PNG");
+		check.setBorderPainted(false);
+		check.setFocusPainted(false);
+		check.setContentAreaFilled(false);
+		check.setRolloverIcon(check2);
+		
+		
 		check.setLocation(390, 100);
 		check.setSize(100, 40);
 		check.addActionListener(new ActionListener() {
@@ -166,11 +173,16 @@ public class A_JoinPage extends JPanel {
 		emailt.setSize(200, 40);
 		a_joinPage.add(emailt);
 		
+		JButton join = new JButton(new ImageIcon("images/join11.PNG"));
+		ImageIcon join2 = new ImageIcon("images/join22.PNG");
+		join.setBorderPainted(false);
+		join.setFocusPainted(false);
+		join.setContentAreaFilled(false);
+		join.setRolloverIcon(join2);
 		
 		
-		JButton join = new JButton("회원 가입");
 		join.setLocation(350, 470);
-		join.setSize(100, 45);
+		join.setSize(110, 45);
 		join.addActionListener(new ActionListener() {
             
             @Override
@@ -233,7 +245,16 @@ public class A_JoinPage extends JPanel {
 		
 		a_joinPage.add(join);
 		
-		JButton cancel = new JButton("취소");
+		JButton cancel = new JButton(new ImageIcon("images/cancelbtn11.png"));
+		ImageIcon cancel2 = new ImageIcon("images/cancelbtn22.png");
+		cancel.setBorderPainted(false);
+		cancel.setFocusPainted(false);
+		cancel.setContentAreaFilled(false);
+		cancel.setRolloverIcon(cancel2);
+		
+		
+		
+		
 		cancel.setLocation(250, 470);
 		cancel.setSize(100, 45);
 		cancel.addActionListener(new ActionListener() {

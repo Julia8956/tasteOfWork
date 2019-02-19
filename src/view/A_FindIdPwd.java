@@ -37,7 +37,7 @@ public class A_FindIdPwd extends JPanel {
 		a_findIdPwd.setLocation(xPos, yPos);
 		a_findIdPwd.setLayout(null);
 		a_findIdPwd.setUndecorated(true);
-		a_findIdPwd.setBackground(B_ProjectPage.POPUP_COLOR);
+		a_findIdPwd.setBackground(Color.decode("#324d6b"));
 		
 		JLabel name = new JLabel("¿Ã∏ß");
 		name.setLocation(10, 100);
@@ -122,8 +122,8 @@ public class A_FindIdPwd extends JPanel {
 		find1.setFocusPainted(false);
 		find1.setContentAreaFilled(false);
 		find1.setRolloverIcon(find12);
-		find1.setLocation(195, 250);
-		find1.setSize(70, 50);
+		find1.setLocation(192, 250);
+		find1.setSize(70, 40);
 		find1.addActionListener(new ActionListener() {
 			
 			@Override
@@ -140,8 +140,8 @@ public class A_FindIdPwd extends JPanel {
 		find2.setFocusPainted(false);
 		find2.setContentAreaFilled(false);
 		find2.setRolloverIcon(find22);
-		find2.setSize(100, 40);
-		find2.setLocation(535, 250);
+		find2.setSize(70, 40);
+		find2.setLocation(530, 250);
 		find2.addActionListener(new ActionListener() {
 			
 			@Override
@@ -150,14 +150,14 @@ public class A_FindIdPwd extends JPanel {
 			}
 		});
 		
-		JButton cancel = new JButton(new ImageIcon("images/cancelbtn1.png"));
-		ImageIcon cancel2 = new ImageIcon("images/cancelbtn2.png");
+		JButton cancel = new JButton(new ImageIcon("images/cancelbtn11.png"));
+		ImageIcon cancel2 = new ImageIcon("images/cancelbtn22.png");
 		cancel.setBorderPainted(false);
 		cancel.setFocusPainted(false);
 		cancel.setContentAreaFilled(false);
 		cancel.setRolloverIcon(cancel2);
-		cancel.setLocation(500, 350);
-		cancel.setSize(70,50);
+		cancel.setLocation(280, 350);
+		cancel.setSize(100,50);
 		cancel.addActionListener(new ActionListener() {
 			
 			@Override
