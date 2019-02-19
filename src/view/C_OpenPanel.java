@@ -23,6 +23,7 @@ import javax.swing.ListSelectionModel;
 
 import controller.WorkManager;
 import model.dao.WorkDao;
+import model.vo.A_Member;
 import model.vo.Project;
 import model.vo.Sprint;
 import model.vo.Work;
@@ -41,8 +42,10 @@ public class C_OpenPanel extends JPanel implements ActionListener,MouseListener{
 	private WorkManager wm = new WorkManager();
 	private WorkDao wdao = new WorkDao();
 	
+	private B_ProjectPage projectPage;
 	private Project selectproject;
 	private Sprint selectsprint;
+	private A_Member user;
 
 	private JList<Work> openworklist;
 	private DefaultListModel<Work> model = new DefaultListModel<>();
@@ -51,13 +54,15 @@ public class C_OpenPanel extends JPanel implements ActionListener,MouseListener{
 
 	//public C_OpenPanel() {}
 
-	public C_OpenPanel(C_SprintMainPage sprintMain,MainFrame mainFrame,Project selectProject, Sprint selectSprint) {
+	public C_OpenPanel(C_SprintMainPage sprintMain,MainFrame mainFrame, B_ProjectPage projectPage, Project selectProject, Sprint selectSprint, A_Member user) {
 		this.mainFrame = mainFrame;
 		this.sprintMain = sprintMain;
 		this.openPanel = this;
 		
+		this.projectPage = projectPage;
 		this.selectproject = selectProject;
 		this.selectsprint = selectSprint;
+		this.user = user;
 		
 		wdao = new WorkDao(selectproject.getProjectTitle(),selectsprint.getSprintTitle());
 		//this.setBackground(Color.white);
@@ -135,14 +140,16 @@ public class C_OpenPanel extends JPanel implements ActionListener,MouseListener{
 
 		if (e.getSource() == Open_move_button) {
 			int[] selectindex = openworklist.getSelectedIndices();
-			ArrayList<Work> selectworklist = (ArrayList<Work>)openworklist.getSelectedValuesList();
-			
-			for (int i = 0 ; i < selectworklist.size() ; i++) {
-				Work selectwork = selectworklist.get(i);
-				
-				if (selectwork != null) {
-					dragMotion(selectwork);
+			if(openworklist.getSelectedValuesList() != null) {
+				ArrayList<Work> selectworklist = (ArrayList<Work>)openworklist.getSelectedValuesList();
+				for (int i = 0 ; i < selectworklist.size() ; i++) {
+					Work selectwork = selectworklist.get(i);
+					
+					if (selectwork != null) {
+						dragMotion(selectwork);
+					}
 				}
+				
 			}
 			
 		}
@@ -291,7 +298,9 @@ public class C_OpenPanel extends JPanel implements ActionListener,MouseListener{
 		
 		System.out.println(work);
 		
-		DeleteWork(work,work.getWork_name());	
+		DeleteWork(work,work.getWork_name());
+		ChangePanel.changePanel(mainFrame, this, new C_SprintMainPage(mainFrame, projectPage, selectproject, selectsprint, user));
+		//sprintMain.updateWorkStatus();
 	}
 
 	

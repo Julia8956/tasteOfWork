@@ -24,6 +24,7 @@ import javax.swing.ListSelectionModel;
 
 import controller.WorkManager;
 import model.dao.WorkDao;
+import model.vo.A_Member;
 import model.vo.Project;
 import model.vo.Sprint;
 import model.vo.Work;
@@ -51,7 +52,10 @@ public class C_ProgressPanel extends JPanel implements ActionListener,MouseListe
 	private Project selectproject;
 	private Sprint selectsprint;	
 	
-	public C_ProgressPanel(C_SprintMainPage sprintMain,MainFrame mainFrame,Project selectProject, Sprint selectSprint) {
+	private B_ProjectPage projectPage;
+	private A_Member user;
+	
+	public C_ProgressPanel(C_SprintMainPage sprintMain,MainFrame mainFrame, B_ProjectPage projectPage, Project selectProject, Sprint selectSprint, A_Member user) {
 		this.mainFrame = mainFrame;
 		this.sprintMain = sprintMain;
 		this.progressPanel = this;
@@ -59,6 +63,8 @@ public class C_ProgressPanel extends JPanel implements ActionListener,MouseListe
 		this.selectproject = selectProject;
 		this.selectsprint = selectSprint;
 		
+		this.projectPage = projectPage;
+		this.user = user;
 		wdao = new WorkDao(selectproject.getProjectTitle(),selectsprint.getSprintTitle());
 		
 		this.setPreferredSize(new Dimension(340,700));
@@ -308,6 +314,8 @@ public class C_ProgressPanel extends JPanel implements ActionListener,MouseListe
 			System.out.println(work);
 			
 			DeleteWork(work,work.getWork_name());	
+			ChangePanel.changePanel(mainFrame, this, new C_SprintMainPage(mainFrame, projectPage, selectproject, selectsprint, user));
+			
 		}
 
 	
