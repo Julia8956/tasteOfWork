@@ -77,15 +77,18 @@ public class C_OpenPanel extends JPanel implements ActionListener,MouseListener{
 		Open_Title_panel.setBackground(Color.decode("#FFE65A"));
 		Open_Title_panel.setLayout(new BorderLayout());
 
-		JLabel sub_label = new JLabel();
-		sub_label.setPreferredSize(new Dimension(130,55));
 		
+		JPanel Open_Title_Center_panel = new JPanel();
+		Open_Title_Center_panel.setPreferredSize(new Dimension(100,55));
+		Open_Title_Center_panel.setBackground(Color.decode( "#FFE65A"));
 		
 
 		JLabel Open_Title_label = new JLabel("OPEN");
 		Open_Title_label.setFont(new Font("Tahoma",Font.PLAIN,25));
 		Open_Title_label.setForeground(Color.DARK_GRAY);
-
+		
+		
+		Open_Title_Center_panel.add(Open_Title_label);
 
 		Open_move_button = new JButton(new ImageIcon("images/RButton.png"));
 		Open_move_button.setBorderPainted(false);
@@ -95,8 +98,8 @@ public class C_OpenPanel extends JPanel implements ActionListener,MouseListener{
 		
 		Open_move_button.addActionListener(this);
 
-		Open_Title_panel.add(sub_label,"West");
-		Open_Title_panel.add(Open_Title_label,"Center");
+		
+		Open_Title_panel.add(Open_Title_Center_panel,"Center");
 		Open_Title_panel.add(Open_move_button,"East");
 
 
