@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -16,6 +17,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import controller.A_MemberManager;
+import model.vo.Project;
 import model.vo.Work;
 
 public class C_SprintDialog extends JPanel {
@@ -30,16 +33,19 @@ public class C_SprintDialog extends JPanel {
 	private JButton OK_btn;
 
 	private String message;
+	private Project project;
+	private A_MemberManager membermanager = new A_MemberManager();
 
 	private Work work;
 
 	public C_SprintDialog() {}
 
-	public C_SprintDialog(MainFrame mainframe,C_CheckPU checkpu,String message) {
+	public C_SprintDialog(MainFrame mainframe,C_CheckPU checkpu,String message,Project project) {
 		this.mainframe = mainframe;
 		this.checkpu = checkpu;
-
+		this.project = project;
 		this.message = message;
+
 
 		C_SprintDialog = new Dialog(mainframe,"할당자 선택창");
 		C_SprintDialog.setLayout(null);
@@ -58,14 +64,30 @@ public class C_SprintDialog extends JPanel {
 		title.setSize(180, 50);
 		title.setLocation(15, 30);
 
-		//패널에 값넣기
-		String[] names = {"김규형","문지원","송낙규", "우리나", "정민지", "최인효"};
+		//멤버 값을 checkbox에 넣음
+		ArrayList<String> memberlist = new  ArrayList<String>();
 
+		if (project != null) {
+			memberlist.add(project.getProjectAdmin());
 
-		JCheckBox[] Ass_Check = new JCheckBox[names.length];
+			ArrayList<String> projectmember = project.getMemberList();
 
-		for (int i = 0 ; i < Ass_Check.length ; i++) {
-			Ass_Check[i] = new JCheckBox(names[i]);
+			if (projectmember != null) {
+				for (int i = 0 ; i < projectmember.size() ; i++) {
+					memberlist.add(projectmember.get(i));
+				}
+
+			}
+		}
+		
+		
+		ArrayList<String> membername = membermanager.findMemberName(memberlist);
+
+		JCheckBox[] Ass_Check = new JCheckBox[membername.size()];
+
+		for (int i = 0 ; i < membername.size() ; i++) {
+			Ass_Check[i] = new JCheckBox(membername.get(i));
+			System.out.println(membername.get(i));
 		}
 
 		//Panel 위에 얹기 -> CheckPanel

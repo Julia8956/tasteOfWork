@@ -38,6 +38,7 @@ public class C_ProgressPanel extends JPanel implements ActionListener,MouseListe
 	private JTable progress_Table;
 	private JButton Add_Work;
 	private JButton Progress_move_button;
+	private JButton Progress_To_open_btn;
 	
 	private Work work = new Work();
 	private WorkManager wm = new WorkManager();
@@ -77,20 +78,29 @@ public class C_ProgressPanel extends JPanel implements ActionListener,MouseListe
 		Progress_Title_panel.setBackground(Color.decode("#FAF4C0"));
 		Progress_Title_panel.setLayout(new BorderLayout());
 		
-		JLabel sub_label = new JLabel();
-		sub_label.setPreferredSize(new Dimension(120,55));
+		
+		Progress_To_open_btn = new JButton("<");
+		Progress_To_open_btn.setPreferredSize(new Dimension(50,55));
+		
+		Progress_To_open_btn.addActionListener(this);
+		
+		JPanel Progress_Title_Center_panel = new JPanel();
+		Progress_Title_Center_panel.setPreferredSize(new Dimension(100,55));
 		
 		JLabel Progress_Title_label = new JLabel("In Progress");
 		Progress_Title_label.setFont(new Font("Tahoma",Font.PLAIN,25));
 		Progress_Title_label.setForeground(Color.DARK_GRAY);
-
+		
+		Progress_Title_Center_panel.add(Progress_Title_label);
+		
+		
 		Progress_move_button = new JButton(">");
 		Progress_move_button.setPreferredSize(new Dimension(50,55));
 		
 		Progress_move_button.addActionListener(this);
 		
-		Progress_Title_panel.add(sub_label,"West");
-		Progress_Title_panel.add(Progress_Title_label,"Center");
+		Progress_Title_panel.add(Progress_To_open_btn,"West");
+		Progress_Title_panel.add(Progress_Title_Center_panel,"Center");
 		Progress_Title_panel.add(Progress_move_button,"East");
 
 		this.add(Progress_Title_panel,"North");
@@ -135,19 +145,36 @@ public class C_ProgressPanel extends JPanel implements ActionListener,MouseListe
 		if (e.getSource() == Add_Work) {
 			new C_CreatePU(this.mainFrame,this.progressPanel).getCreatePU().setVisible(true);
 		}
-		
+
 		if (e.getSource() == Progress_move_button) {
 			int[] selectindex = progresslist.getSelectedIndices();
 			ArrayList<Work> selectworklist = (ArrayList<Work>)progresslist.getSelectedValuesList();
-			
-			for (int i = 0 ; i < selectworklist.size() ; i++) {
-				Work selectwork = selectworklist.get(i);
-				
-				if (selectwork != null) {
-					dragMotion(selectwork);
+
+			if (selectworklist != null) {
+				for (int i = 0 ; i < selectworklist.size() ; i++) {
+					Work selectwork = selectworklist.get(i);
+
+					if (selectwork != null) {
+						dragNextMotion(selectwork);
+					}
 				}
 			}
-			
+
+		}
+
+		if (e.getSource() == Progress_To_open_btn) {
+			int[] selectindex = progresslist.getSelectedIndices();
+			ArrayList<Work> selectworklist = (ArrayList<Work>)progresslist.getSelectedValuesList();
+
+			if (selectworklist != null) {
+				for (int i = 0 ; i < selectworklist.size() ; i++) {
+					Work selectwork = selectworklist.get(i);
+
+					if (selectwork != null) {
+						dragPreMotion(selectwork);
+					}
+				}
+			}
 		}
 	}
 
@@ -211,7 +238,7 @@ public class C_ProgressPanel extends JPanel implements ActionListener,MouseListe
 			if (e.getClickCount() ==2) {
 				/*int*/ index = progresslist.getSelectedIndex();
 				Work work = progresslist.getSelectedValue();
-				new C_CheckPU(this.mainFrame,work,this.progressPanel).getCheckPU().setVisible(true);
+				new C_CheckPU(this.mainFrame,work,selectproject,this.progressPanel).getCheckPU().setVisible(true);
 				//System.out.println("´©¸§");
 
 
@@ -308,8 +335,8 @@ public class C_ProgressPanel extends JPanel implements ActionListener,MouseListe
 			findWorkList();
 		}
 		
-		public void dragMotion(Work work) {
-			wm.ChangWork(selectproject,selectsprint,work);
+		public void dragNextMotion(Work work) {
+			wm.ChangNextWork(selectproject,selectsprint,work);
 			
 			System.out.println(work);
 			
@@ -318,6 +345,12 @@ public class C_ProgressPanel extends JPanel implements ActionListener,MouseListe
 			
 		}
 
+		public void dragPreMotion(Work work) {
+			wm.ChangePreWork(selectproject,selectsprint,work);
+			
+			DeleteWork(work,work.getWork_name());	
+			ChangePanel.changePanel(mainFrame, this, new C_SprintMainPage(mainFrame, projectPage, selectproject, selectsprint, user));
+		}
 	
 		
 

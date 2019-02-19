@@ -23,6 +23,7 @@ import javax.swing.JTextField;
 
 import org.jdesktop.swingx.JXDatePicker;
 
+import model.vo.Project;
 import model.vo.Work;
 
 //import org.jdesktop.swingx.JXDatePicker;
@@ -56,6 +57,7 @@ public class C_CheckPU extends JPanel implements ActionListener{
 	
 	
 	private Work work;
+	private Project project;
 	private String work_name;
 	private String work_content;
 	private String[] Allocator;
@@ -77,9 +79,10 @@ public class C_CheckPU extends JPanel implements ActionListener{
 	}
 	
 	
-	public C_CheckPU(MainFrame mf,Work work) {
+	public C_CheckPU(MainFrame mf,Work work,Project project) {
 		this.mf = mf;
 		this.work = work;
+		this.project = project;
 		
 		checkpu= new Dialog(mf, "할일 생성");
 
@@ -317,8 +320,8 @@ public class C_CheckPU extends JPanel implements ActionListener{
 	}
 	
 	//CheckPopUp 할일을 누르면 세부사항이 보이는 창
-	public C_CheckPU(MainFrame mf,Work work,C_OpenPanel openpanel) {
-		this(mf,work);
+	public C_CheckPU(MainFrame mf,Work work,Project project,C_OpenPanel openpanel) {
+		this(mf,work,project);
 		
 		this.openpanel = openpanel;
 		
@@ -357,8 +360,8 @@ public class C_CheckPU extends JPanel implements ActionListener{
 		});
 	}
 	
-	public C_CheckPU(MainFrame mf, Work work , C_ProgressPanel progresspanel) {
-		this(mf,work);
+	public C_CheckPU(MainFrame mf, Work work,Project project, C_ProgressPanel progresspanel) {
+		this(mf,work,project);
 		
 		this.progresspanel = progresspanel;
 		
@@ -395,8 +398,8 @@ public class C_CheckPU extends JPanel implements ActionListener{
 		});
 	}
 	
-	public C_CheckPU(MainFrame mf, Work work, C_DonePanel donepanel) {
-		this(mf,work);
+	public C_CheckPU(MainFrame mf, Work work,Project project, C_DonePanel donepanel) {
+		this(mf,work,project);
 		
 		this.donepanel = donepanel;
 		
@@ -466,7 +469,7 @@ public class C_CheckPU extends JPanel implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == iB) {
 			String message = "할당시킬 멤버를 고르세요.";
-			new C_SprintDialog(this.mf,this,message).getAsspanel().setVisible(true);
+			new C_SprintDialog(this.mf,this,message,project).getAsspanel().setVisible(true);
 		}
 
 		if (e.getSource() == label_btn) {

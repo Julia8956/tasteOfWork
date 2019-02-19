@@ -56,7 +56,7 @@ public class WorkManager {
 		
 	}
 	
-	public void ChangWork(Project project,Sprint sprint,Work work) {
+	public void ChangNextWork(Project project,Sprint sprint,Work work) {
 		if (work.getWork_inf().equals("open")) {
 			work.setWork_inf("progress");
 			wdao = new WorkDao(project.getProjectTitle(),sprint.getSprintTitle(),work.getWork_name());
@@ -82,6 +82,19 @@ public class WorkManager {
 		wdao = new WorkDao(project.getProjectTitle(),sprint.getSprintTitle(),addwork.getWork_name());
 		
 		wdao.makeWork(sprint,addwork);
+		
+	}
+
+	public void ChangePreWork(Project selectproject, Sprint selectsprint, Work work) {
+		if (work.getWork_inf().equals("progress")) {
+			work.setWork_inf("open");
+			wdao = new WorkDao(selectproject.getProjectTitle(),selectsprint.getSprintTitle(),work.getWork_name());
+			wdao.makeWork(selectsprint,work);
+		}else if (work.getWork_inf().equals("done")) {
+			work.setWork_inf("progress");
+			wdao = new WorkDao(selectproject.getProjectTitle(),selectsprint.getSprintTitle(),work.getWork_name());
+			wdao.makeWork(selectsprint, work);
+		}
 		
 	}
 	

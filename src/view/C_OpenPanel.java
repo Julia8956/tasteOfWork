@@ -35,7 +35,7 @@ public class C_OpenPanel extends JPanel implements ActionListener,MouseListener{
 
 	private JButton Add_Work;
 	private JButton Open_move_button;
-
+	
 	private ArrayList<Work> workArrList = new ArrayList<Work>(); //추가 한부분
 
 	private Work work = new Work();
@@ -79,6 +79,8 @@ public class C_OpenPanel extends JPanel implements ActionListener,MouseListener{
 
 		JLabel sub_label = new JLabel();
 		sub_label.setPreferredSize(new Dimension(130,55));
+		
+		
 
 		JLabel Open_Title_label = new JLabel("OPEN");
 		Open_Title_label.setFont(new Font("Tahoma",Font.PLAIN,25));
@@ -163,7 +165,7 @@ public class C_OpenPanel extends JPanel implements ActionListener,MouseListener{
 				/*int*/ index = openworklist.getSelectedIndex();
 				Work work = openworklist.getSelectedValue();
 				if (work != null) {
-					new C_CheckPU(this.mainFrame,work,this.openPanel).getCheckPU().setVisible(true);
+					new C_CheckPU(this.mainFrame,work,selectproject,this.openPanel).getCheckPU().setVisible(true);
 					
 				
 				}
@@ -294,7 +296,7 @@ public class C_OpenPanel extends JPanel implements ActionListener,MouseListener{
 	}
 
 	public void dragMotion(Work work) {
-		wm.ChangWork(selectproject,selectsprint,work);
+		wm.ChangNextWork(selectproject,selectsprint,work);
 		
 		System.out.println(work);
 		

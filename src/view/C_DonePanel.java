@@ -19,6 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
 
 import controller.WorkManager;
 import model.dao.WorkDao;
@@ -34,6 +35,7 @@ public class C_DonePanel extends JPanel implements ActionListener,MouseListener{
 	private C_SprintMainPage sprintMain;
 	
 	private JButton Add_Work;
+	private JButton done_move_progress_btn;
 	
 	private ArrayList<Work> workArrList = new ArrayList<Work>(); //추가 한부분
 
@@ -75,13 +77,25 @@ public class C_DonePanel extends JPanel implements ActionListener,MouseListener{
 		JPanel Done_Title_panel = new JPanel();
 		Done_Title_panel.setPreferredSize(new Dimension(340,45));
 		Done_Title_panel.setBackground(Color.decode("#D5D5D5"));
+		Done_Title_panel.setLayout(new BorderLayout());
 
+		done_move_progress_btn = new JButton("<");
+		done_move_progress_btn.setPreferredSize(new Dimension(50,55));
+		
+		done_move_progress_btn.addActionListener(this);
+		
+		JPanel Progress_Title_Center_panel = new JPanel();
+		Progress_Title_Center_panel.setPreferredSize(new Dimension(100,55));
+		
 
 		JLabel Done_Title_label = new JLabel("Done");
 		Done_Title_label.setFont(new Font("Tahoma",Font.PLAIN,25));
 		Done_Title_label.setForeground(Color.DARK_GRAY);
-
-		Done_Title_panel.add(Done_Title_label);
+		
+		Progress_Title_Center_panel.add(Done_Title_label);
+		
+		Done_Title_panel.add(done_move_progress_btn,"West");
+		Done_Title_panel.add(Progress_Title_Center_panel,"Center");
 
 		//리스트 할일
 		JScrollPane done_scroll = new JScrollPane(doneworklist = createopenworklists());
@@ -90,6 +104,9 @@ public class C_DonePanel extends JPanel implements ActionListener,MouseListener{
 		
 		//리스트 확인창 이벤트
 		doneworklist.addMouseListener(this);
+		
+		//리스트 선택 모션
+		doneworklist.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		
 		//버튼 패널 -> 다한 할일 모음
 		JPanel btn_Panel = new JPanel();
@@ -118,8 +135,26 @@ public class C_DonePanel extends JPanel implements ActionListener,MouseListener{
 		if (e.getSource() == Add_Work) {
 			new C_CreatePU(this.mainFrame,this.DoenPanel).getCreatePU().setVisible(true);
 		}
+
+		if (e.getSource() == done_move_progress_btn) {
+			int[] selectindex = doneworklist.getSelectedIndices();
+			ArrayList<Work> selectworklist = (ArrayList<Work>)doneworklist.getSelectedValuesList();
+
+			if (selectworklist != null) {
+				for (int i = 0 ; i < selectworklist.size() ; i++) {
+					Work selectwork = selectworklist.get(i);
+
+					if (selectwork != null) {
+						dragPreMotion(selectwork);
+					}
+				}
+			}
+
+		}
 	}
 	
+	
+
 	private JList<Work> createopenworklists(){
 		donemodel.clear();
 
@@ -201,7 +236,7 @@ public class C_DonePanel extends JPanel implements ActionListener,MouseListener{
 			if (e.getClickCount() ==2) {
 				/*int*/ index = doneworklist.getSelectedIndex();
 				Work work = doneworklist.getSelectedValue();
-				new C_CheckPU(this.mainFrame,work,this.DoenPanel).getCheckPU().setVisible(true);
+				new C_CheckPU(this.mainFrame,work,selectproject,this.DoenPanel).getCheckPU().setVisible(true);
 				//System.out.println("누름");
 
 			}
@@ -255,5 +290,13 @@ public class C_DonePanel extends JPanel implements ActionListener,MouseListener{
 		
 		findWorkList();
 	}
+	
+	public void dragPreMotion(Work work) {
+		wm.ChangePreWork(selectproject,selectsprint,work);
+		
+		DeleteWork(work,work.getWork_name());	
+		ChangePanel.changePanel(mainFrame, this, new C_SprintMainPage(mainFrame, projectPage, selectproject, selectsprint, user));
+	}
+
 
 }
