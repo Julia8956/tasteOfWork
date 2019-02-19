@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 public class Project implements Serializable{
 	
@@ -18,6 +19,7 @@ public class Project implements Serializable{
 	protected String projectAdmin;
 	protected ArrayList<String> memberList;
 	protected transient ArrayList<MOM> MOMList;
+	protected HashMap calendarMap;
 	
 
 	public Project() {}
@@ -66,9 +68,11 @@ public class Project implements Serializable{
 		return MOMList;
 	}
 
+	public HashMap getCalendarMap() {
+		return calendarMap;
+	}
 
-	
-	
+
 	
 	
 	
@@ -101,9 +105,16 @@ public class Project implements Serializable{
 		MOMList = mOMList;
 	}
 
+	public void setCalendarMap(HashMap calendarMap) {
+		this.calendarMap = calendarMap;
+	}
+
+
 	
 	
 	
+	
+
 	@Override
 	public String toString() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");

@@ -7,10 +7,13 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.Locale;
 
 import javax.swing.BorderFactory;
@@ -27,18 +30,36 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
+import controller.ProjectManager;
 import model.vo.Project;
 
-public class B_CalendarPanel extends JPanel {
+public class B_CalendarPanel extends JPanel implements MouseListener{
 
 	
 	private Calendar cal;
 	private DefaultTableModel model;
+	private JTable calendarTable;
 	private JLabel monthName;
 	private B_CalendarPanel calendarPanel;
 	
+	private Project selectedProject;
+	
+	private int numberOfDays;
+	private int startDay;
+	private int weeks;
+	private String[] sarr;
+	private HashMap calendarMap = new HashMap();
+	
+	private boolean isModified;
+	
 	
 	public B_CalendarPanel(B_ProjectPage projectPage, Project selectedProject) {
+		
+		this.selectedProject = selectedProject;
+		
+		if(selectedProject.getCalendarMap() != null) {
+			calendarMap = selectedProject.getCalendarMap();
+		}
 		
 		//this.setSize(400, 688);
 		//this.setPreferredSize(new Dimension(400, 688));
@@ -111,6 +132,7 @@ public class B_CalendarPanel extends JPanel {
 				//월 -1
 				cal.add(Calendar.MONTH, -1);
 				updateMonth();
+				
 			}
 			
 		});
@@ -139,7 +161,7 @@ public class B_CalendarPanel extends JPanel {
 		model = new DefaultTableModel(null, columns);
 		
 		//model.isCellEditable();
-		JTable calendarTable = new JTable(model);
+		calendarTable = new JTable(model);
 		//Dimension d = new Dimension(300, 300);
 		//calendarTable.setSize(d);
 		calendarTable.setCellSelectionEnabled(true);
@@ -155,7 +177,7 @@ public class B_CalendarPanel extends JPanel {
 		//calendarTable.setFillsViewportHeight(true);
 		
 		//calendarTable.setRowHeight(calendarTable.getColumn(0).getWidth());
-		calendarTable.setRowHeight(70);
+		//calendarTable.setRowHeight(70);
 		//DefaultTableCellRenderer cellAlingCenter = new DefaultTableCellRenderer();
 		
 		
@@ -189,6 +211,8 @@ public class B_CalendarPanel extends JPanel {
 		calendarTable.getColumn("SAT").setCellEditor(new TextAreaEditor());
 		
 		
+		calendarTable.addMouseListener(this);
+		
 		
 		JScrollPane scroll = new JScrollPane(calendarTable);
 		//scroll.setSize(d);
@@ -216,12 +240,19 @@ public class B_CalendarPanel extends JPanel {
 		this.add(calendar, "Center");
 		
 		
-		
 		this.updateMonth();
-		
+		/*for(int i = 0; i < weeks*2; i++) {
+			calendarTable.setRowHeight((2*i), 25);
+			calendarTable.setRowHeight((2*i + 1), 70);
+		}*/
+		//this.saveMonth();
 		
 		projectPage.add(this);
 	}
+
+	
+	
+	
 	
 	
 	public void updateMonth() {
@@ -236,25 +267,97 @@ public class B_CalendarPanel extends JPanel {
 		//int today 
 		
 		//1일이 무슨요일인지
-		int startDay = cal.get(Calendar.DAY_OF_WEEK);
+		startDay = cal.get(Calendar.DAY_OF_WEEK);
 		//한달에 몇일인지
-		int numberOfDays = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+		numberOfDays = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
 		//한달에 몇주인지
-		int weeks = cal.getActualMaximum(Calendar.WEEK_OF_MONTH);
+		weeks = cal.getActualMaximum(Calendar.WEEK_OF_MONTH);
 		
 		model.setRowCount(0);
-		model.setRowCount(weeks);
-		//model.setRowCount(6);
+		model.setRowCount(weeks*2);
 		
+		for(int r = 0; r < weeks*2; r++) {
+			calendarTable.setRowHeight((2*r), 25);
+			calendarTable.setRowHeight((2*r + 1), 70);
+		}
 		
-		//1일에 해당하는 요일-1
 		int i = startDay - 1;
 		for (int day = 1; day <= numberOfDays; day++) {
 			
-			model.setValueAt(day, i/7, i%7);
+			model.setValueAt(day + "", (i/7)*2, i%7);
+			
+			if(calendarMap.get(monthName.getText()) != null) {
+				String[] sarr = (String[])calendarMap.get(monthName.getText());
+				String str = sarr[day - 1];
+				model.setValueAt(str, (i/7*2 + 1), i%7);
+			}
 			i = i + 1;
 		}
+	}
+
+
+
+	
+	public void saveMonth() {
 		
+		sarr = new String[numberOfDays];
+		int i = startDay - 1;
+		for (int d = 0; d < numberOfDays; d++) {
+			
+			sarr[d] = (String)model.getValueAt((i/7*2 + 1), i%7);
+			System.out.println(sarr[d]);
+			//model.setValueAt(day, i/7, i%7);
+			
+			i = i + 1;
+		}
+		calendarMap.put(monthName.getText(), sarr);
+		
+		new ProjectManager().saveCalendar(selectedProject, calendarMap);
+	}
+	
+	
+	
+	
+	
+	
+	
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		isModified = true;
+		
+	}
+
+
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		
+		
+	}
+
+
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		if(isModified) {
+			saveMonth();
+		}
 		
 	}
 	

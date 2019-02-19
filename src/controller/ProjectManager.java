@@ -2,13 +2,13 @@ package controller;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 import model.dao.ProjectDao;
 import model.vo.A_Member;
 import model.vo.MOM;
 import model.vo.Project;
 import model.vo.Sprint;
-import view.B_MOMPanel;
 
 public class ProjectManager {
 
@@ -251,10 +251,17 @@ public class ProjectManager {
 		return project;
 	}
 	
-	public void makeNewMOM(Project project) {
+	/*public void makeNewMOM(Project project) {
+		
+	}*/
+	
+	
+	public void saveCalendar(Project project, HashMap calendarMap) {
+		project.setCalendarMap(calendarMap);
+		pdao = new ProjectDao(project.getProjectTitle());
+		pdao.modifyProject(project);
 		
 	}
-	
 	
 	
 }
