@@ -17,6 +17,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -156,32 +157,40 @@ public class C_ProgressPanel extends JPanel implements ActionListener,MouseListe
 
 		if (e.getSource() == Progress_move_button) {
 			int[] selectindex = progresslist.getSelectedIndices();
-			ArrayList<Work> selectworklist = (ArrayList<Work>)progresslist.getSelectedValuesList();
 
-			if (selectworklist != null) {
-				for (int i = 0 ; i < selectworklist.size() ; i++) {
-					Work selectwork = selectworklist.get(i);
+			if(!progresslist.getSelectedValuesList().isEmpty()) {
+				ArrayList<Work> selectworklist = (ArrayList<Work>)progresslist.getSelectedValuesList();
+				if (selectworklist != null) {
+					for (int i = 0 ; i < selectworklist.size() ; i++) {
+						Work selectwork = selectworklist.get(i);
 
-					if (selectwork != null) {
-						dragNextMotion(selectwork);
+						if (selectwork != null) {
+							dragNextMotion(selectwork);
+						}
 					}
 				}
+			}else {
+				JOptionPane.showMessageDialog(null, "이동할 할일을 선택하세요");
 			}
 
 		}
 
 		if (e.getSource() == Progress_To_open_btn) {
 			int[] selectindex = progresslist.getSelectedIndices();
-			ArrayList<Work> selectworklist = (ArrayList<Work>)progresslist.getSelectedValuesList();
+			if(!progresslist.getSelectedValuesList().isEmpty()) {
+				ArrayList<Work> selectworklist = (ArrayList<Work>)progresslist.getSelectedValuesList();
 
-			if (selectworklist != null) {
-				for (int i = 0 ; i < selectworklist.size() ; i++) {
-					Work selectwork = selectworklist.get(i);
+				if (selectworklist != null) {
+					for (int i = 0 ; i < selectworklist.size() ; i++) {
+						Work selectwork = selectworklist.get(i);
 
-					if (selectwork != null) {
-						dragPreMotion(selectwork);
+						if (selectwork != null) {
+							dragPreMotion(selectwork);
+						}
 					}
 				}
+			}else {
+				JOptionPane.showMessageDialog(null, "이동할 할일을 선택하세요");
 			}
 		}
 	}

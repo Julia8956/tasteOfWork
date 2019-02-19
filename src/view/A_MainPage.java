@@ -2,7 +2,6 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -10,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -25,7 +25,7 @@ import model.vo.A_Member;
 import model.vo.Project;
 import model.vo.Sprint;
 
-public class A_MainPage extends JPanel{
+public class A_MainPage extends JPanel implements MouseListener{
 
 	private MainFrame mf;
 	private A_MainPage mainPage;
@@ -36,6 +36,7 @@ public class A_MainPage extends JPanel{
 	private JButton projectBtn;
 	private ArrayList adminBtnList = new ArrayList();
 	private ArrayList projectBtnList = new ArrayList();
+	private boolean isClicked;
 	
 	private ProjectManager pm = new ProjectManager();
 	private A_MemberManager mm = new A_MemberManager();
@@ -239,10 +240,11 @@ public class A_MainPage extends JPanel{
 		projectBtn.setBackground(Color.decode("#EED4CC"));
 		projectBtn.setBorderPainted(false);
 		projectBtn.setToolTipText("마우스 오른쪽 버튼을 눌러 프로젝트 정보를 수정하세요");
+		projectBtn.addMouseListener(this);
 		adminProjectsPanel.add(projectBtn);
 		adminProjectsPanel.revalidate();
+		adminProjectsPanel.addMouseListener(this);
 		this.revalidate();
-		adminEventLink();
 	}
 	
 	//참여중인프로젝트
@@ -255,8 +257,10 @@ public class A_MainPage extends JPanel{
 		projectBtn.setVisible(true);
 		projectBtn.setBackground(Color.white); 
 		projectBtn.setBorderPainted(false);
+		
 		projectsPanel.add(projectBtn);
 		projectsPanel.revalidate();
+		//projectsPanel.addMouseListener(this);
 		this.revalidate();
 		eventLink();
 
@@ -285,15 +289,20 @@ public class A_MainPage extends JPanel{
 		adminProjectsPanel.removeAll();
 		projectsPanel.removeAll();
 		myProjectsSetUp();
-		this.revalidate();
+		this.repaint();
 
 	}
 
 	//프로젝트 삭제시
 	public void deleteProject(Project project) {
 		pm.deleteProject(project);
-		
-		projectBtn.setVisible(false);
+		//myProjectsSetUp();
+		//this.repaint();
+		adminProjectsPanel.removeAll();
+		projectsPanel.removeAll();
+		myProjectsSetUp();
+		this.repaint();
+		//projectBtn.setVisible(false);
 	}
 	
 	//프로젝트 팝업에서 멤버 추가시
@@ -310,33 +319,6 @@ public class A_MainPage extends JPanel{
 	
 	
 //이벤트	
-	//관리중인 프로젝트 버튼에 이벤트링크
-	public void adminEventLink() {
-		for(int i = 0; i < adminBtnList.size(); i++) {
-			JButton projectBtn = (JButton)adminBtnList.get(i);
-			projectBtn.addMouseListener(new MouseAdapter() {
-
-				@Override
-				public void mouseClicked(MouseEvent e) {
-
-					if (e.getButton() == 1) {
-
-						String titleSelected = projectBtn.getText();
-						selectedProject = pm.getProject(titleSelected);
-						goToProjectPage(selectedProject);
-					}
-
-					if (e.getButton() == 3) {
-						String titleSelected = projectBtn.getText();
-						selectedProject = pm.getProject(titleSelected);
-						new A_AddProject(mf, mainPage, selectedProject, user).getAddProject().setVisible(true);
-
-					}
-				}
-			});
-		}
-	}
-
 	//일반 참여중인 프로젝트 버튼에 이벤트 링크
 	public void eventLink() {
 		for(int i = 0; i < projectBtnList.size(); i++) {
@@ -374,6 +356,29 @@ public class A_MainPage extends JPanel{
 			new A_AddUserPU(mf, user).getUserPU().setVisible(true);
 		}
 	}
+	
+	//관리중인 프로젝트 버튼 클릭시 이벤트
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		
+		if(e.getSource() instanceof JButton) {
+			
+			if (e.getButton() == 1) {
+				
+				String titleSelected = ((JButton)e.getSource()).getText();
+				selectedProject = pm.getProject(titleSelected);
+				goToProjectPage(selectedProject);
+			}
+			
+			if (e.getButton() == 3) {
+				String titleSelected = (((JButton)e.getSource())).getText();
+				selectedProject = pm.getProject(titleSelected);
+				new A_AddProject(mf, mainPage, selectedProject, user).getAddProject().setVisible(true);
+				
+			}
+		}
+		
+	}
 //
 
 	
@@ -387,7 +392,45 @@ public class A_MainPage extends JPanel{
 	public void goToLoginPage() {
 		ChangePanel.changePanel(mf, this, new A_LoginPage(mf));
 	}
-//	
+//
+
+
+
+
+
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 
 
 
