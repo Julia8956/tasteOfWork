@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
+import model.vo.A_Member;
 import model.vo.Project;
 import model.vo.Sprint;
 
@@ -34,12 +35,14 @@ public class C_MenuBarPanel extends JPanel implements MouseListener,ActionListen
 	private JButton home;
 	private JButton back;
 	private JButton Member_btn ;
+	private A_Member user;
 	
 	//衙偃滲熱熱薑(團)
-	public C_MenuBarPanel(C_SprintMainPage sprintMain, MainFrame mf, Project selectedProject, Sprint selectedSprint) {
+	public C_MenuBarPanel(C_SprintMainPage sprintMain, MainFrame mf, Project selectedProject, Sprint selectedSprint,A_Member user) {
 		this.sprintMain = sprintMain;
 		this.MenuPanel = this;
 		this.mf = mf;
+		this.user = user;
 		//(團)
 		this.selectedProject = selectedProject;
 		this.selectedSprint = selectedSprint;
@@ -185,11 +188,11 @@ public class C_MenuBarPanel extends JPanel implements MouseListener,ActionListen
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if (e.getSource() == User_btn) {
-			new C_AddUserPU(this.mf).getUserPU().setVisible(true);
+			new A_AddUserPU(mf,user).getUserPU().setVisible(true);
 		
 		}
 		if (e.getSource() == Member_btn) {
-				new C_AddInvitePU(this.mf).getinvitePU().setVisible(true);
+				new C_AddInvitePU(mf,selectedProject, user).getinvitePU().setVisible(true);
 			
 		}
 	}

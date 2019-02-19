@@ -80,7 +80,7 @@ public class A_AddSprint {
 
 		//¿Ã∏ß
 		JTextField sprintName = new JTextField("ªı Ω∫«¡∏∞∆Æ ¿Ã∏ß", 30);
-		sprintName.setFont(new Font("∏º¿∫ ∞ÌµÒ",Font.BOLD, 15));
+		sprintName.setFont(new Font("∏º¿∫ ∞ÌµÒ",Font.BOLD, 20));
 		sprintName.setLocation(20, 50);            
 		sprintName.setSize(450,45);
 		AddSprint.add(sprintName);
@@ -114,8 +114,8 @@ public class A_AddSprint {
 		//Ω√¿€¿œ
 		JLabel start = new JLabel("Ω√¿€¿œ");
 		start.setLocation(30, 115);
-		start.setSize(50, 40);
-		start.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.BOLD, 15));
+		start.setSize(100, 40);
+		start.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.BOLD, 20));
 		start.setForeground(Color.WHITE);
 		AddSprint.add(start);
 
@@ -130,8 +130,8 @@ public class A_AddSprint {
 		startDayButton.setContentAreaFilled(false);
 		
 		//JTextField startDay = new JTextField("Ω∫«¡∏∞∆Æ Ω√¿€¿œ", 15);
-		startDayPicker.setLocation(80, 115);
-		startDayPicker.setSize(120, 40);
+		startDayPicker.setLocation(100, 115);
+		startDayPicker.setSize(130, 40);
 		startDayPicker.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.PLAIN, 15));
 		AddSprint.add(startDayPicker);   
 
@@ -156,15 +156,15 @@ public class A_AddSprint {
 		JLabel fromTo = new JLabel("~");
 		fromTo.setLocation(240, 115);
 		fromTo.setSize(308,40);
-		fromTo.setFont(new Font("∏º¿∫ ∞ÌµÒ",Font.PLAIN, 15));
+		fromTo.setFont(new Font("∏º¿∫ ∞ÌµÒ",Font.PLAIN, 30));
 		fromTo.setForeground(Color.WHITE);
 		AddSprint.add(fromTo);
 
 		JLabel end = new JLabel("¡æ∑·¿œ");
-		end.setLocation(290, 115);
-		end.setSize(50, 40);
+		end.setLocation(280, 115);
+		end.setSize(100, 40);
 		end	.setForeground(Color.WHITE);
-		end.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.BOLD, 15));
+		end.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.BOLD, 20));
 		AddSprint.add(end);
 		
 
@@ -179,7 +179,7 @@ public class A_AddSprint {
 		
 		//JTextField endDay = new JTextField("Ω∫«¡∏∞∆Æ ¡æ∑·¿œ", 15);
 		endDayPicker.setLocation(340, 115);
-		endDayPicker.setSize(120, 40);
+		endDayPicker.setSize(130, 40);
 		endDayPicker.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.PLAIN, 15));
 		AddSprint.add(endDayPicker);
 
@@ -195,6 +195,7 @@ public class A_AddSprint {
 
 		//º≥∏Ì
 		JTextArea description = new JTextArea("º≥∏Ì", 3, 30);
+		description.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.PLAIN, 15));
 		description.setLocation(20, 175);
 		description.setSize(453,135);
 		AddSprint.add(description);
@@ -220,6 +221,7 @@ public class A_AddSprint {
 
 		//«“¿œ¿‘∑¬
 		JTextField toDo = new JTextField("«“¿œ", 50);
+		toDo.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.PLAIN, 15));
 		toDo.setLocation(20, 330);
 		toDo.setSize(410, 45);
 		AddSprint.add(toDo);
@@ -249,6 +251,7 @@ public class A_AddSprint {
 		//¿‘∑¬«— «“¿œ ∫∏ø©¡÷¥¬ textArea
 		//readOnly (ºˆ¡§∫“∞°)
 		JTextArea toDoList = new JTextArea(30, 10);
+		toDoList.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.PLAIN, 15));
 		toDoList.setLocation(20, 390);
 		toDoList.setSize(455, 200);
 		toDoList.setEditable(false);

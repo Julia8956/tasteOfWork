@@ -16,10 +16,11 @@ public class C_SprintMainPage extends JPanel{
 	private B_ProjectPage projectPage;
 	private Project selectedProject;
 	private Sprint selectedSprint;
+	private A_Member user;
 	//매개변수수정(민)
 	
 	
-	public C_SprintMainPage(MainFrame mf, B_ProjectPage projectPage, Project selectedProject, Sprint selectedSprint) {
+	public C_SprintMainPage(MainFrame mf, B_ProjectPage projectPage, Project selectedProject, Sprint selectedSprint,A_Member user) {
 		this.mf = mf;
 		this.sprintPage = sprintPage;
 		
@@ -27,6 +28,7 @@ public class C_SprintMainPage extends JPanel{
 		this.projectPage = projectPage;
 		this.selectedProject = selectedProject;
 		this.selectedSprint = selectedSprint;
+		this.user = user;
 		
 		this.setSize(1024,768);
 		//this.setBackground(Color.WHITE);
@@ -41,7 +43,7 @@ public class C_SprintMainPage extends JPanel{
 		gc.gridwidth= GridBagConstraints.REMAINDER;
 		//gc.gridheight = 1;
 		//매개변수수정(민)
-		gridBag.setConstraints(new C_MenuBarPanel(this, this.mf, this.selectedProject, this.selectedSprint), gc); 
+		gridBag.setConstraints(new C_MenuBarPanel(this, this.mf, this.selectedProject, this.selectedSprint,user ), gc); 
 	
 		
 		//OPEN패널

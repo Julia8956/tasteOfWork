@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -16,6 +17,9 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import model.vo.A_Member;
+import model.vo.Project;
+
 //import view.SprintMainPage.PanelEvent;
 
 //import view.SprintMainPage.Add_person;
@@ -24,16 +28,19 @@ import javax.swing.JTextArea;
 public class C_AddInvitePU extends JPanel implements ActionListener{
 	private MainFrame mf; 
 	private Dialog invitePU;
+	private Project selectedProject;
+	private A_Member user;
+
 	
 	private JButton Fire_Button;
 	
-	public C_AddInvitePU() {}
-	
-	public C_AddInvitePU(MainFrame mf) {
+	public C_AddInvitePU(MainFrame mf,Project selectedProject, A_Member user) {
 		
 		/*testFrame.setSize(500, 500);
 		testFrame.setVisible(true);*/
 		this.mf = mf;
+		this.selectedProject = selectedProject;
+		this.user = user;
 		
 		
 		//초대 다이어로그
@@ -41,7 +48,7 @@ public class C_AddInvitePU extends JPanel implements ActionListener{
 		invitePU = new Dialog(mf,"초대하기");
 		invitePU.setUndecorated(true);	//태두리 없에는거
 		
-		invitePU.setSize(310, 310);	//310	310
+		invitePU.setSize(310, 290);	//310	310
 		
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		Dimension dim = tk.getScreenSize();
@@ -70,14 +77,35 @@ public class C_AddInvitePU extends JPanel implements ActionListener{
 		//멤버 보여지는 곳
 		
 		
-		JTextArea T_Member = new JTextArea("인효 코드 복붙");
+		String projectAdmin = selectedProject.getProjectAdmin();
+		ArrayList<String> memberList = selectedProject.getMemberList();
+		//String adminId = selectedProject.getAdminId();
+		String str = projectAdmin + " (프로젝트 관리자)";
+		if(projectAdmin.equals(user.getId())) {
+			str += " (나)\n";
+		}else {
+			str += "\n";
+		}
+		
+		for(int i = 0; i < memberList.size(); i++) {
+			if(memberList.get(i).equals(user.getId())) {
+				str += memberList.get(i) + " (나)\n";
+			}else {
+				str += memberList.get(i) + "\n";
+			}
+		}
+		JTextArea T_Member = new JTextArea();
+		T_Member.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
+		if (str != null) {
+			T_Member.setText(str);
+		}
 		T_Member.setEditable(false);
 		invitePU.add(T_Member);
 		
 		//멤버 스크롤
 		JScrollPane M_Scroll = new JScrollPane(T_Member); 
 		M_Scroll.setLocation(20, 40);
-		M_Scroll.setSize(250,200);
+		M_Scroll.setSize(265,200);
 		invitePU.add(M_Scroll);
 		
 		//관리자 보류
@@ -136,11 +164,16 @@ public class C_AddInvitePU extends JPanel implements ActionListener{
 		//Man_Div_panel.add(Fire_Button);
 		
 		
-		invitePU.add(Man_Div_panel);
+//		invitePU.add(Man_Div_panel);
 		
-		JButton closebtn = new JButton("닫기");
-		closebtn.setSize(60, 20);
-		closebtn.setLocation(250,10);
+		JButton closebtn = new JButton(new ImageIcon("images/close1.png"));
+		ImageIcon closebtn2 = new ImageIcon("images/close2.png");
+		closebtn.setBorderPainted(false); 
+		closebtn.setFocusPainted(false); 
+		closebtn.setContentAreaFilled(false);
+		closebtn.setRolloverIcon(closebtn2);
+		closebtn.setSize(48,30);
+		closebtn.setLocation(240,250);
 		closebtn.addActionListener(new CloseEvent());
 		
 		

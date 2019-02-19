@@ -102,7 +102,7 @@ public class B_ProjectPage extends JPanel{
 	}
 	
 	public void goToSprintPage(Project selectedProject, Sprint selectedSprint) {
-		ChangePanel.changePanel(mainFrame, this, new C_SprintMainPage(mainFrame, this, selectedProject, selectedSprint));
+		ChangePanel.changePanel(mainFrame, this, new C_SprintMainPage(mainFrame, this, selectedProject, selectedSprint,user));
 	}
 	
 	

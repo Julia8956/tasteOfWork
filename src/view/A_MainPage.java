@@ -156,11 +156,13 @@ public class A_MainPage extends JPanel{
 		findt.setSize(170,30);
 
 		//새프로젝트 추가버튼
-		JButton pro = new JButton(new ImageIcon("images/newProjectbtn.png"));
+		JButton pro = new JButton(new ImageIcon("images/newProjectbtn1.png"));
+		ImageIcon pro2 = new ImageIcon("images/newProjectbtn2.png");
 		pro.setBorderPainted(false); 
 		pro.setFocusPainted(false); 
 		pro.setContentAreaFilled(false);
-		pro.setSize(200,50);
+		pro.setRolloverIcon(pro2);
+		pro.setSize(200,40);
 		pro.setLocation(10,80);
 		pro.addActionListener(new ProEvent());
 

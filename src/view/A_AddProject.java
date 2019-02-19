@@ -102,6 +102,7 @@ public class A_AddProject extends JPanel implements ActionListener{
 		addProject.add(label);
 
 		JTextField proName = new JTextField("«¡∑Œ¡ß∆Æ∏Ì",20);
+		proName.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.PLAIN, 15));
 		proName.setLocation(10,85);
 		proName.setSize(485,50);
 		if(project != null) {
@@ -129,7 +130,7 @@ public class A_AddProject extends JPanel implements ActionListener{
 		
 		//Ω√¿€¿œ
 		JLabel start = new JLabel("Ω√¿€¿œ");
-		start.setLocation(20, 155);
+		start.setLocation(30, 155);
 		start.setSize(70, 40);
 		start.setForeground(Color.WHITE);
 		start.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.BOLD, 20));
@@ -142,8 +143,8 @@ public class A_AddProject extends JPanel implements ActionListener{
 		startDay_pick.setBorderPainted(false);
 		startDay_pick.setFocusPainted(false);
 		startDay_pick.setContentAreaFilled(false);
-		startDay.setLocation(90, 155);
-		startDay.setSize(120, 40);
+		startDay.setLocation(100, 155);
+		startDay.setSize(130, 40);
 		startDay.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.PLAIN, 15));
 		if(project != null) {
 			startDay.setDate(project.getProjectStartDay());
@@ -155,13 +156,13 @@ public class A_AddProject extends JPanel implements ActionListener{
 		middle.setLocation(250,155);
 		middle.setForeground(Color.WHITE);
 		middle.setSize(300,40);
-		middle.setFont(new Font("∏º¿∫ ∞ÌµÒ",Font.BOLD, 20));
+		middle.setFont(new Font("∏º¿∫ ∞ÌµÒ",Font.BOLD, 30));
 		addProject.add(middle);
 
 		
 		//¡æ∑·¿œ
 		JLabel end = new JLabel("¡æ∑·¿œ");
-		end.setLocation(300, 155);
+		end.setLocation(290, 155);
 		end.setSize(80, 40);
 		end.setForeground(Color.WHITE);
 		end.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.BOLD, 20));
@@ -175,8 +176,8 @@ public class A_AddProject extends JPanel implements ActionListener{
 		endDay_pick.setBorderPainted(false);
 		endDay_pick.setFocusPainted(false);
 		endDay_pick.setContentAreaFilled(false);
-		endDay.setLocation(370, 155);
-		endDay.setSize(120, 40);
+		endDay.setLocation(360, 155);
+		endDay.setSize(130, 40);
 		endDay.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.PLAIN, 15));
 		if(project != null) {
 			endDay.setDate(project.getProjectEndDay());
@@ -211,10 +212,10 @@ public class A_AddProject extends JPanel implements ActionListener{
 		sprintAdd.setFocusPainted(false);
 		sprintAdd.setContentAreaFilled(false);
 		sprintAdd.setRolloverIcon(sprintAdd2);
-		sprintAdd.setLocation(145,212);
+		sprintAdd.setLocation(145,220);
 		//sprintAdd.setBackground(Color.WHITE);
 		sprintAdd.setBorder(null);
-		sprintAdd.setSize(20,35);
+		sprintAdd.setSize(20,19);
 		sprintAdd .setOpaque(false);
 		//Ω∫«¡∏∞∆Æ πˆ∆∞ ≈¨∏ØΩ√ Ω∫«¡∏∞∆Æ √¢ ≥™ø¿±‚
 		sprintAdd.addActionListener(this);
@@ -233,6 +234,7 @@ public class A_AddProject extends JPanel implements ActionListener{
 		}
 		sprintJList = new JList(sprintModel);
 		JScrollPane pane = new JScrollPane(sprintJList);   
+		pane.setFont(new Font("∏º¿∫ ∞ÌµÒ", Font.PLAIN, 15));
 		pane.setLocation(10,245);
 		pane.setSize(480,100);
 
@@ -246,7 +248,7 @@ public class A_AddProject extends JPanel implements ActionListener{
 		JLabel admin = new JLabel("∞¸∏Æ¿⁄");
 		admin.setFont(new Font("∏º¿∫ ∞ÌµÒ",Font.BOLD, 20));
 		admin.setForeground(Color.WHITE);
-		admin.setLocation(15, 373);
+		admin.setLocation(20, 375);
 		admin.setSize(100,30);
 		projectPanel.add(admin);
 		
@@ -264,7 +266,7 @@ public class A_AddProject extends JPanel implements ActionListener{
 		changeAdmin.setFocusPainted(false); 
 		changeAdmin.setContentAreaFilled(false);
 		changeAdmin.setRolloverIcon(changeAdmin2);
-		changeAdmin.setLocation(220,375);
+		changeAdmin.setLocation(205,376);
 		//changeAdmin.setBackground(Color.PINK);
 		changeAdmin.setBorder(null);
 		changeAdmin.setSize(40,35);
@@ -293,10 +295,10 @@ public class A_AddProject extends JPanel implements ActionListener{
 		personAdd.setFocusPainted(false);
 		personAdd.setContentAreaFilled(false);
 		personAdd.setRolloverIcon(personAdd2);
-		personAdd.setLocation(60,430);
+		personAdd.setLocation(60,436);
 		personAdd.setBackground(Color.WHITE);
 		personAdd.setBorder(null);
-		personAdd.setSize(20,35);
+		personAdd.setSize(20,19);
 		personAdd .setOpaque(false);
 		//personAdd .setBackground(Color.lightGray);
 		projectPanel.add(personAdd);
