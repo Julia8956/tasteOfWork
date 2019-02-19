@@ -88,13 +88,15 @@ public class A_AddProject extends JPanel implements ActionListener{
 
 		addProject.setUndecorated(true);
 		//addProject.setBackground(MainFrame.POPUP_COLOR);
-		addProject.setBackground(Color.pink);
+		//addProject.setBackground(Color.pink);
+		addProject.setBackground(new Color(0, 0, 0, 0));  //***********************
 		addProject.setLayout(null);               
 
 
 
 		JLabel label = new JLabel("프로젝트 추가");
-		label.setFont(new Font("",Font.BOLD, 30));
+		label.setFont(new Font("맑은 고딕",Font.BOLD, 30));
+		label.setForeground(Color.WHITE);
 		label.setLocation(10,10);            
 		label.setSize(200,100);
 		addProject.add(label);
@@ -128,14 +130,21 @@ public class A_AddProject extends JPanel implements ActionListener{
 		//시작일
 		JLabel start = new JLabel("시작일");
 		start.setLocation(20, 155);
-		start.setSize(50, 40);
-		start.setFont(new Font("", Font.BOLD, 15));
+		start.setSize(70, 40);
+		start.setForeground(Color.WHITE);
+		start.setFont(new Font("맑은 고딕", Font.BOLD, 20));
 		addProject.add(start);
 
 		JXDatePicker startDay = new DatePicker().getDatePicker();
-		startDay.setLocation(70, 155);
+		JButton startDay_pick = (JButton) startDay.getComponent(1);
+		ImageIcon startIcon = new ImageIcon("images/Calendar.png");
+		startDay_pick.setIcon(startIcon);
+		startDay_pick.setBorderPainted(false);
+		startDay_pick.setFocusPainted(false);
+		startDay_pick.setContentAreaFilled(false);
+		startDay.setLocation(90, 155);
 		startDay.setSize(120, 40);
-		startDay.setFont(new Font("", Font.PLAIN, 15));
+		startDay.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 		if(project != null) {
 			startDay.setDate(project.getProjectStartDay());
 		}
@@ -144,23 +153,31 @@ public class A_AddProject extends JPanel implements ActionListener{
 
 		JLabel middle = new JLabel("~");
 		middle.setLocation(250,155);
+		middle.setForeground(Color.WHITE);
 		middle.setSize(300,40);
-		middle.setFont(new Font("",Font.BOLD, 15));
+		middle.setFont(new Font("맑은 고딕",Font.BOLD, 20));
 		addProject.add(middle);
 
 		
 		//종료일
 		JLabel end = new JLabel("종료일");
-		end.setLocation(310, 155);
-		end.setSize(50, 40);
-		end.setFont(new Font("", Font.BOLD, 15));
+		end.setLocation(300, 155);
+		end.setSize(80, 40);
+		end.setForeground(Color.WHITE);
+		end.setFont(new Font("맑은 고딕", Font.BOLD, 20));
 		addProject.add(end);
 		
 
 		JXDatePicker endDay = new DatePicker().getDatePicker();
-		endDay.setLocation(360, 155);
+		JButton endDay_pick = (JButton) endDay.getComponent(1);
+		ImageIcon endIcon = new ImageIcon("images/Calendar.png");
+		endDay_pick.setIcon(endIcon);
+		endDay_pick.setBorderPainted(false);
+		endDay_pick.setFocusPainted(false);
+		endDay_pick.setContentAreaFilled(false);
+		endDay.setLocation(370, 155);
 		endDay.setSize(120, 40);
-		endDay.setFont(new Font("", Font.PLAIN, 15));
+		endDay.setFont(new Font("맑은 고딕", Font.PLAIN, 15));
 		if(project != null) {
 			endDay.setDate(project.getProjectEndDay());
 		}
@@ -180,22 +197,25 @@ public class A_AddProject extends JPanel implements ActionListener{
 		JLabel sprintLabel = new JLabel("스프린트 추가");
 		sprintLabel.setLocation(15,180);
 		sprintLabel.setSize(400, 100);
-		sprintLabel.setFont(new Font("",Font.BOLD, 20));
+		sprintLabel.setForeground(Color.WHITE);
+		sprintLabel.setFont(new Font("맑은 고딕",Font.BOLD, 20));
 
 		projectPanel.add(sprintLabel);
 
 
 
 		//스프린트 추가 버튼
-		sprintAdd = new JButton("+");
-		sprintAdd.setFont(new Font("",Font.PLAIN, 20));
-		sprintAdd.setLocation(145,210);
+		sprintAdd = new JButton(new ImageIcon("images/plus1.png"));
+		ImageIcon sprintAdd2 = new ImageIcon("images/plus2.png");
+		sprintAdd.setBorderPainted(false);
+		sprintAdd.setFocusPainted(false);
+		sprintAdd.setContentAreaFilled(false);
+		sprintAdd.setRolloverIcon(sprintAdd2);
+		sprintAdd.setLocation(145,212);
 		//sprintAdd.setBackground(Color.WHITE);
 		sprintAdd.setBorder(null);
 		sprintAdd.setSize(20,35);
 		sprintAdd .setOpaque(false);
-		sprintAdd .setBackground(Color.ORANGE);
-
 		//스프린트 버튼 클릭시 스프린트 창 나오기
 		sprintAdd.addActionListener(this);
 		projectPanel.add(sprintAdd);
@@ -217,31 +237,37 @@ public class A_AddProject extends JPanel implements ActionListener{
 		pane.setSize(480,100);
 
 		projectPanel.add(pane);
-		projectPanel.setBackground(MainFrame.POPUP_COLOR);
-
+		projectPanel.setBackground(new Color(66, 66, 66, 220));
 		
 		
 		
 
 		//관리자
 		JLabel admin = new JLabel("관리자");
-		admin.setFont(new Font("",Font.BOLD, 15));
-		admin.setLocation(15, 370);
-		admin.setSize(100,50);
+		admin.setFont(new Font("맑은 고딕",Font.BOLD, 20));
+		admin.setForeground(Color.WHITE);
+		admin.setLocation(15, 373);
+		admin.setSize(100,30);
 		projectPanel.add(admin);
 		
 		projectAdmin = user.getId();
 		adminField = new JTextField(user.getId());
-		adminField.setLocation(100, 370);
-		adminField.setSize(100, 50);
+		adminField.setLocation(100, 375);
+		adminField.setSize(100, 35);
 		projectPanel.add(adminField);
 		
-		changeAdmin = new JButton("수정");
-		changeAdmin.setFont(new Font("",Font.BOLD, 15));
-		changeAdmin.setLocation(200,370);
-		changeAdmin.setBackground(Color.PINK);
+		
+		
+		changeAdmin = new JButton(new ImageIcon("images/rebtn11.png"));
+		ImageIcon changeAdmin2 = new ImageIcon("images/rebtn22.png");
+		changeAdmin.setBorderPainted(false); 
+		changeAdmin.setFocusPainted(false); 
+		changeAdmin.setContentAreaFilled(false);
+		changeAdmin.setRolloverIcon(changeAdmin2);
+		changeAdmin.setLocation(220,375);
+		//changeAdmin.setBackground(Color.PINK);
 		changeAdmin.setBorder(null);
-		changeAdmin.setSize(100,35);
+		changeAdmin.setSize(40,35);
 		changeAdmin.setOpaque(true);
 		//changeAdmin.setBackground(Color.lightGray);
 		projectPanel.add(changeAdmin);
@@ -254,22 +280,25 @@ public class A_AddProject extends JPanel implements ActionListener{
 		//초대
 
 		JLabel invite = new JLabel("초대");
-		invite.setFont(new Font("",Font.BOLD, 20));
+		invite.setFont(new Font("맑은 고딕",Font.BOLD, 20));
 		invite.setLocation(15,420);
 		invite.setSize(50,50);
-
+		invite.setForeground(Color.WHITE);
 
 		projectPanel.add(invite);
 
-
-		JButton  personAdd = new JButton("+");
-		personAdd.setFont(new Font("",Font.PLAIN, 20));
-		personAdd.setLocation(60,420);
+		JButton  personAdd = new JButton(new ImageIcon("images/plus1.png"));
+		ImageIcon personAdd2 = new ImageIcon("images/plus2.png");
+		personAdd.setBorderPainted(false);
+		personAdd.setFocusPainted(false);
+		personAdd.setContentAreaFilled(false);
+		personAdd.setRolloverIcon(personAdd2);
+		personAdd.setLocation(60,430);
 		personAdd.setBackground(Color.WHITE);
 		personAdd.setBorder(null);
 		personAdd.setSize(20,35);
 		personAdd .setOpaque(false);
-		personAdd .setBackground(Color.lightGray);
+		//personAdd .setBackground(Color.lightGray);
 		projectPanel.add(personAdd);
 		personAdd.addActionListener(new Add_person()); 
 
@@ -318,9 +347,14 @@ public class A_AddProject extends JPanel implements ActionListener{
 		
 //(민) 추가 : 2/19
 		//삭제버튼
-		JButton deleteBtn = new JButton("삭제");
-		deleteBtn.setLocation(192,570);
-		deleteBtn.setSize(100,40);
+		JButton deleteBtn = new JButton(new ImageIcon("images/delete1.png"));
+		ImageIcon deleteBtn2 = new ImageIcon("images/delete2.png");
+		deleteBtn.setBorderPainted(false); 
+		deleteBtn.setFocusPainted(false); 
+		deleteBtn.setContentAreaFilled(false);
+		deleteBtn.setRolloverIcon(deleteBtn2);
+		deleteBtn.setLocation(172,575);
+		deleteBtn.setSize(100,33);
 		projectPanel.add(deleteBtn);
 		
 		deleteBtn.addActionListener(new ActionListener() {
@@ -341,15 +375,15 @@ public class A_AddProject extends JPanel implements ActionListener{
 		
 
 		//취소버튼
-		JButton cancelBtn  = new JButton(new ImageIcon("images/cancelbtn1.png"));
-		ImageIcon cancelbtn2 = new ImageIcon("images/cancelbtn2.png");
+		JButton cancelBtn  = new JButton(new ImageIcon("images/cancelbtn11.png"));
+		ImageIcon cancelbtn2 = new ImageIcon("images/cancelbtn22.png");
 		cancelBtn.setBorderPainted(false); 
 		cancelBtn.setFocusPainted(false); 
 		cancelBtn.setContentAreaFilled(false);
 		cancelBtn.setRolloverIcon(cancelbtn2);
 
-		cancelBtn.setLocation(292,570);
-		cancelBtn.setSize(100,40);
+		cancelBtn.setLocation(282,575);
+		cancelBtn.setSize(100,33);
 		projectPanel.add(cancelBtn);
 
 
@@ -374,8 +408,8 @@ public class A_AddProject extends JPanel implements ActionListener{
 		okBtn.setFocusPainted(false); 
 		okBtn.setContentAreaFilled(false);
 		okBtn.setRolloverIcon(okbtn2);
-		okBtn.setLocation(392,570);
-		okBtn.setSize(100,40);
+		okBtn.setLocation(392,575);
+		okBtn.setSize(100,33);
 		projectPanel.add(okBtn);
 		///okBtn.addActionListener(this);
 		

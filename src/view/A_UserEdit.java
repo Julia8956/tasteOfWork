@@ -8,6 +8,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -86,7 +87,13 @@ public class A_UserEdit extends JPanel {
 		userEdit.add(userPhoneNumTF);
 		
 		//저장버튼
-		savebtn = new JButton("저장");
+		JButton savebtn = new JButton(new ImageIcon("images/save1.png"));
+		ImageIcon savebtn2 = new ImageIcon("images/save2.png");
+		savebtn.setBorderPainted(false); 
+		savebtn.setFocusPainted(false); 
+		savebtn.setContentAreaFilled(false);
+		savebtn.setRolloverIcon(savebtn2);
+		
 		savebtn.setSize(60, 30);
 		savebtn.setLocation(20, 280);
 		userEdit.add(savebtn);
@@ -99,8 +106,13 @@ public class A_UserEdit extends JPanel {
 				
 			}
 		});
+		JButton closebtn = new JButton(new ImageIcon("images/close1.png"));
+		ImageIcon closebtn2 = new ImageIcon("images/close2.png");
+		closebtn.setBorderPainted(false); 
+		closebtn.setFocusPainted(false); 
+		closebtn.setContentAreaFilled(false);
+		closebtn.setRolloverIcon(closebtn2);
 		
-		JButton closebtn = new JButton("닫기");
 		closebtn.setSize(60, 30);
 		closebtn.setLocation(250, 280);
 		userEdit.add(closebtn);
