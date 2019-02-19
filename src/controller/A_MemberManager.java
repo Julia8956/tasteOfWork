@@ -231,6 +231,39 @@ public class A_MemberManager {
 		
 		return user;
 	}
+	
+	//(Áö)
+	public ArrayList<String> findMemberName(ArrayList<String> memberlist) {
+		ArrayList<String> findmembername = new ArrayList<String>();
+		ArrayList<A_Member> list = md.readMemberList();
+		ArrayList<String> findmember = memberlist;
+		A_Member member = null;
+
+
+
+		for (int j = 0 ; j < list.size() ; j++) {
+			member = (A_Member)list.get(j);
+
+			for (int i =0 ; i < findmember.size() ; i++) {
+				if (findmember.get(i).equals(member.getId())) {
+					findmembername.add(member.getName());
+				}
+			}
+		}
+
+		if (findmembername != null) {
+			for (int i = 0 ; i < findmembername.size() ; i++) {
+				System.out.println(findmembername.get(i));
+			}
+
+			return findmembername;
+		}
+
+
+
+		return null;
+	}
+
 
 }
 
