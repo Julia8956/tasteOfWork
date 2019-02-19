@@ -42,10 +42,11 @@ public class A_MemberManager {
 		//전체 멤버를 조회
 		ArrayList<A_Member> list = md.readMemberList();
 		
-		for(int i = 0 ; i<list.size(); i++) {
-			System.out.println(list.get(i));
-		}
-		if(list==null) {
+		if(list != null) {
+			for(int i = 0 ; i<list.size(); i++) {
+				System.out.println(list.get(i));
+			}
+		}else {
 			JOptionPane.showMessageDialog(null, "아이디/비밀번호를 입력해주세요");
 			
 		}
