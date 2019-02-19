@@ -17,6 +17,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
@@ -148,7 +149,7 @@ public class C_OpenPanel extends JPanel implements ActionListener,MouseListener{
 
 		if (e.getSource() == Open_move_button) {
 			int[] selectindex = openworklist.getSelectedIndices();
-			if(openworklist.getSelectedValuesList() != null) {
+			if(!openworklist.getSelectedValuesList().isEmpty()) {
 				ArrayList<Work> selectworklist = (ArrayList<Work>)openworklist.getSelectedValuesList();
 				for (int i = 0 ; i < selectworklist.size() ; i++) {
 					Work selectwork = selectworklist.get(i);
@@ -158,6 +159,8 @@ public class C_OpenPanel extends JPanel implements ActionListener,MouseListener{
 					}
 				}
 				
+			}else {
+				JOptionPane.showMessageDialog(null, "이동할 할일을 선택하세요");
 			}
 			
 		}
@@ -170,11 +173,7 @@ public class C_OpenPanel extends JPanel implements ActionListener,MouseListener{
 			if (e.getClickCount() ==2) {
 				/*int*/ index = openworklist.getSelectedIndex();
 				Work work = openworklist.getSelectedValue();
-				if (work != null) {
-					new C_CheckPU(this.mainFrame,work,selectproject,this.openPanel).getCheckPU().setVisible(true);
-					
-				
-				}
+				new C_CheckPU(this.mainFrame,work,selectproject,this.openPanel).getCheckPU().setVisible(true);
 
 			}
 		}

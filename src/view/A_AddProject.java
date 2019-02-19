@@ -283,7 +283,7 @@ public class A_AddProject extends JPanel implements ActionListener{
 		personAdd.setBackground(Color.WHITE);
 		personAdd.setBorder(null);
 		personAdd.setSize(20,19);
-		personAdd .setOpaque(false);
+		personAdd.setOpaque(false);
 		projectPanel.add(personAdd);
 		personAdd.addActionListener(new Add_person()); 
 
@@ -351,6 +351,7 @@ public class A_AddProject extends JPanel implements ActionListener{
 						mainPage.deleteProject(project);
 					}
 				}
+				addProject.setVisible(false);
 				addProject.dispose();
 			}
 		});
@@ -374,6 +375,7 @@ public class A_AddProject extends JPanel implements ActionListener{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				addProject.setVisible(false);
 				addProject.dispose();
 
 			}
@@ -386,7 +388,7 @@ public class A_AddProject extends JPanel implements ActionListener{
 		okBtn.setBorderPainted(false); 
 		okBtn.setFocusPainted(false); 
 		okBtn.setContentAreaFilled(false);
-		okBtn.setRolloverIcon(okbtn2);
+		//okBtn.setRolloverIcon(okbtn2);
 		okBtn.setLocation(392,575);
 		okBtn.setSize(100,33);
 		projectPanel.add(okBtn);
@@ -402,7 +404,6 @@ public class A_AddProject extends JPanel implements ActionListener{
 				projectStartDay = startDay.getDate();
 				projectEndDay = endDay.getDate();
 				//peopleProject = peoples.getText();
-				addProject.dispose();
 
 				
 				if(project == null) {
@@ -411,6 +412,8 @@ public class A_AddProject extends JPanel implements ActionListener{
 				}else {
 					modifyProject(projectTitle, projectStartDay, projectEndDay);
 				}
+				addProject.setVisible(false);
+				addProject.dispose();
 			}
 		});
 
@@ -468,7 +471,7 @@ public class A_AddProject extends JPanel implements ActionListener{
 		
 		memberModel.clear();
 		project = projectUpdated;
-		memberList = project.getMemberList();
+		memberList = projectUpdated.getMemberList();
 		for(int i = 0; i < memberList.size(); i++) {
 			memberModel.addElement(memberList.get(i));
 		}
@@ -524,6 +527,8 @@ public class A_AddProject extends JPanel implements ActionListener{
 	private class Add_person implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			
+			
 			String id = JOptionPane.showInputDialog("초대할 회원의 아이디를 입력하세요.");
 			
 			A_Member member = mainPage.findMember(id);
@@ -541,6 +546,7 @@ public class A_AddProject extends JPanel implements ActionListener{
 			}
 			
 		}
+		
 	}
 //	
 	

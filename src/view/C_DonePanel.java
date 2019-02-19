@@ -17,6 +17,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
@@ -141,9 +142,11 @@ public class C_DonePanel extends JPanel implements ActionListener,MouseListener{
 
 		if (e.getSource() == done_move_progress_btn) {
 			int[] selectindex = doneworklist.getSelectedIndices();
-			ArrayList<Work> selectworklist = (ArrayList<Work>)doneworklist.getSelectedValuesList();
+			
+			if(!doneworklist.getSelectedValuesList().isEmpty()) {
 
-			if (selectworklist != null) {
+				ArrayList<Work> selectworklist = (ArrayList<Work>)doneworklist.getSelectedValuesList();
+
 				for (int i = 0 ; i < selectworklist.size() ; i++) {
 					Work selectwork = selectworklist.get(i);
 
@@ -151,7 +154,11 @@ public class C_DonePanel extends JPanel implements ActionListener,MouseListener{
 						dragPreMotion(selectwork);
 					}
 				}
+
+			}else {
+				JOptionPane.showMessageDialog(null, "이동할 할일을 선택하세요");
 			}
+			
 
 		}
 	}
