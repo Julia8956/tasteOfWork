@@ -248,7 +248,7 @@ public class A_AddProject extends JPanel implements ActionListener{
 		JLabel admin = new JLabel("°ü¸®ÀÚ");
 		admin.setFont(new Font("¸¼Àº °íµñ",Font.BOLD, 20));
 		admin.setForeground(Color.WHITE);
-		admin.setLocation(20, 375);
+		admin.setLocation(15, 375);
 		admin.setSize(100,30);
 		projectPanel.add(admin);
 		

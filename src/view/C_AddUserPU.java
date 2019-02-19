@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import model.vo.A_Member;
 import model.vo.Project;
 import model.vo.Sprint;
 import view.A_AddUserPU.LogoutEvent;
@@ -26,7 +27,7 @@ public class C_AddUserPU extends JPanel{
 	private JButton logoutbtn;
 	private JButton Editbtn;
 	
-	
+	private A_Member user;
 
 	private C_SprintMainPage sprintPage;
 	//« µÂ√ﬂ∞°(πŒ)
@@ -132,7 +133,7 @@ public class C_AddUserPU extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-					new A_UserEdit(mf).setVisible(true);
+					new A_UserEdit(mf,user).setVisible(true);
 				
 			}
 		});
