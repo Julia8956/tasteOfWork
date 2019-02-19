@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.MouseInfo;
+import java.awt.PointerInfo;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -176,6 +178,10 @@ public class C_AddInvitePU extends JPanel implements ActionListener{
 		closebtn.setLocation(240,250);
 		closebtn.addActionListener(new CloseEvent());
 		
+		PointerInfo pointerInfo = MouseInfo.getPointerInfo();
+        pointerInfo.getLocation();
+        Dimension my = invitePU.getSize();
+        invitePU.setLocation(pointerInfo.getLocation().x-my.width, pointerInfo.getLocation().y);
 		
 		invitePU.add(closebtn);
 				

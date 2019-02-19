@@ -335,7 +335,7 @@ public class A_AddProject extends JPanel implements ActionListener{
 		deleteBtn.setFocusPainted(false); 
 		deleteBtn.setContentAreaFilled(false);
 		deleteBtn.setRolloverIcon(deleteBtn2);
-		deleteBtn.setLocation(172,575);
+		deleteBtn.setLocation(10,575);
 		deleteBtn.setSize(100,33);
 		projectPanel.add(deleteBtn);
 		

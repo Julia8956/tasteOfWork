@@ -276,7 +276,7 @@ public class B_NewSprintPopUp extends JPanel {
 		deleteBtn.setFocusPainted(false);
 		deleteBtn.setContentAreaFilled(false);
 		deleteBtn.setRolloverIcon(deleteBtn2);
-		deleteBtn.setLocation(165, 619);
+		deleteBtn.setLocation(25, 619);
 		deleteBtn.setSize(100, 33);
 		newSprintPopUp.add(deleteBtn);
 		

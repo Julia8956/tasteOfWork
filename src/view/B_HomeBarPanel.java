@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.MouseInfo;
+import java.awt.PointerInfo;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -147,6 +149,8 @@ public class B_HomeBarPanel extends JPanel implements MouseListener, ActionListe
 		Member_btn.setLocation(920, 12);
 		Member_btn.setSize(40, 40);
 		
+		
+        
 		Member_btn.addMouseListener(this);
 
 		

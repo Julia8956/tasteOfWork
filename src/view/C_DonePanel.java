@@ -76,17 +76,20 @@ public class C_DonePanel extends JPanel implements ActionListener,MouseListener{
 		//In Progress이라고 글자 나오는 거
 		JPanel Done_Title_panel = new JPanel();
 		Done_Title_panel.setPreferredSize(new Dimension(340,45));
-		Done_Title_panel.setBackground(Color.decode("#D5D5D5"));
+		Done_Title_panel.setBackground(Color.decode("#6495ED"));
 		Done_Title_panel.setLayout(new BorderLayout());
 
-		done_move_progress_btn = new JButton("<");
+		done_move_progress_btn = new JButton(new ImageIcon("images/LButton.png"));
+		done_move_progress_btn.setBorderPainted(false);
+		done_move_progress_btn.setFocusPainted(false);
+		done_move_progress_btn.setContentAreaFilled(false);
 		done_move_progress_btn.setPreferredSize(new Dimension(50,55));
 		
 		done_move_progress_btn.addActionListener(this);
 		
 		JPanel Progress_Title_Center_panel = new JPanel();
 		Progress_Title_Center_panel.setPreferredSize(new Dimension(100,55));
-		
+		Progress_Title_Center_panel.setBackground(Color.decode("#6495ED"));
 
 		JLabel Done_Title_label = new JLabel("Done");
 		Done_Title_label.setFont(new Font("Tahoma",Font.PLAIN,25));

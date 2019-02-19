@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.TextField;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -33,7 +34,7 @@ public class A_UserEdit extends JPanel implements MouseListener {
 	private A_Member user;
 	
 	private JTextField userEmailTF;
-	private JTextField userPwdTF;
+	private TextField userPwdTF;
 	private JTextField userPhoneNumTF;
 	
 	
@@ -83,10 +84,11 @@ public class A_UserEdit extends JPanel implements MouseListener {
 		userPwdLB.setSize(120,40);
 		userEdit.add(userPwdLB);
 		
-		userPwdTF = new JTextField("변경할 비밀번호를 입력하세요");
+		userPwdTF = new TextField(user.getPwd());
 		userPwdTF.setSize(260,30);
 		userPwdTF.setLocation(10,120);
 		userPwdTF.addMouseListener(this);
+		userPwdTF.setEchoChar('●');
 		userEdit.add(userPwdTF);
 		
 		//휴대폰 번호 변경

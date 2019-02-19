@@ -163,27 +163,27 @@ public class C_CreatePU extends JPanel{
 		});
 
 		//닫기 버튼을 누르면 창이 닫아진다
-		JButton closeB = new JButton(new ImageIcon("images/close1.png"));	
-		ImageIcon closeb = new ImageIcon("images/close2.png");
+		JButton closeB = new JButton(new ImageIcon("images/cancelbtn11.png"));	
+		ImageIcon closeb = new ImageIcon("images/cancelbtn22.png");
 		closeB.setBorderPainted(false);
 		closeB.setFocusPainted(false);
 		closeB.setContentAreaFilled(false);
 		closeB.setRolloverIcon(closeb);
 		
-		closeB.setSize(70, 30);
+		closeB.setSize(100,33);
 		closeB.setLocation(30, 335);
 
 		closeB.addActionListener(new CloseEvent());
 
 		//저장 버튼을 누르면 변경 사항이 저장이 되어, openpanel에 올라간다
-		/*JButton*/ saveB = new JButton(new ImageIcon("images/save1.png"));
-		ImageIcon saveb = new ImageIcon("images/save2.png");
+		/*JButton*/ saveB = new JButton(new ImageIcon("images/okbtn1.png"));
+		ImageIcon saveb = new ImageIcon("images/okbtn2.png");
 		saveB.setBorderPainted(false);
 		saveB.setFocusPainted(false);
 		saveB.setContentAreaFilled(false);
 		saveB.setRolloverIcon(saveb);
 		
-		saveB.setSize(70, 30);					
+		saveB.setSize(100,33);					
 		saveB.setLocation(260, 335);
 
 		cp.add(wL);

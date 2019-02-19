@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Date;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -111,9 +112,28 @@ public class C_MenuBarPanel extends JPanel implements MouseListener,ActionListen
 		//진행바
 		JProgressBar progressBar = new JProgressBar();
 		progressBar.setMinimum(0);
-		progressBar.setMaximum(100);
-		progressBar.setValue(50);
+		
+		Date startDay = selectedSprint.getSprintStartDay();
+		Date endDay = selectedSprint.getSprintEndDay();
+		Date today = new Date();
+		
+		
+		long totalTime = endDay.getTime() - startDay.getTime(); 	//밀리세컨드
+		int totalDay = (int)(((((totalTime / 1000) / 60) / 60) / 24)); 
+		long timePast = today.getTime() - startDay.getTime();
+		int dayPast = (int)(((((timePast / 1000) / 60) / 60) / 24)) + 1;
+		
+		progressBar.setMaximum(totalDay);
+		progressBar.setValue(dayPast);
 		progressBar.setForeground(Color.decode("#72f07e"));
+
+		progressBar.setPreferredSize(new Dimension(350, 10));
+		progressBar.setAlignmentX(CENTER_ALIGNMENT);
+		progressBar.setAlignmentY(CENTER_ALIGNMENT);
+
+		pro_Panel.add(progressBar);
+		
+		
 
 		//progressBar.setLocation(320,50);
 		//progressBar.setSize(350,10);

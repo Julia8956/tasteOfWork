@@ -284,7 +284,7 @@ public class C_CheckPU extends JPanel implements ActionListener{
 		deleteB.setContentAreaFilled(false);
 		deleteB.setRolloverIcon(deleteb);
 		
-		deleteB.setSize(60, 30);
+		deleteB.setSize(100,33);
 		deleteB.setLocation(50, 600);
 
 
@@ -295,8 +295,9 @@ public class C_CheckPU extends JPanel implements ActionListener{
 		reviseB.setContentAreaFilled(false);
 		reviseB.setRolloverIcon(reviseb);
 		
-		reviseB.setSize(60, 30);
+		reviseB.setSize(100,33);
 		reviseB.setLocation(350, 600);
+
 
 		
 

@@ -87,7 +87,6 @@ public class C_SprintMainPage extends JPanel{
 	}*/
 	
 	public void goToMainPage() {
-		A_Member user = new A_Member();
 		
 		ChangePanel.changePanel(mf, this, new A_MainPage(mf,user));
 	}

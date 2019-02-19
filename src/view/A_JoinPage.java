@@ -206,7 +206,9 @@ public class A_JoinPage extends JPanel {
     				JOptionPane.showMessageDialog(null, "비밀번호를 입력해주세요");
     			}else if(pwds1.equals("")){
         			JOptionPane.showMessageDialog(null, "비밀번호를 입력해주세요");
-        		
+    			}else if(!(pwds.equals(pwds1))) {
+    				
+    				JOptionPane.showMessageDialog(null, "비밀번호가 다릅니다. 확인해주세요");
         			
     			}else if(names.equals("")){
     				JOptionPane.showMessageDialog(null, "이름을 입력해주세요");

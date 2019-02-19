@@ -1,4 +1,4 @@
-package view;
+	package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -75,26 +75,34 @@ public class C_ProgressPanel extends JPanel implements ActionListener,MouseListe
 		//In Progress이라고 글자 나오는 거
 		JPanel Progress_Title_panel = new JPanel();
 		Progress_Title_panel.setPreferredSize(new Dimension(340,45));
-		Progress_Title_panel.setBackground(Color.decode("#FAF4C0"));
+		Progress_Title_panel.setBackground(Color.decode( "#98FB98"));
 		Progress_Title_panel.setLayout(new BorderLayout());
 		
 		
 		Progress_To_open_btn = new JButton("<");
+		Progress_To_open_btn = new JButton(new ImageIcon("images/LButton.png"));
+		Progress_To_open_btn.setBorderPainted(false);
+		Progress_To_open_btn.setFocusPainted(false);
+		Progress_To_open_btn.setContentAreaFilled(false);
 		Progress_To_open_btn.setPreferredSize(new Dimension(50,55));
 		
 		Progress_To_open_btn.addActionListener(this);
 		
 		JPanel Progress_Title_Center_panel = new JPanel();
 		Progress_Title_Center_panel.setPreferredSize(new Dimension(100,55));
+		Progress_Title_Center_panel.setBackground(Color.decode( "#98FB98"));
 		
 		JLabel Progress_Title_label = new JLabel("In Progress");
 		Progress_Title_label.setFont(new Font("Tahoma",Font.PLAIN,25));
-		Progress_Title_label.setForeground(Color.DARK_GRAY);
+		//Progress_Title_label.setForeground(Color.DARK_GRAY);
 		
 		Progress_Title_Center_panel.add(Progress_Title_label);
 		
 		
-		Progress_move_button = new JButton(">");
+		Progress_move_button = new JButton(new ImageIcon("images/RButton.png"));
+		Progress_move_button.setBorderPainted(false);
+		Progress_move_button.setFocusPainted(false);
+		Progress_move_button.setContentAreaFilled(false);
 		Progress_move_button.setPreferredSize(new Dimension(50,55));
 		
 		Progress_move_button.addActionListener(this);

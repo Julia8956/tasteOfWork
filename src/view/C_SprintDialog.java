@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Color;
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -11,6 +12,7 @@ import java.awt.event.ItemListener;
 import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -49,7 +51,9 @@ public class C_SprintDialog extends JPanel {
 
 		C_SprintDialog = new Dialog(mainframe,"할당자 선택창");
 		C_SprintDialog.setLayout(null);
-		C_SprintDialog.setSize(350,350);
+		C_SprintDialog.setBackground(Color.decode("#324d6b"));
+		C_SprintDialog.setUndecorated(true);
+		C_SprintDialog.setSize(250,350);
 
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		Dimension dim = tk.getScreenSize();
@@ -60,9 +64,11 @@ public class C_SprintDialog extends JPanel {
 
 
 		JLabel title = new JLabel(message);
+		title.setForeground(Color.white);
 		title.setFont(new Font("Serif",Font.BOLD, 15));
+
 		title.setSize(180, 50);
-		title.setLocation(15, 30);
+		title.setLocation(45, 15);
 
 		//멤버 값을 checkbox에 넣음
 		ArrayList<String> memberlist = new  ArrayList<String>();
@@ -131,18 +137,27 @@ public class C_SprintDialog extends JPanel {
 
 		JScrollPane scroll = new JScrollPane(checkPanel);
 		scroll.setSize(180, 200);
-		scroll.setLocation(30, 80);
+		scroll.setLocation(40, 60);
 		//checkPanel.add(scroll);
 
-		/*JButton */ OK_btn = new JButton("확인");
-		OK_btn.setLocation(220, 290);
-		OK_btn.setSize(80,30);
-
+		/*JButton */OK_btn = new JButton(new ImageIcon("images/okbtn11.png"));
+		ImageIcon OK_btn2 = new ImageIcon("images/okbtn22.png");
+		OK_btn.setBorderPainted(false);
+		OK_btn.setFocusPainted(false);
+		OK_btn.setContentAreaFilled(false);
+		OK_btn.setRolloverIcon(OK_btn2);
+		OK_btn.setLocation(170, 290);
+		OK_btn.setSize(48,30);
 		//OK_btn.addActionListener(this);
 
-		JButton Cancel_btn = new JButton("닫기");
+		JButton Cancel_btn = new JButton(new ImageIcon("images/close1.png"));
+		ImageIcon Cancel_btn2 = new ImageIcon("images/close2.png");
+		Cancel_btn.setBorderPainted(false);
+		Cancel_btn.setFocusPainted(false);
+		Cancel_btn.setContentAreaFilled(false);
+		Cancel_btn.setRolloverIcon(Cancel_btn2);
 		Cancel_btn.setLocation(20, 290);
-		Cancel_btn.setSize(80,30);
+		Cancel_btn.setSize(48,30);
 
 		Cancel_btn.addActionListener(new CloseEvent());
 

@@ -256,7 +256,7 @@ public class B_NewMOMPopUp extends JPanel {
 		deleteBtn.setFocusPainted(false);
 		deleteBtn.setContentAreaFilled(false);
 		deleteBtn.setRolloverIcon(deleteBtn2);
-		deleteBtn.setLocation(165, 559);
+		deleteBtn.setLocation(25, 559);
 		deleteBtn.setSize(100, 33);
 //		deleteBtn.setLocation(170, 550);
 //		deleteBtn.setSize(90, 40);

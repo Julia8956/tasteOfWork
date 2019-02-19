@@ -74,7 +74,7 @@ public class C_OpenPanel extends JPanel implements ActionListener,MouseListener{
 		//OPEN이라고 글자 나오는 거
 		JPanel Open_Title_panel = new JPanel();
 		Open_Title_panel.setPreferredSize(new Dimension(340,45));
-		Open_Title_panel.setBackground(Color.decode("#B0D0D6"));
+		Open_Title_panel.setBackground(Color.decode("#FFE65A"));
 		Open_Title_panel.setLayout(new BorderLayout());
 
 		JLabel sub_label = new JLabel();
@@ -87,7 +87,10 @@ public class C_OpenPanel extends JPanel implements ActionListener,MouseListener{
 		Open_Title_label.setForeground(Color.DARK_GRAY);
 
 
-		/*JButton*/ Open_move_button = new JButton(">");
+		Open_move_button = new JButton(new ImageIcon("images/RButton.png"));
+		Open_move_button.setBorderPainted(false);
+		Open_move_button.setFocusPainted(false);
+		Open_move_button.setContentAreaFilled(false);
 		Open_move_button.setPreferredSize(new Dimension(50,55));
 		
 		Open_move_button.addActionListener(this);
