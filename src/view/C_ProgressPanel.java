@@ -20,6 +20,7 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 
 import controller.WorkManager;
 import model.dao.WorkDao;
@@ -80,6 +81,8 @@ public class C_ProgressPanel extends JPanel implements ActionListener,MouseListe
 		Progress_move_button = new JButton(">");
 		Progress_move_button.setPreferredSize(new Dimension(50,55));
 		
+		Progress_move_button.addActionListener(this);
+		
 		Progress_Title_panel.add(sub_label,"West");
 		Progress_Title_panel.add(Progress_Title_label,"Center");
 		Progress_Title_panel.add(Progress_move_button,"East");
@@ -93,6 +96,10 @@ public class C_ProgressPanel extends JPanel implements ActionListener,MouseListe
 		
 		//리스트 확인창 이벤트
 		progresslist.addMouseListener(this);
+		
+		//리스트 선택
+		progresslist.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+
 		
 		//버튼 패널 -> 실행중인 패널에 추가 하는것
 		JPanel btn_Panel = new JPanel();
@@ -121,6 +128,20 @@ public class C_ProgressPanel extends JPanel implements ActionListener,MouseListe
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == Add_Work) {
 			new C_CreatePU(this.mainFrame,this.progressPanel).getCreatePU().setVisible(true);
+		}
+		
+		if (e.getSource() == Progress_move_button) {
+			int[] selectindex = progresslist.getSelectedIndices();
+			ArrayList<Work> selectworklist = (ArrayList<Work>)progresslist.getSelectedValuesList();
+			
+			for (int i = 0 ; i < selectworklist.size() ; i++) {
+				Work selectwork = selectworklist.get(i);
+				
+				if (selectwork != null) {
+					dragMotion(selectwork);
+				}
+			}
+			
 		}
 	}
 
@@ -281,6 +302,14 @@ public class C_ProgressPanel extends JPanel implements ActionListener,MouseListe
 			findWorkList();
 		}
 		
+		public void dragMotion(Work work) {
+			wm.ChangWork(selectproject,selectsprint,work);
+			
+			System.out.println(work);
+			
+			DeleteWork(work,work.getWork_name());	
+		}
+
 	
 
 }

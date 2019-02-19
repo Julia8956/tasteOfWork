@@ -82,6 +82,8 @@ public class C_OpenPanel extends JPanel implements ActionListener,MouseListener{
 
 		/*JButton*/ Open_move_button = new JButton(">");
 		Open_move_button.setPreferredSize(new Dimension(50,55));
+		
+		Open_move_button.addActionListener(this);
 
 		Open_Title_panel.add(sub_label,"West");
 		Open_Title_panel.add(Open_Title_label,"Center");
@@ -99,8 +101,9 @@ public class C_OpenPanel extends JPanel implements ActionListener,MouseListener{
 		//리스트 확인창 이벤트
 		openworklist.addMouseListener(this);
 
+
 		//리스트 선택
-		openworklist.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		openworklist.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
 		//OPEN 마지막에 버튼 창
 		JPanel btn_Panel = new JPanel();
@@ -130,6 +133,19 @@ public class C_OpenPanel extends JPanel implements ActionListener,MouseListener{
 			new C_CreatePU(this.mainFrame,this.openPanel).getCreatePU().setVisible(true);
 		}
 
+		if (e.getSource() == Open_move_button) {
+			int[] selectindex = openworklist.getSelectedIndices();
+			ArrayList<Work> selectworklist = (ArrayList<Work>)openworklist.getSelectedValuesList();
+			
+			for (int i = 0 ; i < selectworklist.size() ; i++) {
+				Work selectwork = selectworklist.get(i);
+				
+				if (selectwork != null) {
+					dragMotion(selectwork);
+				}
+			}
+			
+		}
 	}
 
 	@Override
@@ -140,6 +156,8 @@ public class C_OpenPanel extends JPanel implements ActionListener,MouseListener{
 				Work work = openworklist.getSelectedValue();
 				if (work != null) {
 					new C_CheckPU(this.mainFrame,work,this.openPanel).getCheckPU().setVisible(true);
+					
+				
 				}
 
 			}
