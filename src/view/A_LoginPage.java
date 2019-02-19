@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -129,9 +130,10 @@ import model.vo.A_Member;
 			//password.setSize(150, 50);
 
 			
-			JTextField pwdt = new JTextField(20);
+			TextField pwdt = new TextField(28);
 			//pwdt.setLocation(410, 400);
 			//pwdt.setSize(20, 40);
+			pwdt.setEchoChar('¡Ü');
 			
 
 			PwdPanel.add(password);

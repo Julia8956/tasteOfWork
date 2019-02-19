@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.MouseInfo;
+import java.awt.PointerInfo;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -132,12 +134,16 @@ public class A_AddUserPU extends JPanel{
 					
 					@Override
 					public void actionPerformed(ActionEvent e) {
-							new A_UserEdit(mf).setVisible(true);
+						userPU.dispose();
+						new A_UserEdit(mf,	user).setVisible(true);
 						
 					}
 				});
 		
-		
+				PointerInfo pointerInfo = MouseInfo.getPointerInfo();
+				pointerInfo.getLocation();
+				Dimension my = userPU.getSize();
+				userPU.setLocation(pointerInfo.getLocation().x-my.width, pointerInfo.getLocation().y+10);
 		
 		
 		

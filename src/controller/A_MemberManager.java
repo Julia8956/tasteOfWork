@@ -203,8 +203,34 @@ public class A_MemberManager {
 
 		return null;
 	}
-	//
-
+	public A_Member changeDate(A_Member user,String pwd, String email, String phone) {
+		ArrayList<A_Member> list = md.readMemberList();
+		
+		System.out.println(user);
+		System.out.println(pwd);
+		System.out.println(email);
+		System.out.println(phone);
+		
+		int result=0;
+		
+		for(int i = 0 ; i < list.size(); i++) {
+			if(user.getId().equals(list.get(i).getId())) {
+				
+				System.out.println(list.get(i));
+				list.get(i).setPwd(pwd);
+				list.get(i).setPwd1(pwd);
+				list.get(i).setEmail(email);
+				list.get(i).setPhone(phone);
+				
+				result=md.writeMemberList(list);
+				break;
+			}
+		}
+		
+		
+		
+		return user;
+	}
 
 }
 
